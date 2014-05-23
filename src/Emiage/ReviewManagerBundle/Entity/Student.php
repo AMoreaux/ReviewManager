@@ -65,7 +65,7 @@ class Student
     protected $reviewsCenters;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Emiage\ReviewManagerBundle\Entity\Module", cascade={"persist"}, inversedBy="students")
+     * @ORM\ManyToMany(targetEntity="Emiage\ReviewManagerBundle\Entity\Module", cascade={"persist"}, mappedBy="students")
      */
     protected $module;
 
@@ -75,7 +75,7 @@ class Student
     protected $notes;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Emiage\ReviewManagerBundle\Entity\Examen", cascade={"persist"}, inversedBy="students")
+     * @ORM\ManyToMany(targetEntity="Emiage\ReviewManagerBundle\Entity\Examen", cascade={"persist"}, mappedBy="students")
      */
     protected $examens;
     /**

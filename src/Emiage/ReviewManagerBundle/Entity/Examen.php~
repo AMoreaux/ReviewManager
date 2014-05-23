@@ -76,4 +76,90 @@ class Examen
     {
         return $this->realizedOn;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->students = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add students
+     *
+     * @param \Emiage\ReviewManagerBundle\Entity\Student $students
+     * @return Examen
+     */
+    public function addStudent(\Emiage\ReviewManagerBundle\Entity\Student $students)
+    {
+        $this->students[] = $students;
+
+        return $this;
+    }
+
+    /**
+     * Remove students
+     *
+     * @param \Emiage\ReviewManagerBundle\Entity\Student $students
+     */
+    public function removeStudent(\Emiage\ReviewManagerBundle\Entity\Student $students)
+    {
+        $this->students->removeElement($students);
+    }
+
+    /**
+     * Get students
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getStudents()
+    {
+        return $this->students;
+    }
+
+    /**
+     * Set module
+     *
+     * @param \Emiage\ReviewManagerBundle\Entity\Module $module
+     * @return Examen
+     */
+    public function setModule(\Emiage\ReviewManagerBundle\Entity\Module $module = null)
+    {
+        $this->module = $module;
+
+        return $this;
+    }
+
+    /**
+     * Get module
+     *
+     * @return \Emiage\ReviewManagerBundle\Entity\Module 
+     */
+    public function getModule()
+    {
+        return $this->module;
+    }
+
+    /**
+     * Set reviewCenter
+     *
+     * @param \Emiage\ReviewManagerBundle\Entity\ReviewCenter $reviewCenter
+     * @return Examen
+     */
+    public function setReviewCenter(\Emiage\ReviewManagerBundle\Entity\ReviewCenter $reviewCenter = null)
+    {
+        $this->reviewCenter = $reviewCenter;
+
+        return $this;
+    }
+
+    /**
+     * Get reviewCenter
+     *
+     * @return \Emiage\ReviewManagerBundle\Entity\ReviewCenter 
+     */
+    public function getReviewCenter()
+    {
+        return $this->reviewCenter;
+    }
 }
