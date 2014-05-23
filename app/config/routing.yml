@@ -1,0 +1,7 @@
+emiage_review_manager:
+    resource: "@EmiageReviewManagerBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+
+

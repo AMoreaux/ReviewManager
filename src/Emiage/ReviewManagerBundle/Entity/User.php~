@@ -1,0 +1,28 @@
+<?php
+
+namespace Emiage\ReviewManagerBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * User
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="Emiage\ReviewManagerBundle\Entity\UserRepository")
+ */
+class User
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Emiage\ReviewManagerBundle\Entity\Module", cascade={"persist"}, mappedBy="responsable")
+     */
+    protected $module;
+}

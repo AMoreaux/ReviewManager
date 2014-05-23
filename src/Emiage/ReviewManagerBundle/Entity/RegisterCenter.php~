@@ -1,0 +1,43 @@
+<?php
+
+namespace Emiage\ReviewManagerBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * RegisterCenter
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="Emiage\ReviewManagerBundle\Entity\RegisterCenterRepository")
+ */
+class RegisterCenter
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255)
+     */
+    protected $name;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Emiage\ReviewManagerBundle\Entity\Tutor", cascade={"persist"}, mappedBy="registerCenter")
+     */
+    protected $tutors;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Emiage\ReviewManagerBundle\Entity\Student", cascade={"persist"}, mappedBy="registerCenter")
+     */
+    protected $students;
+
+
+
+}
