@@ -4,13 +4,15 @@ namespace Emiage\ReviewManagerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Emiage\ReviewManagerBundle\Entity\User as BaseUser;
+
 /**
  * Tutor
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Emiage\ReviewManagerBundle\Entity\TutorRepository")
  */
-class Tutor
+class Tutor extends BaseUser
 {
     /**
      * @var integer
@@ -131,5 +133,33 @@ class Tutor
     public function getRegisterCenter()
     {
         return $this->registerCenter;
+    }
+    /**
+     * @var \Emiage\ReviewManagerBundle\Entity\Module
+     */
+    private $module;
+
+
+    /**
+     * Set module
+     *
+     * @param \Emiage\ReviewManagerBundle\Entity\Module $module
+     * @return Tutor
+     */
+    public function setModule(\Emiage\ReviewManagerBundle\Entity\Module $module = null)
+    {
+        $this->module = $module;
+
+        return $this;
+    }
+
+    /**
+     * Get module
+     *
+     * @return \Emiage\ReviewManagerBundle\Entity\Module 
+     */
+    public function getModule()
+    {
+        return $this->module;
     }
 }

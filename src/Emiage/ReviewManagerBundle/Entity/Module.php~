@@ -36,7 +36,7 @@ class Module
     protected $code;
 
     /**
-     * @ORM\OneToOne(targetEntity="Emiage\ReviewManagerBundle\Entity\User", cascade={"persist"}, mappedBy="module")
+     * @ORM\OneToOne(targetEntity="Emiage\ReviewManagerBundle\Entity\User", cascade={"persist"}, inversedBy="module")
      */
     protected $responsable;
 

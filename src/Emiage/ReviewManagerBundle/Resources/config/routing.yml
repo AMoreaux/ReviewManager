@@ -1,0 +1,4 @@
+emiage_review_manager_examen:
+    resource: "@EmiageReviewManagerBundle/Resources/config/routing/examen.php"
+    prefix:   /examen
+

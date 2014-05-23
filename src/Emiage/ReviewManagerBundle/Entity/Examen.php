@@ -19,14 +19,14 @@ class Examen
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="realizedOn", type="datetime")
      */
-    private $realizedOn;
+    protected $realizedOn;
 
     /**
      * @ORM\ManyToMany(targetEntity="Emiage\ReviewManagerBundle\Entity\Student", cascade={"persist"}, inversedBy="examens")

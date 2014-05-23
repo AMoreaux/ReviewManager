@@ -24,7 +24,7 @@ class User
     /**
      * @ORM\OneToOne(targetEntity="Emiage\ReviewManagerBundle\Entity\Module", cascade={"persist"}, mappedBy="responsable")
      */
-    protected $module;
+    private $module;
 
     /**
      * Get id
