@@ -1,0 +1,30 @@
+student:
+    pattern:  /
+    defaults: { _controller: "EmiageReviewManagerBundle:Student:index" }
+
+student_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "EmiageReviewManagerBundle:Student:show" }
+
+student_new:
+    pattern:  /new
+    defaults: { _controller: "EmiageReviewManagerBundle:Student:new" }
+
+student_create:
+    pattern:  /create
+    defaults: { _controller: "EmiageReviewManagerBundle:Student:create" }
+    requirements: { _method: post }
+
+student_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "EmiageReviewManagerBundle:Student:edit" }
+
+student_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "EmiageReviewManagerBundle:Student:update" }
+    requirements: { _method: post|put }
+
+student_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "EmiageReviewManagerBundle:Student:delete" }
+    requirements: { _method: post|delete }

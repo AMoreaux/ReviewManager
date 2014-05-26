@@ -1,0 +1,30 @@
+registercenter:
+    pattern:  /
+    defaults: { _controller: "EmiageReviewManagerBundle:RegisterCenter:index" }
+
+registercenter_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "EmiageReviewManagerBundle:RegisterCenter:show" }
+
+registercenter_new:
+    pattern:  /new
+    defaults: { _controller: "EmiageReviewManagerBundle:RegisterCenter:new" }
+
+registercenter_create:
+    pattern:  /create
+    defaults: { _controller: "EmiageReviewManagerBundle:RegisterCenter:create" }
+    requirements: { _method: post }
+
+registercenter_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "EmiageReviewManagerBundle:RegisterCenter:edit" }
+
+registercenter_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "EmiageReviewManagerBundle:RegisterCenter:update" }
+    requirements: { _method: post|put }
+
+registercenter_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "EmiageReviewManagerBundle:RegisterCenter:delete" }
+    requirements: { _method: post|delete }

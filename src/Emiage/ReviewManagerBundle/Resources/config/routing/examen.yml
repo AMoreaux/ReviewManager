@@ -1,0 +1,30 @@
+examen:
+    pattern:  /
+    defaults: { _controller: "EmiageReviewManagerBundle:Examen:index" }
+
+examen_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "EmiageReviewManagerBundle:Examen:show" }
+
+examen_new:
+    pattern:  /new
+    defaults: { _controller: "EmiageReviewManagerBundle:Examen:new" }
+
+examen_create:
+    pattern:  /create
+    defaults: { _controller: "EmiageReviewManagerBundle:Examen:create" }
+    requirements: { _method: post }
+
+examen_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "EmiageReviewManagerBundle:Examen:edit" }
+
+examen_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "EmiageReviewManagerBundle:Examen:update" }
+    requirements: { _method: post|put }
+
+examen_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "EmiageReviewManagerBundle:Examen:delete" }
+    requirements: { _method: post|delete }

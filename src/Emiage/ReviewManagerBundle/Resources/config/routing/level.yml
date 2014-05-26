@@ -1,0 +1,30 @@
+level:
+    pattern:  /
+    defaults: { _controller: "EmiageReviewManagerBundle:Level:index" }
+
+level_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "EmiageReviewManagerBundle:Level:show" }
+
+level_new:
+    pattern:  /new
+    defaults: { _controller: "EmiageReviewManagerBundle:Level:new" }
+
+level_create:
+    pattern:  /create
+    defaults: { _controller: "EmiageReviewManagerBundle:Level:create" }
+    requirements: { _method: post }
+
+level_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "EmiageReviewManagerBundle:Level:edit" }
+
+level_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "EmiageReviewManagerBundle:Level:update" }
+    requirements: { _method: post|put }
+
+level_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "EmiageReviewManagerBundle:Level:delete" }
+    requirements: { _method: post|delete }

@@ -1,0 +1,30 @@
+reviewcenter:
+    pattern:  /
+    defaults: { _controller: "EmiageReviewManagerBundle:ReviewCenter:index" }
+
+reviewcenter_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "EmiageReviewManagerBundle:ReviewCenter:show" }
+
+reviewcenter_new:
+    pattern:  /new
+    defaults: { _controller: "EmiageReviewManagerBundle:ReviewCenter:new" }
+
+reviewcenter_create:
+    pattern:  /create
+    defaults: { _controller: "EmiageReviewManagerBundle:ReviewCenter:create" }
+    requirements: { _method: post }
+
+reviewcenter_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "EmiageReviewManagerBundle:ReviewCenter:edit" }
+
+reviewcenter_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "EmiageReviewManagerBundle:ReviewCenter:update" }
+    requirements: { _method: post|put }
+
+reviewcenter_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "EmiageReviewManagerBundle:ReviewCenter:delete" }
+    requirements: { _method: post|delete }

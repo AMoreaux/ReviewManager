@@ -1,0 +1,30 @@
+note:
+    pattern:  /
+    defaults: { _controller: "EmiageReviewManagerBundle:Note:index" }
+
+note_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "EmiageReviewManagerBundle:Note:show" }
+
+note_new:
+    pattern:  /new
+    defaults: { _controller: "EmiageReviewManagerBundle:Note:new" }
+
+note_create:
+    pattern:  /create
+    defaults: { _controller: "EmiageReviewManagerBundle:Note:create" }
+    requirements: { _method: post }
+
+note_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "EmiageReviewManagerBundle:Note:edit" }
+
+note_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "EmiageReviewManagerBundle:Note:update" }
+    requirements: { _method: post|put }
+
+note_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "EmiageReviewManagerBundle:Note:delete" }
+    requirements: { _method: post|delete }
