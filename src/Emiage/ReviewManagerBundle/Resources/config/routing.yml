@@ -1,4 +1,38 @@
+emiage_review_manager_home:
+    resource: "@EmiageReviewManagerBundle/Resources/config/routing/home.yml"
+
 emiage_review_manager_examen:
-    resource: "@EmiageReviewManagerBundle/Resources/config/routing/examen.php"
+    resource: "@EmiageReviewManagerBundle/Resources/config/routing/examen.yml"
     prefix:   /examen
 
+emiage_review_manager_student:
+    resource: "@EmiageReviewManagerBundle/Resources/config/routing/student.yml"
+    prefix:   /student
+
+emiage_review_manager_level:
+    resource: "@EmiageReviewManagerBundle/Resources/config/routing/level.yml"
+    prefix:   /level
+
+emiage_review_manager_module:
+    resource: "@EmiageReviewManagerBundle/Resources/config/routing/module.yml"
+    prefix:   /module
+
+emiage_review_manager_note:
+    resource: "@EmiageReviewManagerBundle/Resources/config/routing/note.yml"
+    prefix:   /note
+
+emiage_review_manager_registerCenter:
+    resource: "@EmiageReviewManagerBundle/Resources/config/routing/registercenter.yml"
+    prefix:   /registercenter
+
+emiage_review_manager_reviewCenter:
+    resource: "@EmiageReviewManagerBundle/Resources/config/routing/reviewcenter.yml"
+    prefix:   /reviewcenter
+
+emiage_review_manager_tutor:
+    resource: "@EmiageReviewManagerBundle/Resources/config/routing/tutor.yml"
+    prefix:   /tutor
+
+emiage_review_manager_user:
+    resource: "@EmiageReviewManagerBundle/Resources/config/routing/user.yml"
+    prefix:   /user

@@ -27,6 +27,11 @@ class User
     private $module;
 
     /**
+     * @ORM\OneToMany(targetEntity="Emiage\ReviewManagerBundle\Entity\Tutor", cascade={"persist"}, mappedBy="user")
+     */
+    protected $tutors;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -57,5 +62,45 @@ class User
     public function getModule()
     {
         return $this->module;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->tutors = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add tutors
+     *
+     * @param \Emiage\ReviewManagerBundle\Entity\Tutor $tutors
+     * @return User
+     */
+    public function addTutor(\Emiage\ReviewManagerBundle\Entity\Tutor $tutors)
+    {
+        $this->tutors[] = $tutors;
+
+        return $this;
+    }
+
+    /**
+     * Remove tutors
+     *
+     * @param \Emiage\ReviewManagerBundle\Entity\Tutor $tutors
+     */
+    public function removeTutor(\Emiage\ReviewManagerBundle\Entity\Tutor $tutors)
+    {
+        $this->tutors->removeElement($tutors);
+    }
+
+    /**
+     * Get tutors
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTutors()
+    {
+        return $this->tutors;
     }
 }

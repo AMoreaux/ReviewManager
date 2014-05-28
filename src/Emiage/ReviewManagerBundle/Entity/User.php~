@@ -27,6 +27,11 @@ class User
     private $module;
 
     /**
+     * @ORM\OneToMany(targetEntity="Emiage\ReviewManagerBundle\Entity\Tutor", cascade={"persist"}, mappedBy="user")
+     */
+    protected $tutors;
+
+    /**
      * Get id
      *
      * @return integer 

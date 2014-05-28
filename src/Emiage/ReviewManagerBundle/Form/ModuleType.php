@@ -15,7 +15,7 @@ class ModuleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
+            ->add('login')
             ->add('code')
             ->add('responsable')
             ->add('tutors')

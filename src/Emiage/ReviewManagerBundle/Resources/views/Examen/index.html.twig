@@ -1,9 +1,9 @@
-{% extends '::base.html.twig' %}
+{% extends 'EmiageReviewManagerBundle::layout.html.twig' %}
 
-{% block body -%}
+{% block content -%}
     <h1>Examen list</h1>
 
-    <table class="records_list">
+    <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
@@ -19,10 +19,10 @@
                 <td>
                 <ul>
                     <li>
-                        <a href="{{ path('examen_show', { 'id': entity.id }) }}">show</a>
+                        <a href="{{ path('examen_show', { 'id': entity.id }) }}" class="btn btn-default">show</a>
                     </li>
                     <li>
-                        <a href="{{ path('examen_edit', { 'id': entity.id }) }}">edit</a>
+                        <a href="{{ path('examen_edit', { 'id': entity.id }) }}" class="btn btn-default">edit</a>
                     </li>
                 </ul>
                 </td>
@@ -33,7 +33,7 @@
 
         <ul>
         <li>
-            <a href="{{ path('examen_new') }}">
+            <a href="{{ path('examen_new') }}" class="btn btn-primary">
                 Create a new entry
             </a>
         </li>

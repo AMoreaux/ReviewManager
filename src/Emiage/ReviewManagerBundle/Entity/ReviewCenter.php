@@ -36,7 +36,7 @@ class ReviewCenter
     /**
      * @ORM\OneToMany(targetEntity="Emiage\ReviewManagerBundle\Entity\Examen", cascade={"persist"}, mappedBy="reviewCenter")
      */
-    protected $examen;
+    protected $examens;
 
     /**
      * Constructor
@@ -46,6 +46,8 @@ class ReviewCenter
         $this->students = new \Doctrine\Common\Collections\ArrayCollection();
         $this->examen = new \Doctrine\Common\Collections\ArrayCollection();
     }
+
+
 
     /**
      * Get id
@@ -114,35 +116,35 @@ class ReviewCenter
     }
 
     /**
-     * Add examen
+     * Add examens
      *
-     * @param \Emiage\ReviewManagerBundle\Entity\Examen $examen
+     * @param \Emiage\ReviewManagerBundle\Entity\Examen $examens
      * @return ReviewCenter
      */
-    public function addExaman(\Emiage\ReviewManagerBundle\Entity\Examen $examen)
+    public function addExamen(\Emiage\ReviewManagerBundle\Entity\Examen $examens)
     {
-        $this->examen[] = $examen;
+        $this->examens[] = $examens;
 
         return $this;
     }
 
     /**
-     * Remove examen
+     * Remove examens
      *
-     * @param \Emiage\ReviewManagerBundle\Entity\Examen $examen
+     * @param \Emiage\ReviewManagerBundle\Entity\Examen $examens
      */
-    public function removeExaman(\Emiage\ReviewManagerBundle\Entity\Examen $examen)
+    public function removeExamen(\Emiage\ReviewManagerBundle\Entity\Examen $examens)
     {
-        $this->examen->removeElement($examen);
+        $this->examens->removeElement($examens);
     }
 
     /**
-     * Get examen
+     * Get examens
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getExamen()
+    public function getExamens()
     {
-        return $this->examen;
+        return $this->examens;
     }
 }

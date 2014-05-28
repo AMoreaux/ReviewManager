@@ -36,7 +36,7 @@ class ReviewCenter
     /**
      * @ORM\OneToMany(targetEntity="Emiage\ReviewManagerBundle\Entity\Examen", cascade={"persist"}, mappedBy="reviewCenter")
      */
-    protected $examen;
+    protected $examens;
 
     /**
      * Constructor
@@ -47,102 +47,5 @@ class ReviewCenter
         $this->examen = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
-    /**
-     * Set name
-     *
-     * @param string $name
-     * @return ReviewCenter
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string 
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Add students
-     *
-     * @param \Emiage\ReviewManagerBundle\Entity\Student $students
-     * @return ReviewCenter
-     */
-    public function addStudent(\Emiage\ReviewManagerBundle\Entity\Student $students)
-    {
-        $this->students[] = $students;
-
-        return $this;
-    }
-
-    /**
-     * Remove students
-     *
-     * @param \Emiage\ReviewManagerBundle\Entity\Student $students
-     */
-    public function removeStudent(\Emiage\ReviewManagerBundle\Entity\Student $students)
-    {
-        $this->students->removeElement($students);
-    }
-
-    /**
-     * Get students
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getStudents()
-    {
-        return $this->students;
-    }
-
-    /**
-     * Add examen
-     *
-     * @param \Emiage\ReviewManagerBundle\Entity\Examen $examen
-     * @return ReviewCenter
-     */
-    public function addExaman(\Emiage\ReviewManagerBundle\Entity\Examen $examen)
-    {
-        $this->examen[] = $examen;
-
-        return $this;
-    }
-
-    /**
-     * Remove examen
-     *
-     * @param \Emiage\ReviewManagerBundle\Entity\Examen $examen
-     */
-    public function removeExaman(\Emiage\ReviewManagerBundle\Entity\Examen $examen)
-    {
-        $this->examen->removeElement($examen);
-    }
-
-    /**
-     * Get examen
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getExamen()
-    {
-        return $this->examen;
-    }
 }

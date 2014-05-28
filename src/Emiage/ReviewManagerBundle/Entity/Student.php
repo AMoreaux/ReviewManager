@@ -24,9 +24,16 @@ class Student
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="lastName", type="string", length=255)
      */
-    protected $name;
+    protected $lastName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="firstName", type="string", length=255)
+     */
+    protected $firstName;
 
     /**
      * @var string
@@ -67,7 +74,7 @@ class Student
     /**
      * @ORM\ManyToMany(targetEntity="Emiage\ReviewManagerBundle\Entity\Module", cascade={"persist"}, mappedBy="students")
      */
-    protected $module;
+    protected $modules;
 
     /**
      * @ORM\OneToMany(targetEntity="Emiage\ReviewManagerBundle\Entity\Note", cascade={"persist"}, mappedBy="student")
@@ -89,6 +96,10 @@ class Student
         $this->examens = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+
+
+
+
     /**
      * Get id
      *
@@ -100,26 +111,49 @@ class Student
     }
 
     /**
-     * Set name
+     * Set lastName
      *
-     * @param string $name
+     * @param string $lastName
      * @return Student
      */
-    public function setName($name)
+    public function setLastName($lastName)
     {
-        $this->name = $name;
+        $this->lastName = $lastName;
 
         return $this;
     }
 
     /**
-     * Get name
+     * Get lastName
      *
      * @return string 
      */
-    public function getName()
+    public function getLastName()
     {
-        return $this->name;
+        return $this->lastName;
+    }
+
+    /**
+     * Set firstName
+     *
+     * @param string $firstName
+     * @return Student
+     */
+    public function setFirstName($firstName)
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    /**
+     * Get firstName
+     *
+     * @return string 
+     */
+    public function getFirstName()
+    {
+        return $this->firstName;
     }
 
     /**
@@ -271,36 +305,36 @@ class Student
     }
 
     /**
-     * Add module
+     * Add modules
      *
-     * @param \Emiage\ReviewManagerBundle\Entity\Module $module
+     * @param \Emiage\ReviewManagerBundle\Entity\Module $modules
      * @return Student
      */
-    public function addModule(\Emiage\ReviewManagerBundle\Entity\Module $module)
+    public function addModule(\Emiage\ReviewManagerBundle\Entity\Module $modules)
     {
-        $this->module[] = $module;
+        $this->modules[] = $modules;
 
         return $this;
     }
 
     /**
-     * Remove module
+     * Remove modules
      *
-     * @param \Emiage\ReviewManagerBundle\Entity\Module $module
+     * @param \Emiage\ReviewManagerBundle\Entity\Module $modules
      */
-    public function removeModule(\Emiage\ReviewManagerBundle\Entity\Module $module)
+    public function removeModule(\Emiage\ReviewManagerBundle\Entity\Module $modules)
     {
-        $this->module->removeElement($module);
+        $this->modules->removeElement($modules);
     }
 
     /**
-     * Get module
+     * Get modules
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getModule()
+    public function getModules()
     {
-        return $this->module;
+        return $this->modules;
     }
 
     /**

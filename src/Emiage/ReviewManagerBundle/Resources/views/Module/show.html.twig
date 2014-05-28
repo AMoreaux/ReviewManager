@@ -1,9 +1,9 @@
-{% extends '::base.html.twig' %}
+{% extends 'EmiageReviewManagerBundle::layout.html.twig' %}
 
-{% block body -%}
+{% block content -%}
     <h1>Module</h1>
 
-    <table class="record_properties">
+    <table class="table">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -22,12 +22,12 @@
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('module') }}">
+        <a href="{{ path('module') }}" class="btn btn-default">
             Back to the list
         </a>
     </li>
     <li>
-        <a href="{{ path('module_edit', { 'id': entity.id }) }}">
+        <a href="{{ path('module_edit', { 'id': entity.id }) }}" class="btn btn-default">
             Edit
         </a>
     </li>

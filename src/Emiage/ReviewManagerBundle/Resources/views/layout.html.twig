@@ -1,0 +1,18 @@
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="http://localhost/reviewmanager/web/bundles/emiagereviewmanager/css/style.css">
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+{% endblock %}
+{% block body %}
+    {% include 'EmiageReviewManagerBundle::nav.html.twig' %}
+    {% block content %}
+        toto
+    {% endblock %}
+{% endblock %}

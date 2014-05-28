@@ -16,7 +16,6 @@ class ReviewCenterType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('students')
         ;
     }
     

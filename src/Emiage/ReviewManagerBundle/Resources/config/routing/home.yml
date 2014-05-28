@@ -1,0 +1,3 @@
+home:
+    pattern:  /home
+    defaults: { _controller: "EmiageReviewManagerBundle:home:index" }
