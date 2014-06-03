@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Emiage\ReviewManagerBundle\Entity\Note;
 use Emiage\ReviewManagerBundle\Form\NoteType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
  * Note controller.

@@ -16,9 +16,15 @@ class NoteType extends AbstractType
     {
         $builder
             ->add('note')
-            ->add('student')
-            ->add('reviewCenter')
-            ->add('module')
+            ->add('student', 'entity', array(
+                'class'=>'EmiageReviewManagerBundle:Student',
+                'property'=>'login',
+                'multiple'=>false,))
+            ->add('module', 'entity', array(
+                'class'=>'EmiageReviewManagerBundle:Module',
+                'property'=>'code',
+                'multiple'=>false,))
+            ->add('file')
         ;
     }
     
