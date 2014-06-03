@@ -3,6 +3,7 @@
 namespace Emiage\ReviewManagerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Note
@@ -42,9 +43,6 @@ class Note
      * @ORM\ManyToOne(targetEntity="Emiage\ReviewManagerBundle\Entity\Module", cascade={"persist"}, inversedBy="notes")
      */
     protected $module;
-
-
-
 
     /**
      * Get id

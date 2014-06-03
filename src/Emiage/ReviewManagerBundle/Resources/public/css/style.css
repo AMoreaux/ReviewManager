@@ -5,3 +5,12 @@ body {
 ul {
     list-style-type: none;
 }
+
+.form-organisation-label {
+    margin-left: 40%;
+}
+
+.form-organisation-widget {
+   vertical-align: baseline;
+    margin-left: 45%;
+}

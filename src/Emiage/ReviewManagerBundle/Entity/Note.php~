@@ -3,6 +3,7 @@
 namespace Emiage\ReviewManagerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Note
@@ -43,6 +44,10 @@ class Note
      */
     protected $module;
 
+    /**
+     * @Assert\File(maxSize="6000000")
+     */
+    protected $file;
 
 
 

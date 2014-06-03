@@ -17,11 +17,9 @@
                 <td><a href="{{ path('reviewcenter_show', { 'id': entity.id }) }}" class="btn btn-default">{{ entity.id }}</a></td>
                 <td>{{ entity.name }}</td>
                 <td>
-                <ul>
+                <ul  class="btn-group">
                     <li>
                         <a href="{{ path('reviewcenter_show', { 'id': entity.id }) }}" class="btn btn-default">show</a>
-                    </li>
-                    <li>
                         <a href="{{ path('reviewcenter_edit', { 'id': entity.id }) }}" class="btn btn-default">edit</a>
                     </li>
                 </ul>

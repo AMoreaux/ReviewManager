@@ -15,11 +15,16 @@ class ModuleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('login')
+            ->add('students', 'entity', array(
+                'class'=>'EmiageReviewManagerBundle:student',
+                'property'=>'login',
+                'multiple'=>true,
+                'required' => false,
+                'attr'=>array('class'=>'hidden')))
+            ->add('name')
             ->add('code')
             ->add('responsable')
-            ->add('tutors')
-            ->add('students')
+
         ;
     }
     

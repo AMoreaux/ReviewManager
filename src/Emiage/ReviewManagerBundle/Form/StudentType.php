@@ -20,12 +20,28 @@ class StudentType extends AbstractType
             ->add('login')
             ->add('mail')
             ->add('phone')
-            ->add('level')
-            ->add('registerCenter')
-            ->add('reviewsCenters')
-            ->add('module')
-            ->add('examens')
-        ;
+            ->add('level', 'entity', array(
+                'class'=>'EmiageReviewManagerBundle:level',
+                'property'=>'name',
+                'multiple'=>false,))
+            ->add('registerCenter', 'entity', array(
+                'class'=>'EmiageReviewManagerBundle:registerCenter',
+                'property'=>'name',
+                'multiple'=>false,))
+            ->add('reviewsCenters', 'entity', array(
+                'class'=>'EmiageReviewManagerBundle:reviewCenter',
+                'property'=>'name',
+                'multiple'=>true,))
+            ->add('modules', 'entity', array(
+                'class'=>'EmiageReviewManagerBundle:module',
+                'property'=>'name',
+                'multiple'=>true,))
+            ->add('examens', 'entity', array(
+                'class'=>'EmiageReviewManagerBundle:examen',
+                'property'=>'id',
+                'multiple'=>false,
+                'required' => false,
+                'attr'=>array('class'=>'hidden')));
     }
     
     /**
