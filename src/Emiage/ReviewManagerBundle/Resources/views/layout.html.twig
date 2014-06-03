@@ -1,5 +1,6 @@
 {% extends '::base.html.twig' %}
 
+
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
@@ -11,8 +12,16 @@
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 {% endblock %}
 {% block body %}
-    {% include 'EmiageReviewManagerBundle::nav.html.twig' %}
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        Connecté en tant que {{ app.user.username }} - <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+    {% else %}
+        <a href="{{ path('fos_user_security_login') }}">Connexion</a>
+    {% endif %}
+    <div class="nav-bar">
+        {% include 'EmiageReviewManagerBundle::nav.html.twig' %}
+    </div>
     {% block content %}
-        toto
-    {% endblock %}
+    {% endblock content%}
+    {% block fos_user_content %}
+    {% endblock fos_user_content %}
 {% endblock %}

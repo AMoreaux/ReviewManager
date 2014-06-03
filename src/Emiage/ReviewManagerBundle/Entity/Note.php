@@ -35,14 +35,11 @@ class Note
     protected $student;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Emiage\ReviewManagerBundle\Entity\ReviewCenter", cascade={"persist"}, inversedBy="notes")
-     */
-    protected $reviewCenter;
-
-    /**
      * @ORM\ManyToOne(targetEntity="Emiage\ReviewManagerBundle\Entity\Module", cascade={"persist"}, inversedBy="notes")
      */
     protected $module;
+
+
 
     /**
      * Get id
@@ -98,29 +95,6 @@ class Note
     public function getStudent()
     {
         return $this->student;
-    }
-
-    /**
-     * Set reviewCenter
-     *
-     * @param \Emiage\ReviewManagerBundle\Entity\ReviewCenter $reviewCenter
-     * @return Note
-     */
-    public function setReviewCenter(\Emiage\ReviewManagerBundle\Entity\ReviewCenter $reviewCenter = null)
-    {
-        $this->reviewCenter = $reviewCenter;
-
-        return $this;
-    }
-
-    /**
-     * Get reviewCenter
-     *
-     * @return \Emiage\ReviewManagerBundle\Entity\ReviewCenter 
-     */
-    public function getReviewCenter()
-    {
-        return $this->reviewCenter;
     }
 
     /**

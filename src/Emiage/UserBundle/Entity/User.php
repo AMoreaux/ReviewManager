@@ -1,22 +1,21 @@
 <?php
 
-namespace Emiage\ReviewManagerBundle\Entity;
+namespace Emiage\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use FOS\UserBundle\Entity\User as BaseUser;
 
 /**
  * User
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Emiage\ReviewManagerBundle\Entity\UserRepository")
+ * @ORM\Entity(repositoryClass="Emiage\UserBundle\Entity\UserRepository")
  */
-class User
+class User extends BaseUser
 {
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
+     * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
@@ -24,12 +23,21 @@ class User
     /**
      * @ORM\OneToOne(targetEntity="Emiage\ReviewManagerBundle\Entity\Module", cascade={"persist"}, mappedBy="responsable")
      */
-    private $module;
+    protected  $module;
 
     /**
      * @ORM\OneToMany(targetEntity="Emiage\ReviewManagerBundle\Entity\Tutor", cascade={"persist"}, mappedBy="user")
      */
     protected $tutors;
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->tutors = new \Doctrine\Common\Collections\ArrayCollection();
+        parent::__construct();
+    }
+
 
     /**
      * Get id
@@ -62,13 +70,6 @@ class User
     public function getModule()
     {
         return $this->module;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->tutors = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

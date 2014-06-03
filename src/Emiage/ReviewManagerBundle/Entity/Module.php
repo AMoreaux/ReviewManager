@@ -36,7 +36,7 @@ class Module
     protected $code;
 
     /**
-     * @ORM\OneToOne(targetEntity="Emiage\ReviewManagerBundle\Entity\User", cascade={"persist"}, inversedBy="module")
+     * @ORM\OneToOne(targetEntity="Emiage\UserBundle\Entity\User", cascade={"persist"}, inversedBy="module")
      */
     protected $responsable;
 
@@ -59,6 +59,7 @@ class Module
      * @ORM\OneToMany(targetEntity="Emiage\ReviewManagerBundle\Entity\Examen", cascade={"persist"}, mappedBy="module")
      */
     protected $examens;
+
 
 
     /**
@@ -131,10 +132,10 @@ class Module
     /**
      * Set responsable
      *
-     * @param \Emiage\ReviewManagerBundle\Entity\User $responsable
+     * @param \Emiage\UserBundle\Entity\User $responsable
      * @return Module
      */
-    public function setResponsable(\Emiage\ReviewManagerBundle\Entity\User $responsable = null)
+    public function setResponsable(\Emiage\UserBundle\Entity\User $responsable = null)
     {
         $this->responsable = $responsable;
 
@@ -144,7 +145,7 @@ class Module
     /**
      * Get responsable
      *
-     * @return \Emiage\ReviewManagerBundle\Entity\User 
+     * @return \Emiage\UserBundle\Entity\User 
      */
     public function getResponsable()
     {

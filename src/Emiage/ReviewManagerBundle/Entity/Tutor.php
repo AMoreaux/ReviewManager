@@ -4,7 +4,7 @@ namespace Emiage\ReviewManagerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-use Emiage\ReviewManagerBundle\Entity\User as BaseUser;
+use Emiage\UserBundle\Entity\User as BaseUser;
 
 /**
  * Tutor
@@ -24,7 +24,7 @@ class Tutor extends BaseUser
     protected  $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Emiage\ReviewManagerBundle\Entity\User", cascade={"persist"}, inversedBy="tutors")
+     * @ORM\ManyToOne(targetEntity="Emiage\UserBundle\Entity\User", cascade={"persist"}, inversedBy="tutors")
      */
     protected $user;
 
@@ -38,12 +38,19 @@ class Tutor extends BaseUser
      */
     protected $registerCenter;
 
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    protected  $tutors;
+
     /**
      * Constructor
      */
     public function __construct()
     {
         $this->modules = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tutors = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -59,10 +66,10 @@ class Tutor extends BaseUser
     /**
      * Set user
      *
-     * @param \Emiage\ReviewManagerBundle\Entity\User $user
+     * @param \Emiage\UserBundle\Entity\User $user
      * @return Tutor
      */
-    public function setUser(\Emiage\ReviewManagerBundle\Entity\User $user = null)
+    public function setUser(\Emiage\UserBundle\Entity\User $user = null)
     {
         $this->user = $user;
 
@@ -72,7 +79,7 @@ class Tutor extends BaseUser
     /**
      * Get user
      *
-     * @return \Emiage\ReviewManagerBundle\Entity\User 
+     * @return \Emiage\UserBundle\Entity\User 
      */
     public function getUser()
     {
@@ -134,10 +141,43 @@ class Tutor extends BaseUser
     {
         return $this->registerCenter;
     }
+
+    /**
+     * Add tutors
+     *
+     * @param \Emiage\ReviewManagerBundle\Entity\Tutor $tutors
+     * @return Tutor
+     */
+    public function addTutor(\Emiage\ReviewManagerBundle\Entity\Tutor $tutors)
+    {
+        $this->tutors[] = $tutors;
+
+        return $this;
+    }
+
+    /**
+     * Remove tutors
+     *
+     * @param \Emiage\ReviewManagerBundle\Entity\Tutor $tutors
+     */
+    public function removeTutor(\Emiage\ReviewManagerBundle\Entity\Tutor $tutors)
+    {
+        $this->tutors->removeElement($tutors);
+    }
+
+    /**
+     * Get tutors
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTutors()
+    {
+        return $this->tutors;
+    }
     /**
      * @var \Emiage\ReviewManagerBundle\Entity\Module
      */
-    private $module;
+    protected $module;
 
 
     /**

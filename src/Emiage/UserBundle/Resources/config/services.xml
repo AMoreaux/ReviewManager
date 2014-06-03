@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+
+    <parameters>
+        <parameter key="emiage_user.example.class">Emiage\UserBundle\Example</parameter>
+    </parameters>
+
+    <services>
+        <service id="emiage_user.registration.form.type" class="Emiage\UserBundle\Form\RegistrationFormType">
+            <tag name="form.type" alias="emiage_user_registration" />
+            <argument>%fos_user.model.user.class%</argument>
+        </service>
+    </services>
+
+</container>

@@ -57,19 +57,7 @@
                 <div class="form-organisation-widget">
                     {{ form_widget(form.modules) }}
                 </div>
-                <div class="form-organisation-label">
-                    {{ form_label(form.examens, ' ') }}
-                </div>
-                <div class="form-organisation-widget">
-                    {{ form_widget(form.examens) }}
-                </div>
+
                 {{form_rest(form)}}
             </form>
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('student') }}" class="btn btn-default">
-                Back to the list
-            </a>
-        </li>
-    </ul>
 {% endblock %}

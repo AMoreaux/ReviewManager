@@ -1,6 +1,6 @@
 <?php
 
-namespace Emiage\ReviewManagerBundle\Entity;
+namespace Emiage\UserBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 
