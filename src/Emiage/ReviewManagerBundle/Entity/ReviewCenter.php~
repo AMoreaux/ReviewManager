@@ -48,4 +48,103 @@ class ReviewCenter
     }
 
 
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return ReviewCenter
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Add students
+     *
+     * @param \Emiage\ReviewManagerBundle\Entity\Student $students
+     * @return ReviewCenter
+     */
+    public function addStudent(\Emiage\ReviewManagerBundle\Entity\Student $students)
+    {
+        $this->students[] = $students;
+
+        return $this;
+    }
+
+    /**
+     * Remove students
+     *
+     * @param \Emiage\ReviewManagerBundle\Entity\Student $students
+     */
+    public function removeStudent(\Emiage\ReviewManagerBundle\Entity\Student $students)
+    {
+        $this->students->removeElement($students);
+    }
+
+    /**
+     * Get students
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getStudents()
+    {
+        return $this->students;
+    }
+
+    /**
+     * Add examens
+     *
+     * @param \Emiage\ReviewManagerBundle\Entity\Examen $examens
+     * @return ReviewCenter
+     */
+    public function addExamen(\Emiage\ReviewManagerBundle\Entity\Examen $examens)
+    {
+        $this->examens[] = $examens;
+
+        return $this;
+    }
+
+    /**
+     * Remove examens
+     *
+     * @param \Emiage\ReviewManagerBundle\Entity\Examen $examens
+     */
+    public function removeExamen(\Emiage\ReviewManagerBundle\Entity\Examen $examens)
+    {
+        $this->examens->removeElement($examens);
+    }
+
+    /**
+     * Get examens
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getExamens()
+    {
+        return $this->examens;
+    }
 }

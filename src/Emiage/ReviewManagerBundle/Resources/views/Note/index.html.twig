@@ -8,6 +8,7 @@
             <tr>
                 <th>Id</th>
                 <th>Note</th>
+                <th>file</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -16,6 +17,7 @@
             <tr>
                 <td><a href="{{ path('note_show', { 'id': entity.id }) }}" class="btn btn-default">{{ entity.id }}</a></td>
                 <td>{{ entity.note }}</td>
+                <td><a href="{{ path('note_download', { 'slug': entity.path }) }}">{{ entity.path }}</a></td>
                 <td>
                 <ul>
                     <li>

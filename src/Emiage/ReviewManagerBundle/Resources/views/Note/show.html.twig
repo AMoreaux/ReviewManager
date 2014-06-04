@@ -13,6 +13,10 @@
                 <th>Note</th>
                 <td>{{ entity.note }}</td>
             </tr>
+            <tr>
+                <th>path</th>
+                <td><a href="{{ path('note_download', { 'slug': entity.path }) }}">{{ entity.path }}</a></td>
+            </tr>
         </tbody>
     </table>
 

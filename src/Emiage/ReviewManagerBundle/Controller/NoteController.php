@@ -4,6 +4,7 @@ namespace Emiage\ReviewManagerBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 use Emiage\ReviewManagerBundle\Entity\Note;
 use Emiage\ReviewManagerBundle\Form\NoteType;
@@ -40,13 +41,16 @@ class NoteController extends Controller
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
+           if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
 
-            return $this->redirect($this->generateUrl('note_show', array('id' => $entity->getId())));
-        }
+                $entity->upload();
+
+                $em->persist($entity);
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('note_show', array('id' => $entity->getId())));
+            }
 
         return $this->render('EmiageReviewManagerBundle:Note:new.html.twig', array(
             'entity' => $entity,
@@ -221,4 +225,20 @@ class NoteController extends Controller
             ->getForm()
         ;
     }
+
+    public function downloadAction($slug)
+    {
+
+        $file = $slug;
+        $path = "../../ReviewManager/web/uploads/documents/";
+
+        $response = new Response();
+        $response->setContent(file_get_contents($path.$file));
+        $response->headers->set('Content-Type', 'application/force-download');
+        $response->headers->set('Content-disposition', 'filename='. $file);
+
+        return $response;
+    }
+
+
 }

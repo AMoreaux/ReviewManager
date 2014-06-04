@@ -4,6 +4,7 @@ namespace Emiage\ReviewManagerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
  * Note
@@ -47,7 +48,7 @@ class Note
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    public $path;
+    private $path;
 
 
 
@@ -175,5 +176,23 @@ class Note
     public function getPath()
     {
         return $this->path;
+    }
+
+    /**
+     *
+     * @Template()
+     */
+
+    public function upload()
+    {
+        if (null === $this->file) {
+            return;
+        }
+
+        $this->file->move($this->getUploadRootDir(), $this->file->getClientOriginalName());
+
+        $this->path = $this->file->getClientOriginalName();
+
+        $this->file = null;
     }
 }
