@@ -1,6 +1,6 @@
 user:
     pattern:  /
-    defaults: { _controller: "EmiageReviewManagerBundle:User:index" }
+    defaults: { _controller: "EmiageUserBundle:User:index" }
 
 user_show:
     pattern:  /{id}/show

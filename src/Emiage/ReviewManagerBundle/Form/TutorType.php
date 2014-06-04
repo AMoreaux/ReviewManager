@@ -15,9 +15,18 @@ class TutorType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('user')
-            ->add('modules')
-            ->add('registerCenter')
+            ->add('user', 'entity', array(
+            'class'=>'EmiageUserBundle:User',
+            'property'=>'username',
+            'multiple'=>false,))
+            ->add('modules', 'entity', array(
+            'class'=>'EmiageReviewManagerBundle:Module',
+            'property'=>'code',
+            'multiple'=>true,
+            ))
+            ->add('registerCenter', 'entity', array(
+                'class'=>'EmiageReviewManagerBundle:RegisterCenter',
+                'property'=>'name',))
         ;
     }
     

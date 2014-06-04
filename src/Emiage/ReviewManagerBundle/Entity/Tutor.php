@@ -12,7 +12,7 @@ use Emiage\UserBundle\Entity\User as BaseUser;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Emiage\ReviewManagerBundle\Entity\TutorRepository")
  */
-class Tutor extends BaseUser
+class Tutor
 {
     /**
      * @var integer
@@ -38,11 +38,6 @@ class Tutor extends BaseUser
      */
     protected $registerCenter;
 
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    protected  $tutors;
 
     /**
      * Constructor
@@ -142,38 +137,6 @@ class Tutor extends BaseUser
         return $this->registerCenter;
     }
 
-    /**
-     * Add tutors
-     *
-     * @param \Emiage\ReviewManagerBundle\Entity\Tutor $tutors
-     * @return Tutor
-     */
-    public function addTutor(\Emiage\ReviewManagerBundle\Entity\Tutor $tutors)
-    {
-        $this->tutors[] = $tutors;
-
-        return $this;
-    }
-
-    /**
-     * Remove tutors
-     *
-     * @param \Emiage\ReviewManagerBundle\Entity\Tutor $tutors
-     */
-    public function removeTutor(\Emiage\ReviewManagerBundle\Entity\Tutor $tutors)
-    {
-        $this->tutors->removeElement($tutors);
-    }
-
-    /**
-     * Get tutors
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getTutors()
-    {
-        return $this->tutors;
-    }
     /**
      * @var \Emiage\ReviewManagerBundle\Entity\Module
      */

@@ -10,8 +10,16 @@
                 <td>{{ entity.id }}</td>
             </tr>
             <tr>
+                <th>Nom</th>
+                <td>{{ entity.student.firstName }} {{ entity.student.lastName }}</td>
+            </tr>
+            <tr>
+                <th>Module</th>
+                <td>{{ entity.module.code }} {{ entity.module.name }}</td>
+            </tr>
+            <tr>
                 <th>Note</th>
-                <td>{{ entity.note }}</td>
+                <td>{{ entity.note }} / 20</td>
             </tr>
             <tr>
                 <th>path</th>

@@ -9,6 +9,25 @@
                 <th>Id</th>
                 <td>{{ entity.id }}</td>
             </tr>
+            <tr>
+                <th>User</th>
+                <td>{{ entity.user.username }}</td>
+            </tr>
+            <tr>
+                <th>RegisterCenter</th>
+                <td>{{ entity.registerCenter.name }}</td>
+            </tr>
+
+            <tr>
+                <th>Module</th>
+                <td>
+                    <ul>
+                        {% for module in entity.modules %}
+                        <li>{{ module.code }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
         </tbody>
     </table>
 
