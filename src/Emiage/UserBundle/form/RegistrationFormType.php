@@ -33,6 +33,7 @@ class RegistrationFormType extends BaseType
                 'second_options' => array('label' => 'form.password_confirmation'),
                 'invalid_message' => 'fos_user.password.mismatch',))
             ->add('roles', 'collection', array(
+                    'label' => 'Role',
                     'type' => 'choice',
                     'options' => array(
                         'choices' => array(

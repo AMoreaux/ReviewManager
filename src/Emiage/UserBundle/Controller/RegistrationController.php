@@ -25,8 +25,7 @@ class RegistrationController extends BaseController
                 $this->container->get('session')->set('fos_user_send_confirmation_email/email', $user->getEmail());
                 $route = 'fos_user_registration_check_email';
             } else {
-                $this->authenticateUser($user);
-                $route = 'fos_user_registration_confirmed';
+                $route = 'home';
             }
 
             $this->setFlash('fos_user_success', 'registration.flash.user_created');

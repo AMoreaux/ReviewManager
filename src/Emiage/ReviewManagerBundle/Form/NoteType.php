@@ -15,7 +15,9 @@ class NoteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('note')
+            ->add('note', 'text',  array(
+                'required' => false,
+            ))
             ->add('student', 'entity', array(
                 'class'=>'EmiageReviewManagerBundle:Student',
                 'property'=>'login',
