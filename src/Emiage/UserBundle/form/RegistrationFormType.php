@@ -36,8 +36,9 @@ class RegistrationFormType extends BaseType
                     'type' => 'choice',
                     'options' => array(
                         'choices' => array(
-                            'ROLE_ADMIN' => 'Admin',
-                            'ROLE_PROF' => 'Prof'
+                            'ROLE_ADMIN' => 'Administration',
+                            'ROLE_PROF' => 'Professeur',
+                            'ROLE_STUD' => 'étudiant',
                         )
                     )
                 )

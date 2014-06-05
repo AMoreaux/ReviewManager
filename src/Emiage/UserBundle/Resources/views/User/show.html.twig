@@ -1,6 +1,6 @@
-{% extends '::base.html.twig' %}
+{% extends 'EmiageReviewManagerBundle::layout.html.twig' %}
 
-{% block body -%}
+{% block content -%}
     <h1>User</h1>
 
     <table class="record_properties">
@@ -46,28 +46,14 @@
                 <td>{{ entity.expired }}</td>
             </tr>
             <tr>
-                <th>Expiresat</th>
-                <td>{{ entity.expiresAt|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Confirmationtoken</th>
-                <td>{{ entity.confirmationToken }}</td>
-            </tr>
-            <tr>
-                <th>Passwordrequestedat</th>
-                <td>{{ entity.passwordRequestedAt|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
                 <th>Roles</th>
-                <td>{{ entity.roles }}</td>
-            </tr>
-            <tr>
-                <th>Credentialsexpired</th>
-                <td>{{ entity.credentialsExpired }}</td>
-            </tr>
-            <tr>
-                <th>Credentialsexpireat</th>
-                <td>{{ entity.credentialsExpireAt|date('Y-m-d H:i:s') }}</td>
+                <td>
+                    <ul>
+                        {% for role in entity.roles %}
+                            <li>{{ role }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
             </tr>
             <tr>
                 <th>Id</th>

@@ -7,7 +7,8 @@ security:
         ROLE_STUD:        ROLE_STUD
         ROLE_PROF:        ROLE_PROF
         ROLE_ADMIN:       ROLE_ADMIN
-        ROLE_SUPER_ADMIN: [ROLE_STUD, ROLE_PROF, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        ROLE_DOUBLE:      [ROLE_ADMIN, ROLE_PROF]
+        ROLE_SUPER_ADMIN: [ROLE_STUD, ROLE_PROF, ROLE_ADMIN, ROLE_DEUS, ROLE_DOUBLE, ROLE_ALLOWED_TO_SWITCH]
 
     providers:
         main:
@@ -32,8 +33,10 @@ security:
 
     access_control:
             - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-            - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: ^/register, role: ROLE_ADMIN }
             - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
             - { path: ^/admin/, role: ROLE_ADMIN }
             - { path: ^/prof/, role: ROLE_PROF }
             - { path: ^/stud/, role: ROLE_STUD }
+            - { path: ^/deus/, role: ROLE_DEUS }
+            - { path: ^/double/, role: ROLE_DOUBLE }

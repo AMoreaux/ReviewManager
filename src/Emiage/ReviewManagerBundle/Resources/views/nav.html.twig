@@ -6,9 +6,11 @@
                 <li>
                     <a href="{{ path('examen') }}">Examen</a>
                 </li>
-                <li>
-                    <a href="{{ path('level') }}">Niveau</a>
-                </li>
+                {% if is_granted('ROLE_ADMIN') and is_granted('ROLE_PROF') %}
+                    <li>
+                        <a href="{{ path('level') }}">Niveau</a>
+                    </li>
+                {% endif %}
                 <li>
                     <a href="{{ path('module') }}">Module</a>
                 </li>
@@ -24,12 +26,16 @@
                 <li>
                     <a href="{{ path('student') }}">Etudiant</a>
                 </li>
-                <li>
-                    <a href="{{ path('tutor') }}">Tuteur</a>
-                </li>
-                <li>
-                    <a href="{{ path('user') }}">Utilisateur</a>
-                </li>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li>
+                        <a href="{{ path('tutor') }}">Tuteur</a>
+                    </li>
+                {% endif %}
+                {% if is_granted('ROLE_ADMIN') and is_granted('ROLE_PROF') %}
+                    <li>
+                        <a href="{{ path('user') }}">Utilisateur</a>
+                    </li>
+                {% endif %}
             </ul>
             </div>
         </div><!-- /.navbar-collapse -->

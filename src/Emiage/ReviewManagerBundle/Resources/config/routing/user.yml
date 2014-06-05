@@ -4,27 +4,27 @@ user:
 
 user_show:
     pattern:  /{id}/show
-    defaults: { _controller: "EmiageReviewManagerBundle:User:show" }
+    defaults: { _controller: "EmiageUserBundle:User:show" }
 
 user_new:
     pattern:  /new
-    defaults: { _controller: "EmiageReviewManagerBundle:User:new" }
+    defaults: { _controller: "EmiageUserBundle:User:new" }
 
 user_create:
     pattern:  /create
-    defaults: { _controller: "EmiageReviewManagerBundle:User:create" }
+    defaults: { _controller: "EmiageUserBundle:User:create" }
     requirements: { _method: post }
 
 user_edit:
     pattern:  /{id}/edit
-    defaults: { _controller: "EmiageReviewManagerBundle:User:edit" }
+    defaults: { _controller: "EmiageUserBundle:User:edit" }
 
 user_update:
     pattern:  /{id}/update
-    defaults: { _controller: "EmiageReviewManagerBundle:User:update" }
+    defaults: { _controller: "EmiageUserBundle:User:update" }
     requirements: { _method: post|put }
 
 user_delete:
     pattern:  /{id}/delete
-    defaults: { _controller: "EmiageReviewManagerBundle:User:delete" }
+    defaults: { _controller: "EmiageUserBundle:User:delete" }
     requirements: { _method: post|delete }

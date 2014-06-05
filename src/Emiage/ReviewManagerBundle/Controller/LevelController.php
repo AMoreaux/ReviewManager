@@ -4,6 +4,8 @@ namespace Emiage\ReviewManagerBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use JMS\SecurityExtraBundle\Annotation\Secure;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 use Emiage\ReviewManagerBundle\Entity\Level;
 use Emiage\ReviewManagerBundle\Form\LevelType;
@@ -17,7 +19,6 @@ class LevelController extends Controller
 
     /**
      * Lists all Level entities.
-     *
      */
     public function indexAction()
     {

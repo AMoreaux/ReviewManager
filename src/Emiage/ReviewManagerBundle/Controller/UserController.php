@@ -4,6 +4,8 @@ namespace Emiage\ReviewManagerBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use JMS\SecurityExtraBundle\Annotation\Secure;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 use Emiage\ReviewManagerBundle\Entity\User;
 use Emiage\ReviewManagerBundle\Form\UserType;
@@ -17,7 +19,7 @@ class UserController extends Controller
 
     /**
      * Lists all User entities.
-     *
+     * @Secure(roles="ROLE_SUPER_ADMIN")
      */
     public function indexAction()
     {
@@ -31,7 +33,7 @@ class UserController extends Controller
     }
     /**
      * Creates a new User entity.
-     *
+     * @Secure(roles="ROLE_SUPER_ADMIN")
      */
     public function createAction(Request $request)
     {
@@ -57,7 +59,7 @@ class UserController extends Controller
     * Creates a form to create a User entity.
     *
     * @param User $entity The entity
-    *
+    * @Secure(roles="ROLE_SUPER_ADMIN")
     * @return \Symfony\Component\Form\Form The form
     */
     private function createCreateForm(User $entity)
@@ -74,7 +76,7 @@ class UserController extends Controller
 
     /**
      * Displays a form to create a new User entity.
-     *
+     * @Secure(roles="ROLE_SUPER_ADMIN")
      */
     public function newAction()
     {
@@ -89,7 +91,7 @@ class UserController extends Controller
 
     /**
      * Finds and displays a User entity.
-     *
+     * @Secure(roles="ROLE_SUPER_ADMIN")
      */
     public function showAction($id)
     {
@@ -110,7 +112,7 @@ class UserController extends Controller
 
     /**
      * Displays a form to edit an existing User entity.
-     *
+     * @Secure(roles="ROLE_SUPER_ADMIN")
      */
     public function editAction($id)
     {
@@ -136,7 +138,7 @@ class UserController extends Controller
     * Creates a form to edit a User entity.
     *
     * @param User $entity The entity
-    *
+    * @Secure(roles="ROLE_SUPER_ADMIN")
     * @return \Symfony\Component\Form\Form The form
     */
     private function createEditForm(User $entity)
@@ -152,7 +154,7 @@ class UserController extends Controller
     }
     /**
      * Edits an existing User entity.
-     *
+     * @Secure(roles="ROLE_SUPER_ADMIN")
      */
     public function updateAction(Request $request, $id)
     {
@@ -182,7 +184,7 @@ class UserController extends Controller
     }
     /**
      * Deletes a User entity.
-     *
+     * @Secure(roles="ROLE_SUPER_ADMIN")
      */
     public function deleteAction(Request $request, $id)
     {
@@ -208,7 +210,7 @@ class UserController extends Controller
      * Creates a form to delete a User entity by id.
      *
      * @param mixed $id The entity id
-     *
+     * @Secure(roles="ROLE_SUPER_ADMIN")
      * @return \Symfony\Component\Form\Form The form
      */
     private function createDeleteForm($id)

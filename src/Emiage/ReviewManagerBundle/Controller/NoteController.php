@@ -5,6 +5,8 @@ namespace Emiage\ReviewManagerBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use JMS\SecurityExtraBundle\Annotation\Secure;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 use Emiage\ReviewManagerBundle\Entity\Note;
 use Emiage\ReviewManagerBundle\Form\NoteType;
@@ -19,7 +21,7 @@ class NoteController extends Controller
 
     /**
      * Lists all Note entities.
-     *
+     *@Secure(roles="ROLE_ADMIN, ROLE_PROF")
      */
     public function indexAction()
     {
@@ -33,7 +35,7 @@ class NoteController extends Controller
     }
     /**
      * Creates a new Note entity.
-     *
+     *@Secure(roles="ROLE_ADMIN, ROLE_PROF")
      */
     public function createAction(Request $request)
     {
@@ -62,7 +64,7 @@ class NoteController extends Controller
     * Creates a form to create a Note entity.
     *
     * @param Note $entity The entity
-    *
+    *@Secure(roles="ROLE_ADMIN, ROLE_PROF")
     * @return \Symfony\Component\Form\Form The form
     */
     private function createCreateForm(Note $entity)
@@ -79,7 +81,7 @@ class NoteController extends Controller
 
     /**
      * Displays a form to create a new Note entity.
-     *
+     *@Secure(roles="ROLE_ADMIN, ROLE_PROF")
      */
     public function newAction()
     {
@@ -94,7 +96,7 @@ class NoteController extends Controller
 
     /**
      * Finds and displays a Note entity.
-     *
+     *@Secure(roles="ROLE_ADMIN, ROLE_PROF")
      */
     public function showAction($id)
     {
@@ -115,7 +117,7 @@ class NoteController extends Controller
 
     /**
      * Displays a form to edit an existing Note entity.
-     *
+     *@Secure(roles="ROLE_ADMIN, ROLE_PROF")
      */
     public function editAction($id)
     {
@@ -141,7 +143,7 @@ class NoteController extends Controller
     * Creates a form to edit a Note entity.
     *
     * @param Note $entity The entity
-    *
+    *@Secure(roles="ROLE_ADMIN, ROLE_PROF")
     * @return \Symfony\Component\Form\Form The form
     */
     private function createEditForm(Note $entity)
@@ -157,7 +159,7 @@ class NoteController extends Controller
     }
     /**
      * Edits an existing Note entity.
-     *
+     *@Secure(roles="ROLE_ADMIN, ROLE_PROF")
      */
     public function updateAction(Request $request, $id)
     {
@@ -187,7 +189,7 @@ class NoteController extends Controller
     }
     /**
      * Deletes a Note entity.
-     *
+     * @Secure(roles="ROLE_SUPER_ADMIN")
      */
     public function deleteAction(Request $request, $id)
     {
@@ -213,7 +215,7 @@ class NoteController extends Controller
      * Creates a form to delete a Note entity by id.
      *
      * @param mixed $id The entity id
-     *
+     * @Secure(roles="ROLE_SUPER_ADMIN")
      * @return \Symfony\Component\Form\Form The form
      */
     private function createDeleteForm($id)
@@ -225,10 +227,11 @@ class NoteController extends Controller
             ->getForm()
         ;
     }
-
+    /**
+    *@Secure(roles="ROLE_PROF")
+    */
     public function downloadAction($slug)
     {
-
         $file = $slug;
         $path = "../../ReviewManager/web/uploads/documents/";
 
@@ -239,6 +242,4 @@ class NoteController extends Controller
 
         return $response;
     }
-
-
 }

@@ -4,6 +4,8 @@ namespace Emiage\ReviewManagerBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use JMS\SecurityExtraBundle\Annotation\Secure;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 use Emiage\ReviewManagerBundle\Entity\RegisterCenter;
 use Emiage\ReviewManagerBundle\Form\RegisterCenterType;
@@ -31,7 +33,7 @@ class RegisterCenterController extends Controller
     }
     /**
      * Creates a new RegisterCenter entity.
-     *
+     * @Secure(roles="ROLE_SUPER_ADMIN")
      */
     public function createAction(Request $request)
     {
@@ -57,7 +59,7 @@ class RegisterCenterController extends Controller
     * Creates a form to create a RegisterCenter entity.
     *
     * @param RegisterCenter $entity The entity
-    *
+     * @Secure(roles="ROLE_SUPER_ADMIN")
     * @return \Symfony\Component\Form\Form The form
     */
     private function createCreateForm(RegisterCenter $entity)
@@ -74,7 +76,7 @@ class RegisterCenterController extends Controller
 
     /**
      * Displays a form to create a new RegisterCenter entity.
-     *
+     * @Secure(roles="ROLE_SUPER_ADMIN")
      */
     public function newAction()
     {
@@ -89,7 +91,7 @@ class RegisterCenterController extends Controller
 
     /**
      * Finds and displays a RegisterCenter entity.
-     *
+     * @Secure(roles="ROLE_SUPER_ADMIN")
      */
     public function showAction($id)
     {
@@ -110,7 +112,7 @@ class RegisterCenterController extends Controller
 
     /**
      * Displays a form to edit an existing RegisterCenter entity.
-     *
+     * @Secure(roles="ROLE_SUPER_ADMIN")
      */
     public function editAction($id)
     {
@@ -136,7 +138,7 @@ class RegisterCenterController extends Controller
     * Creates a form to edit a RegisterCenter entity.
     *
     * @param RegisterCenter $entity The entity
-    *
+     * @Secure(roles="ROLE_SUPER_ADMIN")
     * @return \Symfony\Component\Form\Form The form
     */
     private function createEditForm(RegisterCenter $entity)
@@ -152,7 +154,7 @@ class RegisterCenterController extends Controller
     }
     /**
      * Edits an existing RegisterCenter entity.
-     *
+     * @Secure(roles="ROLE_SUPER_ADMIN")
      */
     public function updateAction(Request $request, $id)
     {
@@ -182,7 +184,7 @@ class RegisterCenterController extends Controller
     }
     /**
      * Deletes a RegisterCenter entity.
-     *
+     * @Secure(roles="ROLE_SUPER_ADMIN")
      */
     public function deleteAction(Request $request, $id)
     {

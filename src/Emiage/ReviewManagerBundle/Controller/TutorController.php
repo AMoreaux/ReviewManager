@@ -4,6 +4,8 @@ namespace Emiage\ReviewManagerBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use JMS\SecurityExtraBundle\Annotation\Secure;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 use Emiage\ReviewManagerBundle\Entity\Tutor;
 use Emiage\ReviewManagerBundle\Form\TutorType;
@@ -31,7 +33,7 @@ class TutorController extends Controller
     }
     /**
      * Creates a new Tutor entity.
-     *
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function createAction(Request $request)
     {
@@ -55,7 +57,7 @@ class TutorController extends Controller
 
     /**
     * Creates a form to create a Tutor entity.
-    *
+    * @Secure(roles="ROLE_ADMIN")
     * @param Tutor $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
@@ -74,7 +76,7 @@ class TutorController extends Controller
 
     /**
      * Displays a form to create a new Tutor entity.
-     *
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function newAction()
     {
@@ -89,7 +91,7 @@ class TutorController extends Controller
 
     /**
      * Finds and displays a Tutor entity.
-     *
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function showAction($id)
     {
@@ -110,7 +112,7 @@ class TutorController extends Controller
 
     /**
      * Displays a form to edit an existing Tutor entity.
-     *
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function editAction($id)
     {
@@ -136,7 +138,7 @@ class TutorController extends Controller
     * Creates a form to edit a Tutor entity.
     *
     * @param Tutor $entity The entity
-    *
+    * @Secure(roles="ROLE_ADMIN")
     * @return \Symfony\Component\Form\Form The form
     */
     private function createEditForm(Tutor $entity)
@@ -152,7 +154,7 @@ class TutorController extends Controller
     }
     /**
      * Edits an existing Tutor entity.
-     *
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function updateAction(Request $request, $id)
     {
@@ -182,7 +184,7 @@ class TutorController extends Controller
     }
     /**
      * Deletes a Tutor entity.
-     *
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function deleteAction(Request $request, $id)
     {
@@ -208,7 +210,7 @@ class TutorController extends Controller
      * Creates a form to delete a Tutor entity by id.
      *
      * @param mixed $id The entity id
-     *
+     * @Secure(roles="ROLE_ADMIN")
      * @return \Symfony\Component\Form\Form The form
      */
     private function createDeleteForm($id)

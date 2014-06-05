@@ -4,6 +4,8 @@ namespace Emiage\ReviewManagerBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use JMS\SecurityExtraBundle\Annotation\Secure;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 use Emiage\ReviewManagerBundle\Entity\Student;
 use Emiage\ReviewManagerBundle\Form\StudentType;
@@ -17,7 +19,7 @@ class StudentController extends Controller
 
     /**
      * Lists all Student entities.
-     *
+     * @Secure(roles="ROLE_ADMIN, ROLE_PROF")
      */
     public function indexAction()
     {
@@ -31,7 +33,7 @@ class StudentController extends Controller
     }
     /**
      * Creates a new Student entity.
-     *
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function createAction(Request $request)
     {
@@ -57,7 +59,7 @@ class StudentController extends Controller
     * Creates a form to create a Student entity.
     *
     * @param Student $entity The entity
-    *
+    * @Secure(roles="ROLE_ADMIN")
     * @return \Symfony\Component\Form\Form The form
     */
     private function createCreateForm(Student $entity)
@@ -74,7 +76,7 @@ class StudentController extends Controller
 
     /**
      * Displays a form to create a new Student entity.
-     *
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function newAction()
     {
@@ -89,7 +91,7 @@ class StudentController extends Controller
 
     /**
      * Finds and displays a Student entity.
-     *
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function showAction($id)
     {
@@ -110,7 +112,7 @@ class StudentController extends Controller
 
     /**
      * Displays a form to edit an existing Student entity.
-     *
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function editAction($id)
     {
@@ -136,7 +138,7 @@ class StudentController extends Controller
     * Creates a form to edit a Student entity.
     *
     * @param Student $entity The entity
-    *
+    * @Secure(roles="ROLE_ADMIN")
     * @return \Symfony\Component\Form\Form The form
     */
     private function createEditForm(Student $entity)
@@ -152,7 +154,7 @@ class StudentController extends Controller
     }
     /**
      * Edits an existing Student entity.
-     *
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function updateAction(Request $request, $id)
     {
@@ -182,7 +184,7 @@ class StudentController extends Controller
     }
     /**
      * Deletes a Student entity.
-     *
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function deleteAction(Request $request, $id)
     {
@@ -208,7 +210,7 @@ class StudentController extends Controller
      * Creates a form to delete a Student entity by id.
      *
      * @param mixed $id The entity id
-     *
+     * @Secure(roles="ROLE_ADMIN")
      * @return \Symfony\Component\Form\Form The form
      */
     private function createDeleteForm($id)
