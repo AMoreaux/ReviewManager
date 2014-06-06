@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpFoundation\Response;
 
 use Emiage\ReviewManagerBundle\Entity\Module;
 use Emiage\ReviewManagerBundle\Form\ModuleType;
@@ -43,6 +44,7 @@ class ModuleController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
             $em->persist($entity);
             $em->flush();
 
@@ -103,11 +105,8 @@ class ModuleController extends Controller
             throw $this->createNotFoundException('Unable to find Module entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
-
         return $this->render('EmiageReviewManagerBundle:Module:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        ));
+            'entity'      => $entity,));
     }
 
     /**
@@ -125,12 +124,10 @@ class ModuleController extends Controller
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('EmiageReviewManagerBundle:Module:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -152,6 +149,7 @@ class ModuleController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing Module entity.
      *@Secure(roles="ROLE_ADMIN")
@@ -166,11 +164,11 @@ class ModuleController extends Controller
             throw $this->createNotFoundException('Unable to find Module entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+
             $em->flush();
 
             return $this->redirect($this->generateUrl('module_edit', array('id' => $id)));
@@ -179,19 +177,15 @@ class ModuleController extends Controller
         return $this->render('EmiageReviewManagerBundle:Module:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         ));
     }
+
     /**
      * Deletes a Module entity.
      *@Secure(roles="ROLE_ADMIN")
      */
     public function deleteAction(Request $request, $id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('EmiageReviewManagerBundle:Module')->find($id);
 
@@ -201,25 +195,24 @@ class ModuleController extends Controller
 
             $em->remove($entity);
             $em->flush();
-        }
 
         return $this->redirect($this->generateUrl('module'));
     }
 
     /**
-     * Creates a form to delete a Module entity by id.
-     *
-     * @param mixed $id The entity id
-     *@Secure(roles="ROLE_ADMIN")
-     * @return \Symfony\Component\Form\Form The form
+     *@Secure(roles="ROLE_PROF")
      */
-    private function createDeleteForm($id)
+    public function downloadAction($slug)
     {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('module_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
+        $file = $slug;
+        $path = "../../ReviewManager/web/uploads/documents/Modules/";
+
+        $response = new Response();
+        $response->setContent(file_get_contents($path.$file));
+        $response->headers->set('Content-Type', 'application/force-download');
+        $response->headers->set('Content-disposition', 'filename='. $file);
+
+        return $response;
     }
+
 }

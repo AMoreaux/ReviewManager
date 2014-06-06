@@ -27,4 +27,3 @@ registercenter_update:
 registercenter_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "EmiageReviewManagerBundle:RegisterCenter:delete" }
-    requirements: { _method: post|delete }

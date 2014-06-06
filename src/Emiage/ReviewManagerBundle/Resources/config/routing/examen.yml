@@ -27,4 +27,3 @@ examen_update:
 examen_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "EmiageReviewManagerBundle:Examen:delete" }
-    requirements: { _method: post|delete }

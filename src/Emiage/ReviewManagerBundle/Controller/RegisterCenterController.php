@@ -103,11 +103,8 @@ class RegisterCenterController extends Controller
             throw $this->createNotFoundException('Unable to find RegisterCenter entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
-
         return $this->render('EmiageReviewManagerBundle:RegisterCenter:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        ));
+            'entity'      => $entity,));
     }
 
     /**
@@ -125,12 +122,10 @@ class RegisterCenterController extends Controller
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('EmiageReviewManagerBundle:RegisterCenter:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -166,7 +161,6 @@ class RegisterCenterController extends Controller
             throw $this->createNotFoundException('Unable to find RegisterCenter entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
@@ -179,7 +173,6 @@ class RegisterCenterController extends Controller
         return $this->render('EmiageReviewManagerBundle:RegisterCenter:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         ));
     }
     /**
@@ -188,10 +181,6 @@ class RegisterCenterController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('EmiageReviewManagerBundle:RegisterCenter')->find($id);
 
@@ -201,25 +190,9 @@ class RegisterCenterController extends Controller
 
             $em->remove($entity);
             $em->flush();
-        }
+
 
         return $this->redirect($this->generateUrl('registercenter'));
     }
 
-    /**
-     * Creates a form to delete a RegisterCenter entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('registercenter_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
-    }
 }

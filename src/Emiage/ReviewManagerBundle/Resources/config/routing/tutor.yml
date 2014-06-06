@@ -27,4 +27,3 @@ tutor_update:
 tutor_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "EmiageReviewManagerBundle:Tutor:delete" }
-    requirements: { _method: post|delete }

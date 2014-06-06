@@ -27,7 +27,6 @@ note_update:
 note_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "EmiageReviewManagerBundle:Note:delete" }
-    requirements: { _method: post|delete }
 
 note_download:
     pattern: /{slug}/download

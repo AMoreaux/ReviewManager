@@ -103,11 +103,8 @@ class StudentController extends Controller
             throw $this->createNotFoundException('Unable to find Student entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
-
         return $this->render('EmiageReviewManagerBundle:Student:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        ));
+            'entity'      => $entity,));
     }
 
     /**
@@ -125,12 +122,10 @@ class StudentController extends Controller
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('EmiageReviewManagerBundle:Student:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -166,7 +161,6 @@ class StudentController extends Controller
             throw $this->createNotFoundException('Unable to find Student entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
@@ -179,7 +173,6 @@ class StudentController extends Controller
         return $this->render('EmiageReviewManagerBundle:Student:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         ));
     }
     /**
@@ -188,10 +181,7 @@ class StudentController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
 
-        if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('EmiageReviewManagerBundle:Student')->find($id);
 
@@ -201,25 +191,8 @@ class StudentController extends Controller
 
             $em->remove($entity);
             $em->flush();
-        }
 
         return $this->redirect($this->generateUrl('student'));
     }
 
-    /**
-     * Creates a form to delete a Student entity by id.
-     *
-     * @param mixed $id The entity id
-     * @Secure(roles="ROLE_ADMIN")
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('student_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
-    }
 }

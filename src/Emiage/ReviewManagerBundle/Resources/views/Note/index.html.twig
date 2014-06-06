@@ -7,6 +7,8 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Student</th>
+                <th>Module</th>
                 <th>Note</th>
                 <th>file</th>
                 <th>Actions</th>
@@ -16,13 +18,24 @@
         {% for entity in entities %}
             <tr>
                 <td><a href="{{ path('note_show', { 'id': entity.id }) }}" class="btn btn-default">{{ entity.id }}</a></td>
-                <td>{{ entity.note }}</td>
-                <td><a href="{{ path('note_download', { 'slug': entity.path }) }}">{{ entity.path }}</a></td>
+                <td>{{ entity.student.firstName }} {{ entity.student.lastName }}</td>
+                <td>{{ entity.module.code }} {{ entity.module.name }}</td>
+                {% if entity.path is not null %}
+                    <td>{{ entity.note }} / 20</td>
+                {% else %}
+                    <td>empty</td>
+                {% endif %}
+                {% if entity.path is not null %}
+                    <td><a href="{{ path('note_download', { 'slug': entity.path }) }}">{{ entity.path }}</a></td>
+                {% else %}
+                    <td>empty</td>
+                {% endif %}
                 <td>
                 <ul>
                     <li>
                         <a href="{{ path('note_show', { 'id': entity.id }) }}" class="btn btn-default">show</a>
                         <a href="{{ path('note_edit', { 'id': entity.id }) }}" class="btn btn-default">edit</a>
+                        <a href="{{ path('note_delete', { 'id': entity.id }) }}" class="btn btn-default">delete</a>
                     </li>
                 </ul>
                 </td>

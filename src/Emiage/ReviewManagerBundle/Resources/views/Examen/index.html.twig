@@ -7,6 +7,9 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Student</th>
+                <th>Module</th>
+                <th>ReviewCenter</th>
                 <th>Realizedon</th>
                 <th>Actions</th>
             </tr>
@@ -16,11 +19,15 @@
             <tr>
                 <td><a href="{{ path('examen_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{% if entity.realizedOn %}{{ entity.realizedOn|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.student.firstName }} {{ entity.student.lastName }}</td>
+                <td>{{ entity.module.code }} {{ entity.module.name }}</td>
+                <td>{{ entity.reviewCenter.name }}</td>
                 <td>
                 <ul>
                     <li>
                         <a href="{{ path('examen_show', { 'id': entity.id }) }}" class="btn btn-default">show</a>
                         <a href="{{ path('examen_edit', { 'id': entity.id }) }}" class="btn btn-default">edit</a>
+                        <a href="{{ path('examen_delete', { 'id': entity.id }) }}" class="btn btn-default">delete</a>
                     </li>
                 </ul>
                 </td>

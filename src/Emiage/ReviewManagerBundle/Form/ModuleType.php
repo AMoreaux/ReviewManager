@@ -24,6 +24,7 @@ class ModuleType extends AbstractType
             ->add('name')
             ->add('code')
             ->add('responsable')
+            ->add('file')
 
         ;
     }

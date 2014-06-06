@@ -27,4 +27,8 @@ module_update:
 module_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "EmiageReviewManagerBundle:Module:delete" }
-    requirements: { _method: post|delete }
+
+module_download:
+    pattern: /{slug}/download
+    defaults: { _controller: "EmiageReviewManagerBundle:Module:download" }
+

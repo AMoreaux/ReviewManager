@@ -9,6 +9,8 @@
                 <th>Id</th>
                 <th>Name</th>
                 <th>Code</th>
+                <th>Responsable</th>
+                <th>file</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -18,11 +20,22 @@
                 <td><a href="{{ path('module_show', { 'id': entity.id }) }}" class="btn btn-default">{{ entity.id }}</a></td>
                 <td>{{ entity.name }}</td>
                 <td>{{ entity.code }}</td>
+                {% if entity.responsable is not null %}
+                    <td>{{ entity.responsable.username }}</td>
+                {% else %}
+                    <td>empty</td>
+                {% endif %}
+                {% if entity.path is not null %}
+                    <td><a href="{{ path('module_download', { 'slug': entity.path }) }}"> <img src="{{ asset('images\zip.png') }}" /> </a></td>
+                {% else %}
+                    <td>empty</td>
+                {% endif %}
                 <td>
                 <ul>
                     <li>
                         <a href="{{ path('module_show', { 'id': entity.id }) }}" class="btn btn-default">show</a>
                         <a href="{{ path('module_edit', { 'id': entity.id }) }}" class="btn btn-default">edit</a>
+                        <a href="{{ path('module_delete', { 'id': entity.id }) }}" class="btn btn-default">delete</a>
                     </li>
                 </ul>
                 </td>

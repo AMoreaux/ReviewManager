@@ -46,8 +46,6 @@ class NoteController extends Controller
            if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
 
-                $entity->upload();
-
                 $em->persist($entity);
                 $em->flush();
 
@@ -108,11 +106,8 @@ class NoteController extends Controller
             throw $this->createNotFoundException('Unable to find Note entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
-
         return $this->render('EmiageReviewManagerBundle:Note:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        ));
+            'entity'      => $entity,));
     }
 
     /**
@@ -130,12 +125,10 @@ class NoteController extends Controller
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('EmiageReviewManagerBundle:Note:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -171,11 +164,11 @@ class NoteController extends Controller
             throw $this->createNotFoundException('Unable to find Note entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+
             $em->flush();
 
             return $this->redirect($this->generateUrl('note_edit', array('id' => $id)));
@@ -184,7 +177,6 @@ class NoteController extends Controller
         return $this->render('EmiageReviewManagerBundle:Note:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         ));
     }
     /**
@@ -193,10 +185,6 @@ class NoteController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('EmiageReviewManagerBundle:Note')->find($id);
 
@@ -206,34 +194,18 @@ class NoteController extends Controller
 
             $em->remove($entity);
             $em->flush();
-        }
+
 
         return $this->redirect($this->generateUrl('note'));
     }
 
-    /**
-     * Creates a form to delete a Note entity by id.
-     *
-     * @param mixed $id The entity id
-     * @Secure(roles="ROLE_SUPER_ADMIN")
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('note_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
-    }
     /**
     *@Secure(roles="ROLE_PROF")
     */
     public function downloadAction($slug)
     {
         $file = $slug;
-        $path = "../../ReviewManager/web/uploads/documents/";
+        $path = "../../ReviewManager/web/uploads/documents/Copies/";
 
         $response = new Response();
         $response->setContent(file_get_contents($path.$file));

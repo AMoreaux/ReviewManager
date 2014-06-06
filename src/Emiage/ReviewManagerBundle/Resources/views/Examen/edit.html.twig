@@ -2,19 +2,9 @@
 
 {% block content -%}
     <h1>Examen edit</h1>
-
     <form method="post" {{ form_enctype(form) }} class="input-group input-group-lg">
         <span class="input-group-addon">
             {{form(form)}}
         </span>
     </form>
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('examen') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
 {% endblock %}

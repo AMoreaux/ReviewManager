@@ -72,7 +72,7 @@ class Student
     protected $reviewsCenters;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Emiage\ReviewManagerBundle\Entity\Module", cascade={"persist"}, mappedBy="students")
+     * @ORM\ManyToMany(targetEntity="Emiage\ReviewManagerBundle\Entity\Module", cascade={"persist"}, inversedBy="students")
      */
     protected $modules;
 
@@ -85,20 +85,17 @@ class Student
      * @ORM\ManyToMany(targetEntity="Emiage\ReviewManagerBundle\Entity\Examen", cascade={"persist"}, mappedBy="students")
      */
     protected $examens;
+
     /**
      * Constructor
      */
     public function __construct()
     {
         $this->reviewsCenters = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->module = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->modules = new \Doctrine\Common\Collections\ArrayCollection();
         $this->notes = new \Doctrine\Common\Collections\ArrayCollection();
         $this->examens = new \Doctrine\Common\Collections\ArrayCollection();
     }
-
-
-
-
 
     /**
      * Get id
@@ -392,8 +389,6 @@ class Student
     {
         $this->examens->removeElement($examens);
     }
-
-
 
     /**
      * Get examens

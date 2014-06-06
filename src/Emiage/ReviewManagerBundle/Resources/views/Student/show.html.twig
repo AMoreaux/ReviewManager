@@ -29,6 +29,16 @@
                 <th>Phone</th>
                 <td>{{ entity.phone }}</td>
             </tr>
+           {<tr>
+                <th>Module</th>
+                <td>
+                    <ul>
+                       {% for module in entity.modules %}
+                        <li>{{ module.code }} / {{ module.name }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
         </tbody>
     </table>
 
@@ -43,6 +53,10 @@
             Edit
         </a>
     </li>
-    <li>{{ form(delete_form) }}</li>
+    <li>
+        <a href="{{ path('student_delete', { 'id': entity.id }) }}" class="btn btn-default">
+            Delete
+        </a>
+    </li>
 </ul>
 {% endblock %}

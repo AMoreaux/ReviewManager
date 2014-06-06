@@ -27,4 +27,3 @@ level_update:
 level_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "EmiageReviewManagerBundle:Level:delete" }
-    requirements: { _method: post|delete }

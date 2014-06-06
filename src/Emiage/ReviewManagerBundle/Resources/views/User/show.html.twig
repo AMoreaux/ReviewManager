@@ -23,6 +23,10 @@
             Edit
         </a>
     </li>
-    <li>{{ form(delete_form) }}</li>
+    <li>
+        <a href="{{ path('user_delete', { 'id': entity.id }) }}" class="btn btn-default">
+            Delete
+        </a>
+    </li>
 </ul>
 {% endblock %}

@@ -27,4 +27,3 @@ reviewcenter_update:
 reviewcenter_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "EmiageReviewManagerBundle:ReviewCenter:delete" }
-    requirements: { _method: post|delete }
