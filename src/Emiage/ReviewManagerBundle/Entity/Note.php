@@ -5,11 +5,14 @@ namespace Emiage\ReviewManagerBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Note
  *
  * @ORM\Table()
+ * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Entity(repositoryClass="Emiage\ReviewManagerBundle\Entity\NoteRepository")
  */
 class Note
@@ -41,12 +44,12 @@ class Note
     protected $module;
 
     /**
-     * @Assert\File(maxSize="6000000")
+     * @Assert\File(maxSize="60000000")
      */
     public $file;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $path;
 
@@ -153,6 +156,53 @@ class Note
     }
 
     /**
+     * Sets file.
+     *
+     * @param UploadedFile $file
+     */
+    public function setFile(UploadedFile $file = null)
+    {
+        $this->file = $file;
+
+        if (isset($this->path)) {
+
+            $this->temp = $this->path;
+            $this->path = null;
+        } else {
+            $this->path = 'initial';
+        }
+    }
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpload()
+    {
+        if (null !== $this->file) {
+            // faites ce que vous voulez pour générer un nom unique
+            $this->path = $this->file->getClientOriginalName();
+        }
+    }
+
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload()
+    {
+        if (null === $this->file) {
+            return;
+        }
+
+        $this->file->move($this->getUploadRootDir(), $this->file->getClientOriginalName());
+
+        $this->path = $this->file->getClientOriginalName();
+
+        $this->file = null;
+    }
+
+    /**
      * @ORM\PreRemove()
      */
     public function storeFilenameForRemove()
@@ -191,35 +241,6 @@ class Note
     public function getPath()
     {
         return $this->path;
-    }
-
-    /**
-     * @ORM\PrePersist()
-     * @ORM\PreUpdate()
-     */
-    public function preUpload()
-    {
-        if (null !== $this->file) {
-            // faites ce que vous voulez pour générer un nom unique
-            $this->path = $this->file->getClientOriginalName();
-        }
-    }
-
-    /**
-     * @ORM\PostPersist()
-     * @ORM\PostUpdate()
-     */
-    public function upload()
-    {
-        if (null === $this->file) {
-            return;
-        }
-
-        $this->file->move($this->getUploadRootDir(), $this->file->getClientOriginalName());
-
-        $this->path = $this->file->getClientOriginalName();
-
-        $this->file = null;
     }
 
 }

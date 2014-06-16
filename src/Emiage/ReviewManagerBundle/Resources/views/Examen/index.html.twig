@@ -19,9 +19,20 @@
             <tr>
                 <td><a href="{{ path('examen_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{% if entity.realizedOn %}{{ entity.realizedOn|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ entity.student.firstName }} {{ entity.student.lastName }}</td>
+                {% for student in entity %}
+                    <td>{{ student.firstName }} {{ student.lastName }}</td>
+                {% endfor %}
                 <td>{{ entity.module.code }} {{ entity.module.name }}</td>
-                <td>{{ entity.reviewCenter.name }}</td>
+                {% if entity.reviewCenter is not null %}
+                    <td>{{ entity.reviewCenter.name }}</td>
+                {% else %}
+                    <td>empty</td>
+                {% endif %}
+                {% if entity.Realizedon is not null %} %}
+                    <td>{{ entity.Realizedon }}</td>
+                {% else %}
+                    <td>empty</td>
+                {% endif %}
                 <td>
                 <ul>
                     <li>

@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * @ORM\Table()
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
+ * @ORM\Entity(repositoryClass="Emiage\ReviewManagerBundle\Entity\ModuleRepository")
  */
 class Module
 {
@@ -65,7 +66,7 @@ class Module
     protected $examens;
 
     /**
-     * @Assert\File(maxSize="6000000")
+     * @Assert\File(maxSize="60000000")
      */
     public $file;
 

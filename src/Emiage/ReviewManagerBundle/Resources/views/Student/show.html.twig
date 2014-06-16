@@ -29,7 +29,7 @@
                 <th>Phone</th>
                 <td>{{ entity.phone }}</td>
             </tr>
-           {<tr>
+           <tr>
                 <th>Module</th>
                 <td>
                     <ul>
@@ -42,12 +42,7 @@
         </tbody>
     </table>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('student') }}">
-            Back to the list
-        </a>
-    </li>
+<ul class="record_actions">
     <li>
         <a href="{{ path('student_edit', { 'id': entity.id }) }}" class="btn btn-default">
             Edit

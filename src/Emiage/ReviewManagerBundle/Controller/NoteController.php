@@ -150,6 +150,26 @@ class NoteController extends Controller
 
         return $form;
     }
+
+    /**
+     * Creates a form to edit a Note entity.
+     *
+     * @param Note $entity The entity
+     *@Secure(roles="ROLE_ADMIN, ROLE_PROF")
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createUpdateForm(Note $entity)
+    {
+        $form = $this->createForm(new NoteUpdateType(), $entity, array(
+            'action' => $this->generateUrl('note_update', array('id' => $entity->getId())),
+            'method' => 'PUT',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Update'));
+
+        return $form;
+    }
+
     /**
      * Edits an existing Note entity.
      *@Secure(roles="ROLE_ADMIN, ROLE_PROF")
@@ -171,7 +191,7 @@ class NoteController extends Controller
 
             $em->flush();
 
-            return $this->redirect($this->generateUrl('note_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('note'));
         }
 
         return $this->render('EmiageReviewManagerBundle:Note:edit.html.twig', array(
@@ -179,6 +199,7 @@ class NoteController extends Controller
             'edit_form'   => $editForm->createView(),
         ));
     }
+
     /**
      * Deletes a Note entity.
      * @Secure(roles="ROLE_SUPER_ADMIN")
@@ -214,4 +235,31 @@ class NoteController extends Controller
 
         return $response;
     }
+
+   /* public function researchAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('EmiageReviewManager:Note')->find($id);
+
+        $this->showFormAction();
+
+        return $this->render('EmiageReviewManagerBundle:Note:index.html.twig', array(
+        'entities' => $entity,
+        'form' => $form));
+    }
+
+    public function showFormAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entities = new Note();
+
+        $showForm = $this->createShowForm(new showFormType,  $entities);
+        $showForm->getRequest();
+
+        $form->bind($request);
+
+        return $form;
+    }*/
 }

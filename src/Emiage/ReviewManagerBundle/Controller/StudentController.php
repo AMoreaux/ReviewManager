@@ -9,6 +9,9 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 use Emiage\ReviewManagerBundle\Entity\Student;
 use Emiage\ReviewManagerBundle\Form\StudentType;
+use Emiage\ReviewManagerBundle\Entity\Module;
+use Emiage\ReviewManagerBundle\Entity\Note;
+use Emiage\ReviewManagerBundle\Entity\Examen;
 
 /**
  * Student controller.
@@ -45,6 +48,9 @@ class StudentController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
+
+            $this->createNoteAction($entity);
+            $this->createExamenAction($entity);
 
             return $this->redirect($this->generateUrl('student_show', array('id' => $entity->getId())));
         }
@@ -193,6 +199,42 @@ class StudentController extends Controller
             $em->flush();
 
         return $this->redirect($this->generateUrl('student'));
+    }
+
+    public function createNoteAction($entity)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $id = $entity->getId();
+        $modules = $em->getRepository('EmiageReviewManagerBundle:Module')->findWithStudents($id);
+
+        foreach($modules as $module)
+        {
+            $note = new Note();
+
+            $note->setstudent($entity);
+            $note->setmodule($module);
+
+            $em->persist($note);
+        }
+        $em->flush();
+    }
+
+    public function createExamenAction($entity)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $id = $entity->getId();
+        $modules = $em->getRepository('EmiageReviewManagerBundle:Module')->findWithStudents($id);
+
+        foreach($modules as $module)
+        {
+            $examen = new Examen();
+
+            $examen->addstudent($entity);
+            $examen->setmodule($module);
+
+            $em->persist($examen);
+        }
+        $em->flush();
     }
 
 }

@@ -24,7 +24,7 @@ class Examen
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="realizedOn", type="datetime")
+     * @ORM\Column(name="realizedOn", type="datetime",nullable=true, nullable=true)
      */
     protected $realizedOn;
 

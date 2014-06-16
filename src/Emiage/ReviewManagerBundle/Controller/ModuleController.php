@@ -171,7 +171,7 @@ class ModuleController extends Controller
 
             $em->flush();
 
-            return $this->redirect($this->generateUrl('module_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('module'));
         }
 
         return $this->render('EmiageReviewManagerBundle:Module:edit.html.twig', array(

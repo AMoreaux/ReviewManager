@@ -77,12 +77,12 @@ class Student
     protected $modules;
 
     /**
-     * @ORM\OneToMany(targetEntity="Emiage\ReviewManagerBundle\Entity\Note", cascade={"persist"}, mappedBy="student")
+     * @ORM\OneToMany(targetEntity="Emiage\ReviewManagerBundle\Entity\Note", cascade={"remove"}, mappedBy="student")
      */
     protected $notes;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Emiage\ReviewManagerBundle\Entity\Examen", cascade={"persist"}, mappedBy="students")
+     * @ORM\ManyToMany(targetEntity="Emiage\ReviewManagerBundle\Entity\Examen", cascade={"remove"}, mappedBy="students")
      */
     protected $examens;
 

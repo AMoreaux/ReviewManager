@@ -26,7 +26,7 @@
                     <td>empty</td>
                 {% endif %}
                 {% if entity.path is not null %}
-                    <td><a href="{{ path('module_download', { 'slug': entity.path }) }}"> <img src="{{ asset('images\zip.png') }}" /> </a></td>
+                    <td><a href="{{ path('module_download', { 'slug': entity.path }) }}"> {{ entity.path }} </a></td>
                 {% else %}
                     <td>empty</td>
                 {% endif %}
