@@ -16,9 +16,11 @@ class NoteRepository extends EntityRepository
     public function findNote($motclef)
     {
         $qb = $this->createQueryBuilder('n')
-            ->where('n.student LIKE :string')
-            ->orWhere('n.module LIKE :string')
-            ->setParameter('string', $motclef);
+            ->leftJoin('n.student', 's')
+            ->leftJoin('n.module', 'm')
+            ->where("s.name LIKE :motclef OR s.login LIKE :motclef OR m.name LIKE :motclef OR m.code LIKE :motclef" )
+            ->setParameter('motclef', $motclef);
+
         return $qb->getQuery()
             ->getResult();
     }

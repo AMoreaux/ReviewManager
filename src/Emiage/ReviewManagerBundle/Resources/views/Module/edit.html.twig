@@ -2,5 +2,32 @@
 
 {% block content -%}
     <h1>Module edit</h1>
-    {{ form(edit_form) }}
+
+{{ form_start(edit_form) }}
+
+   {% if is_granted('ROLE_PROF') %}
+
+        {{ form_label(edit_form.file, ' ') }}
+        {{ form_errors(edit_form.file) }}
+        {{ form_widget(edit_form.file) }}
+   {% endif %}
+
+   {% if is_granted('ROLE_ADMIN') %}
+
+        {{ form_label(edit_form.code) }}
+        {{ form_errors(edit_form.code) }}
+        {{ form_widget(edit_form.code) }}
+
+        {{ form_label(edit_form.responsable) }}
+        {{ form_errors(edit_form.responsable) }}
+        {{ form_widget(edit_form.responsable) }}
+
+        {{ form_label(edit_form.name) }}
+        {{ form_errors(edit_form.name) }}
+        {{ form_widget(edit_form.name) }}
+
+   {% endif %}
+
+    {{ form_end(edit_form) }}
+
 {% endblock %}

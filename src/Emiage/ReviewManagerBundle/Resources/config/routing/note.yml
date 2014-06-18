@@ -32,12 +32,6 @@ note_download:
     pattern: /{slug}/download
     defaults: { _controller: "EmiageReviewManagerBundle:Note:download" }
 
-note_research:
-    pattern: /note/research
-    defaults: { _controller: "EmiageReviewManagerBundle:Note:research" }
-    requirements:
-      _method: POST
-
 note_upload:
     pattern: /{id}/upload
     defaults: { _controller: "EmiageReviewManagerBundle:Note:upload" }

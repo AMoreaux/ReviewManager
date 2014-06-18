@@ -8,7 +8,7 @@ user_show:
 
 user_new:
     pattern:  /new
-    defaults: { _controller: "EmiageUserBundle:User:new" }
+    defaults: { _controller: "EmiageUserBundle:Registration:register" }
 
 user_create:
     pattern:  /create

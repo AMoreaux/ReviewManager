@@ -24,24 +24,6 @@ class NoteController extends Controller
 {
 
     /**
-     * Lists all Note entities.
-     *@Secure(roles="ROLE_ADMIN, ROLE_PROF")
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('EmiageReviewManagerBundle:Note')->findAll();
-
-        $form = $this->container->get('form.factory')->create(new ResearchFormType());
-
-        return $this->render('EmiageReviewManagerBundle:Note:index.html.twig', array(
-            'entities' => $entities,
-            'form' => $form->createView(),
-        ));
-    }
-
-    /**
      * Creates a new Note entity.
      *@Secure(roles="ROLE_ADMIN, ROLE_PROF")
      */
@@ -225,7 +207,7 @@ class NoteController extends Controller
         return $response;
     }
 
-    /*public function uploadAction($id, Request $request)
+    public function uploadAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -249,13 +231,17 @@ class NoteController extends Controller
             'entity'      => $entity,
             'form'   => $editForm->createView(),
         ));
-    }*/
+    }
 
-   public function researchAction()
+    /**
+     * Lists all Note entities.
+     *@Secure(roles="ROLE_ADMIN, ROLE_PROF")
+     */
+    public function indexAction()
     {
         $form = $this->createForm(new ResearchFormType());
 
-        $em = $this->container->get('doctrine')->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $request = $this->getRequest();
 
@@ -264,17 +250,7 @@ class NoteController extends Controller
                 $form->bind($request);
                 $motclef = $form["motclef"]->getData();
 
-                $qb = $em->createQueryBuilder();
-
-                $qb->select('n')
-                    ->from('EmiageReviewManagerBundle:Note', 'n')
-                    ->leftJoin('n.student', 's')
-                    ->leftJoin('n.module', 'm')
-                    ->where("s.name LIKE :motclef OR s.login LIKE :motclef OR m.name LIKE :motclef OR m.code LIKE :motclef" )
-                    ->setParameter('motclef', $motclef);
-
-                $query = $qb->getQuery();
-                $entities = $query->getResult();
+                $entities = $em->getRepository('EmiageReviewManagerBundle:Note')->findNote($motclef);
             }
             else
             {

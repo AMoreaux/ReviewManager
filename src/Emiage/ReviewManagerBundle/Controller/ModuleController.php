@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 use Emiage\ReviewManagerBundle\Entity\Module;
 use Emiage\ReviewManagerBundle\Form\ModuleType;
+use Emiage\ReviewManagerBundle\Form\ResearchFormType;
 
 /**
  * Module controller.
@@ -20,16 +21,31 @@ class ModuleController extends Controller
 
     /**
      * Lists all Module entities.
-     * @Secure(roles="ROLE_ADMIN")
+     * @Secure(roles="ROLE_ADMIN, ROLE_PROF")
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('EmiageReviewManagerBundle:Module')->findAll();
+        $form = $this->createForm(new ResearchFormType());
+
+        $request = $this->getRequest();
+
+        if ($request->getMethod() == 'POST')
+        {
+            $form->bind($request);
+            $motclef = $form["motclef"]->getData();
+
+            $entities = $em->getRepository('EmiageReviewManagerBundle:Module')->findNote($motclef);
+        }
+        else
+        {
+            $entities = $em->getRepository('EmiageReviewManagerBundle:Module')->findAll();
+        }
 
         return $this->render('EmiageReviewManagerBundle:Module:index.html.twig', array(
             'entities' => $entities,
+            'form' => $form->createView()
         ));
     }
     /**

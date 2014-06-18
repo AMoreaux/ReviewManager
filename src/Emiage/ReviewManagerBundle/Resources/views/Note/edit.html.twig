@@ -2,5 +2,32 @@
 
 {% block content -%}
     <h1>Note edit</h1>
-    {{ form(edit_form) }}
+
+    {{ form_start(edit_form) }}
+
+    {% if is_granted('ROLE_ADMIN') %}
+
+        {{ form_label(edit_form.file, ' ') }}
+        {{ form_errors(edit_form.file) }}
+        {{ form_widget(edit_form.file) }}
+
+        {{ form_label(edit_form.student) }}
+        {{ form_errors(edit_form.student) }}
+        {{ form_widget(edit_form.student) }}
+
+        {{ form_label(edit_form.module) }}
+        {{ form_errors(edit_form.module) }}
+        {{ form_widget(edit_form.module) }}
+
+    {% endif %}
+    {% if is_granted('ROLE_PROF') %}
+
+        {{ form_label(edit_form.note) }}
+        {{ form_errors(edit_form.note) }}
+        {{ form_widget(edit_form.note) }}
+
+    {% endif %}
+
+    {{ form_end(edit_form) }}
+
 {% endblock %}

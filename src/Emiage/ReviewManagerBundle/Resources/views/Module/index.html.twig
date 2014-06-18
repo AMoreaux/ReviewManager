@@ -3,6 +3,13 @@
 {% block content -%}
     <h1>Module list</h1>
 
+    <form class="input-group input-group-lg" action="{{ path('module') }}" method="post">
+        <span class="input-group-addon">
+            {{ form_widget(form) }}
+            <input type="submit" value="Rechercher" />
+        </span>
+    </form>
+
     <table class="table">
         <thead>
             <tr>
@@ -11,7 +18,9 @@
                 <th>Code</th>
                 <th>Responsable</th>
                 <th>file</th>
-                <th>Actions</th>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <th>Actions</th>
+                {% endif %}
             </tr>
         </thead>
         <tbody>
@@ -27,17 +36,21 @@
                 {% endif %}
                 {% if entity.path is not null %}
                     <td><a href="{{ path('module_download', { 'slug': entity.path }) }}"> {{ entity.path }} </a></td>
+                {% elseif is_granted('username') == entity.responsable.username %}
+                    <td><a href="{{ path('module_edit', { 'id': entity.id }) }}" class="btn btn-default">(Ajouter le contenu)</a></td>
                 {% else %}
-                    <td>empty</td>
+                    <td> </td>
                 {% endif %}
                 <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('module_show', { 'id': entity.id }) }}" class="btn btn-default">show</a>
-                        <a href="{{ path('module_edit', { 'id': entity.id }) }}" class="btn btn-default">edit</a>
-                        <a href="{{ path('module_delete', { 'id': entity.id }) }}" class="btn btn-default">delete</a>
-                    </li>
-                </ul>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <ul>
+                            <li>
+                                <a href="{{ path('module_show', { 'id': entity.id }) }}" class="btn btn-default">show</a>
+                                <a href="{{ path('module_edit', { 'id': entity.id }) }}" class="btn btn-default">edit</a>
+                                <a href="{{ path('module_delete', { 'id': entity.id }) }}" class="btn btn-default">delete</a>
+                            </li>
+                        </ul>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}

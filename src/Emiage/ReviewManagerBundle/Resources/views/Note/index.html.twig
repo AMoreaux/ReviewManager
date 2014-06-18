@@ -3,7 +3,7 @@
 {% block content -%}
     <h1>Note list</h1>
 
-    <form class="input-group input-group-lg" action="{{ path('note_research') }}" method="post">
+    <form class="input-group input-group-lg" action="{{ path('note') }}" method="post">
         <span class="input-group-addon">
             {{ form_widget(form) }}
              <input type="submit" value="Rechercher" />
@@ -18,7 +18,9 @@
                 <th>Module</th>
                 <th>Note</th>
                 <th>file</th>
-                <th>Actions</th>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <th>Actions</th>
+                {% endif %}
             </tr>
         </thead>
         <tbody>
@@ -30,21 +32,32 @@
                 {% if entity.note is not null %}
                     <td>{{ entity.note }} / 20</td>
                 {% else %}
-                    <td>empty</td>
+                    <td>
+                        {% if entity.path is not null %}
+
+                            <a href="{{ path('note_edit', { 'id': entity.id }) }}" class="btn btn-default">(noter l'étudiant)</a>
+                        {% endif %}
+                    </td>
                 {% endif %}
                 {% if entity.path is not null %}
                     <td><a href="{{ path('note_download', { 'slug': entity.path }) }}">{{ entity.path }}</a></td>
                 {% else %}
-                    <td><a href="{{ path('note_upload', { 'id': entity.id }) }}">(uploader une copie)</a></td>
+                    <td>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('note_edit', { 'id': entity.id }) }}" class="btn btn-default">(uploader une copie)</a>
+                        {% endif %}
+                    </td>
                 {% endif %}
                 <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('note_show', { 'id': entity.id }) }}" class="btn btn-default">show</a>
-                        <a href="{{ path('note_edit', { 'id': entity.id }) }}" class="btn btn-default">edit</a>
-                        <a href="{{ path('note_delete', { 'id': entity.id }) }}" class="btn btn-default">delete</a>
-                    </li>
-                </ul>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <ul>
+                            <li>
+                                <a href="{{ path('note_show', { 'id': entity.id }) }}" class="btn btn-default">show</a>
+                                <a href="{{ path('note_edit', { 'id': entity.id }) }}" class="btn btn-default">edit</a>
+                                <a href="{{ path('note_delete', { 'id': entity.id }) }}" class="btn btn-default">delete</a>
+                            </li>
+                        </ul>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}
