@@ -2,6 +2,7 @@
 
 namespace Emiage\ReviewManagerBundle\Controller;
 
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -10,7 +11,10 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 use Emiage\ReviewManagerBundle\Entity\Note;
 use Emiage\ReviewManagerBundle\Form\NoteType;
+use Emiage\ReviewManagerBundle\Form\ResearchFormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
+use Symfony\Component\Form\Form;
 
 /**
  * Note controller.
@@ -29,10 +33,14 @@ class NoteController extends Controller
 
         $entities = $em->getRepository('EmiageReviewManagerBundle:Note')->findAll();
 
+        $form = $this->container->get('form.factory')->create(new ResearchFormType());
+
         return $this->render('EmiageReviewManagerBundle:Note:index.html.twig', array(
             'entities' => $entities,
+            'form' => $form->createView(),
         ));
     }
+
     /**
      * Creates a new Note entity.
      *@Secure(roles="ROLE_ADMIN, ROLE_PROF")
@@ -152,25 +160,6 @@ class NoteController extends Controller
     }
 
     /**
-     * Creates a form to edit a Note entity.
-     *
-     * @param Note $entity The entity
-     *@Secure(roles="ROLE_ADMIN, ROLE_PROF")
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createUpdateForm(Note $entity)
-    {
-        $form = $this->createForm(new NoteUpdateType(), $entity, array(
-            'action' => $this->generateUrl('note_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
-
-        $form->add('submit', 'submit', array('label' => 'Update'));
-
-        return $form;
-    }
-
-    /**
      * Edits an existing Note entity.
      *@Secure(roles="ROLE_ADMIN, ROLE_PROF")
      */
@@ -236,30 +225,65 @@ class NoteController extends Controller
         return $response;
     }
 
-   /* public function researchAction($id)
+    /*public function uploadAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('EmiageReviewManager:Note')->find($id);
+        $entity = $em->getRepository('EmiageReviewManagerBundle:Note')->find($id);
 
-        $this->showFormAction();
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Note entity.');
+        }
 
-        return $this->render('EmiageReviewManagerBundle:Note:index.html.twig', array(
-        'entities' => $entity,
-        'form' => $form));
-    }
+        $editForm = $this->createEditForm($entity);
+        $editForm->handleRequest($request);
 
-    public function showFormAction()
-    {
-        $em = $this->getDoctrine()->getManager();
+        if ($editForm->isValid()) {
 
-        $entities = new Note();
+            $em->flush();
 
-        $showForm = $this->createShowForm(new showFormType,  $entities);
-        $showForm->getRequest();
+            return $this->redirect($this->generateUrl('note'));
+        }
 
-        $form->bind($request);
-
-        return $form;
+        return $this->render('EmiageReviewManagerBundle:Note:Upload.html.twig', array(
+            'entity'      => $entity,
+            'form'   => $editForm->createView(),
+        ));
     }*/
+
+   public function researchAction()
+    {
+        $form = $this->createForm(new ResearchFormType());
+
+        $em = $this->container->get('doctrine')->getEntityManager();
+
+        $request = $this->getRequest();
+
+            if ($request->getMethod() == 'POST')
+            {
+                $form->bind($request);
+                $motclef = $form["motclef"]->getData();
+
+                $qb = $em->createQueryBuilder();
+
+                $qb->select('n')
+                    ->from('EmiageReviewManagerBundle:Note', 'n')
+                    ->leftJoin('n.student', 's')
+                    ->leftJoin('n.module', 'm')
+                    ->where("s.name LIKE :motclef OR s.login LIKE :motclef OR m.name LIKE :motclef OR m.code LIKE :motclef" )
+                    ->setParameter('motclef', $motclef);
+
+                $query = $qb->getQuery();
+                $entities = $query->getResult();
+            }
+            else
+            {
+                $entities = $em->getRepository('EmiageReviewManagerBundle:Note')->findAll();
+            }
+
+        return $this->container->get('templating')->renderResponse('EmiageReviewManagerBundle:Note:index.html.twig', array(
+            'entities' => $entities,
+            'form' => $form->createView()));
+    }
 }
+

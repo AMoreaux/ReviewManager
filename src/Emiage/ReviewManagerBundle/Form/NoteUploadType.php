@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class NoteType extends AbstractType
+class NoteUploadType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -16,6 +16,20 @@ class NoteType extends AbstractType
     {
         $builder
             ->add('file')
+            ->add('note', 'text',  array(
+                'required' => false,
+                'attr'=>array('class'=>'hidden')
+            ))
+            ->add('student', 'entity', array(
+                'class'=>'EmiageReviewManagerBundle:Student',
+                'property'=>'login',
+                'multiple'=>false,
+                'attr'=>array('class'=>'hidden')))
+            ->add('module', 'entity', array(
+                'class'=>'EmiageReviewManagerBundle:Module',
+                'property'=>'code',
+                'multiple'=>false,
+                'attr'=>array('class'=>'hidden')))
         ;
     }
 

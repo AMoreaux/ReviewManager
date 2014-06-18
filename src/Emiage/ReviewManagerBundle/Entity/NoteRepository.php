@@ -12,4 +12,14 @@ use Doctrine\ORM\EntityRepository;
  */
 class NoteRepository extends EntityRepository
 {
+
+    public function findNote($motclef)
+    {
+        $qb = $this->createQueryBuilder('n')
+            ->where('n.student LIKE :string')
+            ->orWhere('n.module LIKE :string')
+            ->setParameter('string', $motclef);
+        return $qb->getQuery()
+            ->getResult();
+    }
 }
