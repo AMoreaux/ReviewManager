@@ -7,8 +7,7 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>firstname</th>
-                <th>lastname</th>
+                <th>Name</th>
                 <th>Login</th>
                 <th>Mail</th>
                 <th>Phone</th>
@@ -19,8 +18,7 @@
         {% for entity in entities %}
             <tr>
                 <td><a href="{{ path('student_show', { 'id': entity.id }) }}" class="btn btn-default">{{ entity.id }}</a></td>
-                <td>{{ entity.firstname }}</td>
-                <td>{{ entity.lastname }}</td>
+                <td>{{ entity.name }}</td>
                 <td>{{ entity.login }}</td>
                 <td>{{ entity.mail }}</td>
                 <td>{{ entity.phone }}</td>

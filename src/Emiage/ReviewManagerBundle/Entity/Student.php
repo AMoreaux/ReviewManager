@@ -24,16 +24,9 @@ class Student
     /**
      * @var string
      *
-     * @ORM\Column(name="lastName", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=255)
      */
-    protected $lastName;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="firstName", type="string", length=255)
-     */
-    protected $firstName;
+    protected $name;
 
     /**
      * @var string
@@ -398,5 +391,28 @@ class Student
     public function getExamens()
     {
         return $this->examens;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Student
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 }

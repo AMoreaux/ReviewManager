@@ -20,7 +20,7 @@
                 <td><a href="{{ path('examen_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{% if entity.realizedOn %}{{ entity.realizedOn|date('Y-m-d H:i:s') }}{% endif %}</td>
                 {% for student in entity %}
-                    <td>{{ student.firstName }} {{ student.lastName }}</td>
+                    <td>{{ student.name }}</td>
                 {% endfor %}
                 <td>{{ entity.module.code }} {{ entity.module.name }}</td>
                 {% if entity.reviewCenter is not null %}
