@@ -12,6 +12,7 @@ use Emiage\ReviewManagerBundle\Form\StudentType;
 use Emiage\ReviewManagerBundle\Entity\Module;
 use Emiage\ReviewManagerBundle\Entity\Note;
 use Emiage\ReviewManagerBundle\Entity\Examen;
+use Emiage\ReviewManagerBundle\Form\ResearchFormType;
 
 /**
  * Student controller.
@@ -28,11 +29,26 @@ class StudentController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('EmiageReviewManagerBundle:Student')->findAll();
+        $form = $this->createForm(new ResearchFormType());
 
-        return $this->render('EmiageReviewManagerBundle:Student:index.html.twig', array(
+        $request = $this->getRequest();
+
+        if ($request->getMethod() == 'POST')
+        {
+            $form->bind($request);
+            $motclef = $form["motclef"]->getData();
+
+            $entities = $em->getRepository('EmiageReviewManagerBundle:Student')->findStudent($motclef);
+        }
+        else
+        {
+            $entities = $em->getRepository('EmiageReviewManagerBundle:Student')->findAll();
+        }
+
+
+        return $this->container->get('templating')->renderResponse('EmiageReviewManagerBundle:Student:index.html.twig', array(
             'entities' => $entities,
-        ));
+            'form' => $form->createView()));
     }
     /**
      * Creates a new Student entity.
@@ -49,8 +65,8 @@ class StudentController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            $this->createNoteAction($entity);
-            $this->createExamenAction($entity);
+           // $this->createNoteAction($entity);
+           // $this->createExamenAction($entity);
 
             return $this->redirect($this->generateUrl('student_show', array('id' => $entity->getId())));
         }
@@ -153,6 +169,7 @@ class StudentController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing Student entity.
      * @Secure(roles="ROLE_ADMIN")
@@ -173,7 +190,7 @@ class StudentController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('student_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('student'));
         }
 
         return $this->render('EmiageReviewManagerBundle:Student:edit.html.twig', array(
@@ -201,7 +218,7 @@ class StudentController extends Controller
         return $this->redirect($this->generateUrl('student'));
     }
 
-    public function createNoteAction($entity)
+   /* public function createNoteAction($entity)
     {
         $em = $this->getDoctrine()->getManager();
         $id = $entity->getId();
@@ -217,13 +234,13 @@ class StudentController extends Controller
             $em->persist($note);
         }
         $em->flush();
-    }
+    }*/
 
-    public function createExamenAction($entity)
+    public function choiceExamenAction($student, $module)
     {
         $em = $this->getDoctrine()->getManager();
-        $id = $entity->getId();
-        $modules = $em->getRepository('EmiageReviewManagerBundle:Module')->findWithStudents($id);
+        $id = $module->getId();
+        $entity = $em->getRepository('EmiageReviewManagerBundle:Examen')->findWithModule($id);
 
         foreach($modules as $module)
         {

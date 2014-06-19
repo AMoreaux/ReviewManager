@@ -8,12 +8,15 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class StudentType extends AbstractType
 {
+
         /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        parent :: buildForm ( $builder ,  $options );
+
         $builder
             ->add('name',  'text')
             ->add('login',  'text')
@@ -27,10 +30,6 @@ class StudentType extends AbstractType
                 'class'=>'EmiageReviewManagerBundle:RegisterCenter',
                 'property'=>'name',
                 'multiple'=>false,))
-            ->add('reviewsCenters', 'entity', array(
-                'class'=>'EmiageReviewManagerBundle:ReviewCenter',
-                'property'=>'name',
-                'multiple'=>true,))
             ->add('modules', 'entity', array(
                 'class'=>'EmiageReviewManagerBundle:module',
                 'property'=>'name',
@@ -55,4 +54,5 @@ class StudentType extends AbstractType
     {
         return 'emiage_reviewmanagerbundle_student';
     }
+
 }

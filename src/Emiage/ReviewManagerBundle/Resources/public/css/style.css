@@ -16,10 +16,13 @@ ul {
 }
 
 .navbar {
-margin-left: 25%;
-margin-right: 25%;
+    position: absolute;
+    z-index: 1;
 }
 
 .connection{
+    position: absolute;
+    margin-left: 80%;
     margin-top: -55px;
+    z-index: 2;
 }

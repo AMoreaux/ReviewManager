@@ -3,6 +3,13 @@
 {% block content -%}
     <h1>Student list</h1>
 
+    <form class="input-group input-group-lg" action="{{ path('student') }}" method="post">
+        <span class="input-group-addon">
+            {{ form_widget(form) }}
+            <input type="submit" value="Rechercher" />
+        </span>
+    </form>
+
     <table class="table">
         <thead>
             <tr>

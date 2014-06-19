@@ -12,4 +12,16 @@ use Doctrine\ORM\EntityRepository;
  */
 class ExamenRepository extends EntityRepository
 {
+    public function findExamen($motclef)
+    {
+        $qb = $this->createQueryBuilder('e')
+            ->leftJoin('e.module', 'm')
+            ->leftJoin('e.students', 's')
+            ->leftJoin('e.reviewCenter', 'r')
+            ->where("s.name LIKE :motclef OR s.login LIKE :motclef OR s.mail LIKE :motclef OR s.phone LIKE :motclef OR m.name LIKE :motclef OR m.code LIKE :motclef OR r.name LIKE :motclef OR e.code LIKE :motclef" )
+            ->setParameter('motclef', $motclef);
+
+        return $qb->getQuery()
+            ->getResult();
+    }
 }

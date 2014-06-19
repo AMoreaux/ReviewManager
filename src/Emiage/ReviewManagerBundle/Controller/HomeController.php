@@ -11,15 +11,15 @@ Class HomeController extends Controller
 {
     public function indexAction()
     {
-        if (!$this->get('security.context')->isGranted('ROLE_ADMIN'))
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN'))
         {
             return $this->redirect($this->generateUrl('module'));
         }
-        elseif(!$this->get('security.context')->isGranted('ROLE_PROF'))
+        elseif($this->get('security.context')->isGranted('ROLE_PROF'))
         {
             return $this->redirect($this->generateUrl('note'));
         }
-        elseif(!$this->get('security.context')->isGranted('ROLE_ETU'))
+        elseif($this->get('security.context')->isGranted('ROLE_STUD'))
         {
             return $this->redirect($this->generateUrl('student'));
         }

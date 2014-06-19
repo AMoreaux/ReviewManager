@@ -29,11 +29,6 @@ class ReviewCenter
     protected $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Emiage\ReviewManagerBundle\Entity\Student", cascade={"persist"}, mappedBy="reviewsCenters")
-     */
-    protected $students;
-
-    /**
      * @ORM\OneToMany(targetEntity="Emiage\ReviewManagerBundle\Entity\Examen", cascade={"persist"}, mappedBy="reviewCenter")
      */
     protected $examens;

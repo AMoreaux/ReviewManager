@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityRepository;
  */
 class ModuleRepository extends EntityRepository
 {
-    public function findNote($motclef)
+    public function findModule($motclef)
     {
         $qb = $this->createQueryBuilder('m')
             ->leftJoin('m.responsable', 'u')

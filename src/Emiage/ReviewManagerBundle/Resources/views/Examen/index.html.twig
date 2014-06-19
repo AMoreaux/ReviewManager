@@ -3,14 +3,22 @@
 {% block content -%}
     <h1>Examen list</h1>
 
+    <form class="input-group input-group-lg" action="{{ path('examen') }}" method="post">
+        <span class="input-group-addon">
+            {{ form_widget(form) }}
+            <input type="submit" value="Rechercher" />
+        </span>
+    </form>
+
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Student</th>
+                <th>Code</th>
                 <th>Module</th>
                 <th>ReviewCenter</th>
                 <th>Realizedon</th>
+                <th>Student</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -18,21 +26,25 @@
         {% for entity in entities %}
             <tr>
                 <td><a href="{{ path('examen_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{% if entity.realizedOn %}{{ entity.realizedOn|date('Y-m-d H:i:s') }}{% endif %}</td>
-                {% for student in entity %}
-                    <td>{{ student.name }}</td>
-                {% endfor %}
+                <td>{{ entity.code }}</td>
                 <td>{{ entity.module.code }} {{ entity.module.name }}</td>
                 {% if entity.reviewCenter is not null %}
                     <td>{{ entity.reviewCenter.name }}</td>
                 {% else %}
                     <td>empty</td>
                 {% endif %}
-                {% if entity.Realizedon is not null %} %}
-                    <td>{{ entity.Realizedon }}</td>
+                {% if entity.Realizedon is not null %}
+                    <td>{{ entity.realizedOn|date('Y-m-d H:i:s') }}</td>
                 {% else %}
                     <td>empty</td>
                 {% endif %}
+                <td>
+                    <ul>
+                        {% for student in entity %}
+                            <li>{{ student.name }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
                 <td>
                 <ul>
                     <li>

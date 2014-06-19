@@ -22,6 +22,13 @@ class Examen
     protected $id;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="code", type="string", length=255)
+     */
+    protected $code;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="realizedOn", type="datetime",nullable=true, nullable=true)
@@ -161,5 +168,28 @@ class Examen
     public function getReviewCenter()
     {
         return $this->reviewCenter;
+    }
+
+    /**
+     * Set code
+     *
+     * @param string $code
+     * @return Examen
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    /**
+     * Get code
+     *
+     * @return string 
+     */
+    public function getCode()
+    {
+        return $this->code;
     }
 }

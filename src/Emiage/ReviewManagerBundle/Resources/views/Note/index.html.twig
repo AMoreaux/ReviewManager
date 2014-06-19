@@ -38,7 +38,7 @@
                         {% endif %}
                     </td>
                 {% endif %}
-                {% if ((entity.path is not null) and ( app.user.username == entity.module.responsable.username)) or is_granted('ROLE_ADMIN')%}
+                {% if ((entity.path is not null) and ( app.user.username == entity.module.responsable.username or is_granted('ROLE_ADMIN'))) %}
                     <td><a href="{{ path('note_download', { 'slug': entity.path }) }}">{{ entity.path }}</a></td>
                 {% else %}
                     <td>

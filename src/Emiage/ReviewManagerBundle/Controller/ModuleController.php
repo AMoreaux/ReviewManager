@@ -36,7 +36,7 @@ class ModuleController extends Controller
             $form->bind($request);
             $motclef = $form["motclef"]->getData();
 
-            $entities = $em->getRepository('EmiageReviewManagerBundle:Module')->findNote($motclef);
+            $entities = $em->getRepository('EmiageReviewManagerBundle:Module')->findModule($motclef);
         }
         else
         {

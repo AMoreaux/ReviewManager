@@ -9,6 +9,8 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 use Emiage\ReviewManagerBundle\Entity\Examen;
 use Emiage\ReviewManagerBundle\Form\ExamenType;
+use Emiage\ReviewManagerBundle\Form\ResearchFormType;
+
 
 /**
  * Examen controller.
@@ -19,21 +21,36 @@ class ExamenController extends Controller
 
     /**
      * Lists all Examen entities.
-     * @Secure(roles="ROLE_SUPER_ADMIN")
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('EmiageReviewManagerBundle:Examen')->findAll();
+        $form = $this->createForm(new ResearchFormType());
+
+        $request = $this->getRequest();
+
+        if ($request->getMethod() == 'POST')
+        {
+            $form->bind($request);
+            $motclef = $form["motclef"]->getData();
+
+            $entities = $em->getRepository('EmiageReviewManagerBundle:Examen')->findExamen($motclef);
+        }
+        else
+        {
+            $entities = $em->getRepository('EmiageReviewManagerBundle:Examen')->findAll();
+        }
 
         return $this->render('EmiageReviewManagerBundle:Examen:index.html.twig', array(
             'entities' => $entities,
+            'form' => $form->createView()
         ));
     }
     /**
      * Creates a new Examen entity.
-     * @Secure(roles="ROLE_SUPER_ADMIN")
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function createAction(Request $request)
     {
@@ -59,7 +76,7 @@ class ExamenController extends Controller
     * Creates a form to create a Examen entity.
     *
     * @param Examen $entity The entity
-    * @Secure(roles="ROLE_SUPER_ADMIN")
+    * @Secure(roles="ROLE_ADMIN")
     * @return \Symfony\Component\Form\Form The form
     */
     private function createCreateForm(Examen $entity)
@@ -76,7 +93,7 @@ class ExamenController extends Controller
 
     /**
      * Displays a form to create a new Examen entity.
-     * @Secure(roles="ROLE_SUPER_ADMIN")
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function newAction()
     {
@@ -91,7 +108,7 @@ class ExamenController extends Controller
 
     /**
      * Finds and displays a Examen entity.
-     * @Secure(roles="ROLE_SUPER_ADMIN")
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function showAction($id)
     {
@@ -109,7 +126,7 @@ class ExamenController extends Controller
 
     /**
      * Displays a form to edit an existing Examen entity.
-     * @Secure(roles="ROLE_SUPER_ADMIN")
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function editAction($id)
     {
@@ -133,7 +150,7 @@ class ExamenController extends Controller
     * Creates a form to edit a Examen entity.
     *
     * @param Examen $entity The entity
-    * @Secure(roles="ROLE_SUPER_ADMIN")
+    * @Secure(roles="ROLE_ADMIN")
     * @return \Symfony\Component\Form\Form The form
     */
     private function createEditForm(Examen $entity)
@@ -149,10 +166,11 @@ class ExamenController extends Controller
     }
     /**
      * Edits an existing Examen entity.
-     * @Secure(roles="ROLE_SUPER_ADMIN")
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function updateAction(Request $request, $id)
     {
+        var_dump($id);
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('EmiageReviewManagerBundle:Examen')->find($id);
@@ -167,7 +185,7 @@ class ExamenController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('examen_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('examen'));
         }
 
         return $this->render('EmiageReviewManagerBundle:Examen:edit.html.twig', array(
@@ -177,7 +195,7 @@ class ExamenController extends Controller
     }
     /**
      * Deletes a Examen entity.
-     * @Secure(roles="ROLE_SUPER_ADMIN")
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function deleteAction(Request $request, $id)
     {

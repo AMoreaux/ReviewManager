@@ -27,3 +27,4 @@ student_update:
 student_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "EmiageReviewManagerBundle:Student:delete" }
+

@@ -2,9 +2,5 @@
 
 {% block content -%}
     <h1>Examen edit</h1>
-    <form method="post" {{ form_enctype(form) }} class="input-group input-group-lg">
-        <span class="input-group-addon">
-            {{form(form)}}
-        </span>
-    </form>
+            {{ form(edit_form) }}
 {% endblock %}

@@ -16,9 +16,13 @@ class ExamenType extends AbstractType
     {
         $builder
             ->add('realizedOn')
-            ->add('students')
-            ->add('module')
-            ->add('reviewCenter')
+            ->add('code')
+            ->add('module', 'entity', array(
+                'class'=>'EmiageReviewManagerBundle:module',
+                'property'=>'name',))
+            ->add('reviewCenter', 'entity', array(
+                'class'=>'EmiageReviewManagerBundle:reviewCenter',
+                'property'=>'name',))
         ;
     }
     
