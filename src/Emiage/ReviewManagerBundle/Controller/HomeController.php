@@ -11,6 +11,21 @@ Class HomeController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('EmiageReviewManagerBundle:Home:index.html.twig');
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN'))
+        {
+            return $this->redirect($this->generateUrl('module'));
+        }
+        elseif(!$this->get('security.context')->isGranted('ROLE_PROF'))
+        {
+            return $this->redirect($this->generateUrl('note'));
+        }
+        elseif(!$this->get('security.context')->isGranted('ROLE_ETU'))
+        {
+            return $this->redirect($this->generateUrl('student'));
+        }
+        else
+        {
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
     }
 }

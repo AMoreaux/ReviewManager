@@ -2,7 +2,6 @@
 
 {% extends '::base.html.twig' %}
 
-{# Dans notre layout, il faut définir le block body #}
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
@@ -14,13 +13,6 @@
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 {% endblock %}
 {% block body %}
-    {% for type, messages in app.session.flashBag.all %}
-        {% for message in messages %}
-            <div class="{{ type }}">
-                {{ message|trans({}, 'FOSUserBundle') }}
-            </div>
-        {% endfor %}
-    {% endfor %}
     <div>
         {% block content %}
         {% endblock content%}

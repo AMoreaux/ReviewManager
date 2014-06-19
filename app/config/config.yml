@@ -75,6 +75,9 @@ fos_user:
     registration:
             form:
                type: emiage_user_registration        # this is the same alias specified in services
+    profile:
+            form:
+               type: emiage_user_profile
 
 jms_security_extra:
     secure_all_services: false

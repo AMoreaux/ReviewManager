@@ -5,8 +5,9 @@ namespace Emiage\UserBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Emiage\UserBundle\Form\RegistrationFormType as BaseType;
 
-class UserType extends AbstractType
+class UserType extends BaseType
 {
         /**
      * @param FormBuilderInterface $builder

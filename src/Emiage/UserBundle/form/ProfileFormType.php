@@ -11,29 +11,27 @@
 
 namespace Emiage\UserBundle\Form;
 
-use FOS\UserBundle\Form\Type\RegistrationFormType as BaseType;
+use FOS\UserBundle\Form\Type\ProfileFormType as BaseType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 
-class RegistrationFormType extends BaseType
+class ProfileFormType extends BaseType
 {
 
     private $class;
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
-        parent :: buildForm ( $builder ,  $options );
-
         $builder
             ->add('roles', 'choice', array(
-                    'label' => 'choisir un role',
-                    'choices' => array(
-                            'ROLE_ADMIN' => 'Administration',
-                            'ROLE_PROF' => 'Professeur',
-                            'ROLE_STUD' => 'étudiant'),
-                    'multiple' => true));
+                'label' => 'choisir un role',
+                'choices' => array(
+                    'ROLE_ADMIN' => 'Administration',
+                    'ROLE_PROF' => 'Professeur',
+                    'ROLE_STUD' => 'étudiant'),
+                'multiple' => true))
+            ->add('mettre a jour', 'submit');
 
     }
 
@@ -47,7 +45,7 @@ class RegistrationFormType extends BaseType
 
     public function getName()
     {
-        return 'emiage_user_registration';
+        return 'emiage_user_profile';
     }
 
     public function __construct($class, $roles_hierarchy = null)

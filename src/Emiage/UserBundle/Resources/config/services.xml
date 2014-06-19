@@ -14,6 +14,10 @@
             <tag name="form.type" alias="emiage_user_registration" />
             <argument>%fos_user.model.user.class%</argument>
         </service>
+        <service id="emiage_user.profile.form.type" class="Emiage\UserBundle\Form\ProfileFormType">
+            <tag name="form.type" alias="emiage_user_profile" />
+            <argument>%fos_user.model.user.class%</argument>
+        </service>
     </services>
 
 </container>
