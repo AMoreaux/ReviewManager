@@ -33,17 +33,16 @@
                     <td>{{ entity.note }} / 20</td>
                 {% else %}
                     <td>
-                        {% if entity.path is not null %}
-
+                        {% if ((entity.path is not null) and ( app.user.username == entity.module.responsable.username)) or is_granted('ROLE_SUPER_ADMIN') %}
                             <a href="{{ path('note_edit', { 'id': entity.id }) }}" class="btn btn-default">(noter l'étudiant)</a>
                         {% endif %}
                     </td>
                 {% endif %}
-                {% if entity.path is not null %}
+                {% if ((entity.path is not null) and ( app.user.username == entity.module.responsable.username)) or is_granted('ROLE_ADMIN')%}
                     <td><a href="{{ path('note_download', { 'slug': entity.path }) }}">{{ entity.path }}</a></td>
                 {% else %}
                     <td>
-                        {% if is_granted('ROLE_ADMIN') %}
+                        {% if is_granted('ROLE_ADMIN')  %}
                             <a href="{{ path('note_edit', { 'id': entity.id }) }}" class="btn btn-default">(uploader une copie)</a>
                         {% endif %}
                     </td>
