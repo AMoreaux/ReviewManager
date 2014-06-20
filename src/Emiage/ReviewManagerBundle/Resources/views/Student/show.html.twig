@@ -30,7 +30,7 @@
                 <td>
                     <ul>
                        {% for module in entity.modules %}
-                        <li>{{ module.code }} / {{ module.name }}</li>
+                        <li><a href="{{ path('examen_inscription', { 'id': module.id }) }}">{{ module.code }} / {{ module.name }}</a></li>
                         {% endfor %}
                     </ul>
                 </td>

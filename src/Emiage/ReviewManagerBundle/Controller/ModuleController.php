@@ -48,6 +48,7 @@ class ModuleController extends Controller
             'form' => $form->createView()
         ));
     }
+
     /**
      * Creates a new Module entity.
      * @Secure(roles="ROLE_ADMIN")

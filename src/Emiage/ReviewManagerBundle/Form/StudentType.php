@@ -18,9 +18,15 @@ class StudentType extends AbstractType
         parent :: buildForm ( $builder ,  $options );
 
         $builder
-            ->add('name',  'text')
-            ->add('login',  'text')
-            ->add('mail',   'text')
+            ->add('name',  'text', array(
+                'required' => false,
+                'attr'=>array('class'=>'hidden')))
+            ->add('login',  'text', array(
+                'required' => false,
+                'attr'=>array('class'=>'hidden')))
+            ->add('mail',   'text', array(
+                'required' => false,
+                'attr'=>array('class'=>'hidden')))
             ->add('phone', 'text')
             ->add('level', 'entity', array(
                 'class'=>'EmiageReviewManagerBundle:Level',

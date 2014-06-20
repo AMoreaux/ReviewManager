@@ -21,7 +21,7 @@ class ExamenController extends Controller
 
     /**
      * Lists all Examen entities.
-     * @Secure(roles="ROLE_ADMIN")
+     * @Secure(roles="ROLE_ADMIN, ROLE_STUD")
      */
     public function indexAction()
     {
@@ -38,6 +38,7 @@ class ExamenController extends Controller
 
             $entities = $em->getRepository('EmiageReviewManagerBundle:Examen')->findExamen($motclef);
         }
+
         else
         {
             $entities = $em->getRepository('EmiageReviewManagerBundle:Examen')->findAll();
@@ -48,6 +49,7 @@ class ExamenController extends Controller
             'form' => $form->createView()
         ));
     }
+
     /**
      * Creates a new Examen entity.
      * @Secure(roles="ROLE_ADMIN")
@@ -126,7 +128,7 @@ class ExamenController extends Controller
 
     /**
      * Displays a form to edit an existing Examen entity.
-     * @Secure(roles="ROLE_ADMIN")
+     * @Secure(roles="ROLE_ADMIN, ROLE_STUD")
      */
     public function editAction($id)
     {
@@ -136,6 +138,11 @@ class ExamenController extends Controller
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Examen entity.');
+        }
+
+        if($this->get('security.context')->isGranted('ROLE_STUD'))
+        {
+            $this->addStudent($id);
         }
 
         $editForm = $this->createEditForm($entity);
@@ -170,7 +177,6 @@ class ExamenController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
-        var_dump($id);
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('EmiageReviewManagerBundle:Examen')->find($id);
@@ -210,5 +216,30 @@ class ExamenController extends Controller
             $em->flush();
 
         return $this->redirect($this->generateUrl('examen'));
+    }
+
+    public function inscriptionAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entities = $em->getRepository('EmiageReviewManagerBundle:Examen')->findByModule($id);
+
+        return $this->render('EmiageReviewManagerBundle:Examen:index.html.twig', array(
+            'entities' => $entities));
+    }
+
+    public function addStudent($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('EmiageReviewManagerBundle:Examen')->find($id);
+
+        $user = $this->getUser()->getUsername();
+        $student = $em->getRepository('EmiageReviewManagerBundle:Student')->findOneByName($user);
+
+
+        $entity->addStudent($student);
+
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('home'));
     }
 }

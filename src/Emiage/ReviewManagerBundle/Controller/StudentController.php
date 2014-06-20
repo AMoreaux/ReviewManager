@@ -52,7 +52,7 @@ class StudentController extends Controller
     }
     /**
      * Creates a new Student entity.
-     * @Secure(roles="ROLE_ADMIN")
+     * @Secure(roles="ROLE_STUD")
      */
     public function createAction(Request $request)
     {
@@ -61,6 +61,18 @@ class StudentController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+
+            $user = $this->getUser();
+            $username = $user->getUsername();
+            $userId = $user->getId();
+            $userMail = $user->getemail();
+
+            $login = $username[0].$userId;
+
+            $entity->setname($username);
+            $entity->setlogin($login);
+            $entity->setmail($userMail);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
@@ -81,7 +93,7 @@ class StudentController extends Controller
     * Creates a form to create a Student entity.
     *
     * @param Student $entity The entity
-    * @Secure(roles="ROLE_ADMIN")
+    * @Secure(roles="ROLE_ADMIN, ROLE_STUD")
     * @return \Symfony\Component\Form\Form The form
     */
     private function createCreateForm(Student $entity)
@@ -98,7 +110,7 @@ class StudentController extends Controller
 
     /**
      * Displays a form to create a new Student entity.
-     * @Secure(roles="ROLE_ADMIN")
+     * @Secure(roles="ROLE_ADMIN, ROLE_STUD")
      */
     public function newAction()
     {
@@ -113,7 +125,7 @@ class StudentController extends Controller
 
     /**
      * Finds and displays a Student entity.
-     * @Secure(roles="ROLE_ADMIN")
+     * @Secure(roles="ROLE_ADMIN, ROLE_STUD")
      */
     public function showAction($id)
     {
@@ -131,7 +143,7 @@ class StudentController extends Controller
 
     /**
      * Displays a form to edit an existing Student entity.
-     * @Secure(roles="ROLE_ADMIN")
+     * @Secure(roles="ROLE_ADMIN, ROLE_STUD")
      */
     public function editAction($id)
     {
@@ -155,7 +167,7 @@ class StudentController extends Controller
     * Creates a form to edit a Student entity.
     *
     * @param Student $entity The entity
-    * @Secure(roles="ROLE_ADMIN")
+    * @Secure(roles="ROLE_ADMIN, ROLE_STUD")
     * @return \Symfony\Component\Form\Form The form
     */
     private function createEditForm(Student $entity)
@@ -172,7 +184,7 @@ class StudentController extends Controller
 
     /**
      * Edits an existing Student entity.
-     * @Secure(roles="ROLE_ADMIN")
+     * @Secure(roles="ROLE_ADMIN, ROLE_STUD")
      */
     public function updateAction(Request $request, $id)
     {
@@ -190,9 +202,15 @@ class StudentController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('student'));
+            if($this->get('security.context')->isGranted('ROLE_STUD'))
+            {
+                return $this->redirect($this->generateUrl('home'));
+            }
+            else
+            {
+                return $this->redirect($this->generateUrl('student'));
+            }
         }
-
         return $this->render('EmiageReviewManagerBundle:Student:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
@@ -200,7 +218,7 @@ class StudentController extends Controller
     }
     /**
      * Deletes a Student entity.
-     * @Secure(roles="ROLE_ADMIN")
+     * @Secure(roles="ROLE_ADMIN, ROLE_STUD")
      */
     public function deleteAction(Request $request, $id)
     {

@@ -21,11 +21,44 @@ Class HomeController extends Controller
         }
         elseif($this->get('security.context')->isGranted('ROLE_STUD'))
         {
-            return $this->redirect($this->generateUrl('student'));
+            $em = $this->getDoctrine()->getManager();
+            $user = $this->getUser();
+            $username = $user ->getUsername();
+            $student = $em->getRepository('EmiageReviewManagerBundle:Student')->findOneByname($username);
+
+            if($student->getname() === $username )
+            {
+                return $this->redirect($this->generateUrl('student_show', array(
+                    'id'=>$student->getId(),
+                )));
+            }
+            elseif(empty($entities))
+            {
+                return  $this->redirect($this->generateUrl('student_new'));
+            }
+
         }
         else
         {
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
     }
+
+    /*public function StudentDirection()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $this->getUser()->getUsername();
+
+        $entities = $em->getRepository('EmiageReviewManagerBundle:Student')->find($user);
+
+        if(isset($entities))
+        {
+            return $this->redirect($this->generateUrl('student_show', array(
+                'id'=>$entities->getId(),
+            )));
+        }
+
+        return  $this->redirect($this->generateUrl('student_new'));
+    }*/
 }
