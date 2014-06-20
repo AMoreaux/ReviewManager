@@ -140,11 +140,6 @@ class ExamenController extends Controller
             throw $this->createNotFoundException('Unable to find Examen entity.');
         }
 
-        if($this->get('security.context')->isGranted('ROLE_STUD'))
-        {
-            $this->addStudent($id);
-        }
-
         $editForm = $this->createEditForm($entity);
 
         return $this->render('EmiageReviewManagerBundle:Examen:edit.html.twig', array(
@@ -199,6 +194,7 @@ class ExamenController extends Controller
             'edit_form'   => $editForm->createView(),
         ));
     }
+
     /**
      * Deletes a Examen entity.
      * @Secure(roles="ROLE_ADMIN")
@@ -227,7 +223,7 @@ class ExamenController extends Controller
             'entities' => $entities));
     }
 
-    public function addStudent($id)
+    public function addStudentAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('EmiageReviewManagerBundle:Examen')->find($id);
@@ -240,6 +236,11 @@ class ExamenController extends Controller
 
         $em->flush();
 
-        return $this->redirect($this->generateUrl('home'));
+        $idm = $entity->getModule()->getId();
+        $ide = $student->getId();
+
+        return $this->redirect($this->generateUrl('note_new_by_student', array(
+            'idm'=>$idm,
+            'ide'=>$ide,)));
     }
 }

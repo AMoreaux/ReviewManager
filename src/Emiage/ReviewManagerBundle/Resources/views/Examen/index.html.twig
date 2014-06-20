@@ -68,7 +68,7 @@
                 {% endif %}
                 {% if is_granted("ROLE_STUD") %}
                     <td>
-                        <form action="{{ path('examen_edit',{ 'id': entity.id }) }}" >
+                        <form action="{{ path('examen_addStudent',{ 'id': entity.id }) }}" >
                             <input type="submit" value="s'inscrire" />
                         </form>
                     </td>

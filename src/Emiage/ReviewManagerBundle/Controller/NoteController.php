@@ -207,32 +207,6 @@ class NoteController extends Controller
         return $response;
     }
 
-    public function uploadAction($id, Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('EmiageReviewManagerBundle:Note')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Note entity.');
-        }
-
-        $editForm = $this->createEditForm($entity);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isValid()) {
-
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('note'));
-        }
-
-        return $this->render('EmiageReviewManagerBundle:Note:Upload.html.twig', array(
-            'entity'      => $entity,
-            'form'   => $editForm->createView(),
-        ));
-    }
-
     /**
      * Lists all Note entities.
      *@Secure(roles="ROLE_ADMIN, ROLE_PROF")
@@ -260,6 +234,24 @@ class NoteController extends Controller
         return $this->container->get('templating')->renderResponse('EmiageReviewManagerBundle:Note:index.html.twig', array(
             'entities' => $entities,
             'form' => $form->createView()));
+    }
+
+    function addNoteAction($idm, $ide)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity= new Note();
+
+        $student = $em->getRepository('EmiageReviewManagerBundle:Student')->find($ide);
+        $module = $em->getRepository('EmiageReviewManagerBundle:Module')->find($idm);
+
+        $entity->setStudent($student);
+        $entity->setModule($module);
+
+        $em->persist($entity);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('home'));
     }
 }
 

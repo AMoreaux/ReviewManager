@@ -32,7 +32,7 @@ note_download:
     pattern: /{slug}/download
     defaults: { _controller: "EmiageReviewManagerBundle:Note:download" }
 
-note_upload:
-    pattern: /{id}/upload
-    defaults: { _controller: "EmiageReviewManagerBundle:Note:upload" }
+note_new_by_student:
+    pattern: /{ide}/{idm}/addnote
+    defaults: { _controller: "EmiageReviewManagerBundle:Note:addnote" }
 

@@ -130,6 +130,14 @@ class StudentController extends Controller
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('EmiageReviewManagerBundle:Student')->find($id);
+
+        $studentName = $entity->getName();
+
+        if(($this->get('security.context')->isGranted('ROLE_STUD'))and (($user = $this->getUser()->getUsername() != $studentName)))
+        {
+             return $this->redirect($this->generateUrl('home'));
+        }
 
         $entity = $em->getRepository('EmiageReviewManagerBundle:Student')->find($id);
 
@@ -235,41 +243,4 @@ class StudentController extends Controller
 
         return $this->redirect($this->generateUrl('student'));
     }
-
-   /* public function createNoteAction($entity)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $id = $entity->getId();
-        $modules = $em->getRepository('EmiageReviewManagerBundle:Module')->findWithStudents($id);
-
-        foreach($modules as $module)
-        {
-            $note = new Note();
-
-            $note->setstudent($entity);
-            $note->setmodule($module);
-
-            $em->persist($note);
-        }
-        $em->flush();
-    }*/
-
-    public function choiceExamenAction($student, $module)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $id = $module->getId();
-        $entity = $em->getRepository('EmiageReviewManagerBundle:Examen')->findWithModule($id);
-
-        foreach($modules as $module)
-        {
-            $examen = new Examen();
-
-            $examen->addstudent($entity);
-            $examen->setmodule($module);
-
-            $em->persist($examen);
-        }
-        $em->flush();
-    }
-
 }
