@@ -6,9 +6,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Pagerfanta\Adapter\ArrayAdapter;
+use Pagerfanta\Pagerfanta;
+use Pagerfanta\Exception\NotValidCurrentPageException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use Emiage\ReviewManagerBundle\Entity\Tutor;
 use Emiage\ReviewManagerBundle\Form\TutorType;
+use Emiage\ReviewManagerBundle\Form\ResearchFormType;
 
 /**
  * Tutor controller.
@@ -21,16 +26,45 @@ class TutorController extends Controller
      * Lists all Tutor entities.
      *
      */
-    public function indexAction()
+    public function indexAction($page)
     {
         $em = $this->getDoctrine()->getManager();
+        $form = $this->createForm(new ResearchFormType());
+        $request = $this->getRequest();
 
-        $entities = $em->getRepository('EmiageReviewManagerBundle:Tutor')->findAll();
+        if ($request->getMethod() == 'POST')
+        {
+            $form->bind($request);
+            $motclef = $form["motclef"]->getData();
+
+            $tutorsArray = $em->getRepository('EmiageReviewManagerBundle:Tutor')->findTutor($motclef);
+        }
+        else
+        {
+            $tutorsArray = $em->getRepository('EmiageReviewManagerBundle:Tutor')->findAll();
+        }
+
+        $adapter  = new ArrayAdapter($tutorsArray);
+        $entities = new PagerFanta($adapter);
+        $entities->setMaxPerPage($this->container->getParameter('nbr_item_by_page'));
+
+        try
+        {
+            $entities->setCurrentPage($page);
+        }
+
+        catch (NotValidCurrentPageException $e)
+        {
+            throw new NotFoundHttpException();
+        }
+
 
         return $this->render('EmiageReviewManagerBundle:Tutor:index.html.twig', array(
             'entities' => $entities,
+            'form' => $form->createView()
         ));
     }
+
     /**
      * Creates a new Tutor entity.
      * @Secure(roles="ROLE_ADMIN")

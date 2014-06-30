@@ -5,12 +5,10 @@ namespace Emiage\ReviewManagerBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use JMS\SecurityExtraBundle\Annotation\Secure;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpFoundation\Response;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Pagerfanta\Exception\NotValidCurrentPageException;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use Emiage\ReviewManagerBundle\Entity\Module;
@@ -26,41 +24,33 @@ class ModuleController extends Controller
 
     /**
      * Lists all Module entities.
-     * @Route("/", name="homeModule", defaults={"page" = 1})
-     * @Route("/{page}", name="modulePage")
      */
     public function indexAction($page)
     {
         $em = $this->getDoctrine()->getManager();
-
         $form = $this->createForm(new ResearchFormType());
-
         $request = $this->getRequest();
 
         if ($request->getMethod() == 'POST')
         {
             $form->bind($request);
             $motclef = $form["motclef"]->getData();
-
-            $entities = $em->getRepository('EmiageReviewManagerBundle:Module')->findModule($motclef);
+            $modulesArray = $em->getRepository('EmiageReviewManagerBundle:Module')->findModule($motclef);
         }
         else
         {
-            $entities = $em->getRepository('EmiageReviewManagerBundle:Module')->findAll();
-            $adapter  = new ArrayAdapter($entities);
-            $pager = new PagerFanta($adapter);
-            $pager->setMaxPerPage('2');
+            $modulesArray = $em->getRepository('EmiageReviewManagerBundle:Module')->findAll();
         }
 
-        try {
-            $pager->setCurrentPage($page);
-        } catch (NotValidCurrentPageException $e) {
-            throw new NotFoundHttpException();
-        }
+        $adapter  = new ArrayAdapter($modulesArray);
+        $entities = new PagerFanta($adapter);
+        $entities->setMaxPerPage($this->container->getParameter('nbr_item_by_page'));
+
+            $entities->setCurrentPage($page);
+
 
         return $this->render('EmiageReviewManagerBundle:Module:index.html.twig', array(
             'entities' => $entities,
-            'pager' => $pager,
             'form' => $form->createView(),
         ));
     }

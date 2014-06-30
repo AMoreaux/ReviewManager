@@ -12,4 +12,16 @@ use Doctrine\ORM\EntityRepository;
  */
 class TutorRepository extends EntityRepository
 {
+
+    public function findTutor($motclef)
+    {
+        $qb = $this->createQueryBuilder('t')
+            ->leftJoin('t.modules', 'm')
+            ->leftJoin('t.user', 'u')
+            ->where("m.name LIKE :motclef OR m.code LIKE :motclef OR u.username LIKE :motclef OR u.email LIKE :motclef" )
+            ->setParameter('motclef', $motclef);
+
+        return $qb->getQuery()
+            ->getResult();
+    }
 }

@@ -22,8 +22,7 @@ class TutorType extends AbstractType
             ->add('modules', 'entity', array(
             'class'=>'EmiageReviewManagerBundle:Module',
             'property'=>'code',
-            'multiple'=>true,
-            ))
+            'multiple'=>true,))
             ->add('registerCenter', 'entity', array(
                 'class'=>'EmiageReviewManagerBundle:RegisterCenter',
                 'property'=>'name',))

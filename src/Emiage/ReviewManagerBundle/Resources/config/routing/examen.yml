@@ -1,6 +1,6 @@
 examen:
-    pattern:  /
-    defaults: { _controller: "EmiageReviewManagerBundle:Examen:index" }
+    pattern:  /home/{page}
+    defaults: { _controller: "EmiageReviewManagerBundle:Examen:index", page: 1 }
 
 examen_show:
     pattern:  /{id}/show

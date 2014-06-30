@@ -3,11 +3,11 @@
 {% block content -%}
     <h1>Module list</h1>
 
-    {% if pager.haveToPaginate %}
-        {{ pagerfanta(pager, 'default', {'module': 'modulePage'}) }}
+    {% if entities.haveToPaginate %}
+        {{ pagerfanta(entities, 'default', {'module': 'page'}) }}
     {% endif %}
 
-    <form class="input-group input-group-lg" action="{{ path('homeModule') }}" method="post">
+    <form class="input-group input-group-lg" action="{{ path('module') }}" method="post">
         <span class="input-group-addon">
             {{ form_widget(form) }}
             <input type="submit" value="Rechercher" />
@@ -26,6 +26,9 @@
                     <th>Responsable</th>
                 {% endif %}
                 {% if (is_granted('ROLE_ADMIN')) or (is_granted('ROLE_PROF')) %}
+                    <th>Tutor</th>
+                {% endif %}
+                {% if (is_granted('ROLE_ADMIN')) or (is_granted('ROLE_PROF')) %}
                     <th>file</th>
                 {% endif %}
                 {% if is_granted('ROLE_ADMIN') %}
@@ -39,7 +42,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for entity in pager.currentPageResults %}
+            {% for entity in entities.currentPageResults %}
                 <tr>
                     {% if is_granted ('ROLE_SUPER_ADMIN') %}
                         <td><a href="{{ path('module_show', { 'id': entity.id }) }}" class="btn btn-default">{{ entity.id }}</a></td>
@@ -48,6 +51,15 @@
                     <td>{{ entity.name }}</td>
                     {% if (entity.responsable is not null) and ((is_granted('ROLE_ADMIN')) or (is_granted('ROLE_PROF')))%}
                         <td>{{ entity.responsable.username }}</td>
+                    {% endif %}
+                    {% if (is_granted('ROLE_ADMIN')) or (is_granted('ROLE_PROF')) %}
+                        <td>
+                            <ul>
+                                {% for tutor in entity.tutors %}
+                                    <li>{{ tutor.user.username }}</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
                     {% endif %}
                     {% if (entity.path is not null) and ((is_granted('ROLE_ADMIN')) or (is_granted('ROLE_PROF')))  %}
                         <td><a href="{{ path('module_download', { 'slug': entity.path }) }}"> {{ entity.path }} </a></td>
@@ -86,8 +98,8 @@
         </ul>
     {% endif %}
 
-    {% if pager.haveToPaginate %}
-        {{ pagerfanta(pager, 'default', {'module': 'modulePage'}) }}
+    {% if entities.haveToPaginate %}
+        {{ pagerfanta(entities, 'default', {'module': 'page'}) }}
     {% endif %}
 
     {% endblock %}

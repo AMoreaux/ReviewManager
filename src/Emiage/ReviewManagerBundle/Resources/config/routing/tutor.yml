@@ -1,6 +1,6 @@
 tutor:
-    pattern:  /
-    defaults: { _controller: "EmiageReviewManagerBundle:Tutor:index" }
+    pattern:  /home/{page}
+    defaults: { _controller: "EmiageReviewManagerBundle:Tutor:index", page: 1 }
 
 tutor_show:
     pattern:  /{id}/show

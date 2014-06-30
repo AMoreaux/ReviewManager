@@ -2,6 +2,11 @@
 
 {% block content -%}
     <h1>Examen list</h1>
+
+    {% if entities.haveToPaginate %}
+        {{ pagerfanta(entities, 'default', {'examen': 'page'}) }}
+    {% endif %}
+
     {% if form is defined %}
         <form class="input-group input-group-lg" action="{{ path('examen') }}" method="post">
             <span class="input-group-addon">
@@ -33,7 +38,7 @@
             </tr>
         </thead>
         <tbody>
-        {% for entity in entities %}
+        {% for entity in entities.currentPageResults %}
             <tr>
                 {% if is_granted ('ROLE_SUPER_ADMIN') %}
                     <td><a href="{{ path('examen_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
@@ -90,4 +95,9 @@
             </li>
         </ul>
     {% endif %}
+
+    {% if entities.haveToPaginate %}
+        {{ pagerfanta(entities, 'default', {'examen': 'page'}) }}
+    {% endif %}
+
     {% endblock %}

@@ -1,6 +1,6 @@
 student:
-    pattern:  /
-    defaults: { _controller: "EmiageReviewManagerBundle:Student:index" }
+    pattern:  /home/{page}
+    defaults: { _controller: "EmiageReviewManagerBundle:Student:index", page: 1 }
 
 student_show:
     pattern:  /{id}/show

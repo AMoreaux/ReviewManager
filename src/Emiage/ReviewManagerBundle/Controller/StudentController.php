@@ -6,6 +6,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Pagerfanta\Adapter\ArrayAdapter;
+use Pagerfanta\Pagerfanta;
+use Pagerfanta\Exception\NotValidCurrentPageException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use Emiage\ReviewManagerBundle\Entity\Student;
 use Emiage\ReviewManagerBundle\Form\StudentType;
@@ -25,12 +29,10 @@ class StudentController extends Controller
      * Lists all Student entities.
      * @Secure(roles="ROLE_ADMIN, ROLE_PROF")
      */
-    public function indexAction()
+    public function indexAction($page)
     {
         $em = $this->getDoctrine()->getManager();
-
         $form = $this->createForm(new ResearchFormType());
-
         $request = $this->getRequest();
 
         if ($request->getMethod() == 'POST')
@@ -38,18 +40,33 @@ class StudentController extends Controller
             $form->bind($request);
             $motclef = $form["motclef"]->getData();
 
-            $entities = $em->getRepository('EmiageReviewManagerBundle:Student')->findStudent($motclef);
+            $studentsArray = $em->getRepository('EmiageReviewManagerBundle:Student')->findStudent($motclef);
         }
         else
         {
-            $entities = $em->getRepository('EmiageReviewManagerBundle:Student')->findAll();
+            $studentsArray = $em->getRepository('EmiageReviewManagerBundle:Student')->findAll();
+        }
+
+        $adapter  = new ArrayAdapter($studentsArray);
+        $entities = new PagerFanta($adapter);
+        $entities->setMaxPerPage($this->container->getParameter('nbr_item_by_page'));
+
+        try
+        {
+            $entities->setCurrentPage($page);
+        }
+
+        catch (NotValidCurrentPageException $e)
+        {
+            throw new NotFoundHttpException();
         }
 
 
         return $this->container->get('templating')->renderResponse('EmiageReviewManagerBundle:Student:index.html.twig', array(
             'entities' => $entities,
             'form' => $form->createView()));
-    }
+}
+
     /**
      * Creates a new Student entity.
      * @Secure(roles="ROLE_STUD")
@@ -134,7 +151,7 @@ class StudentController extends Controller
 
         $studentName = $entity->getName();
 
-        if(($this->get('security.context')->isGranted('ROLE_STUD'))and (($user = $this->getUser()->getUsername() != $studentName)))
+        if((($this->get('security.context')->isGranted('ROLE_STUD')) and ($user = $this->getUser()->getUsername() != $studentName)))
         {
              return $this->redirect($this->generateUrl('home'));
         }
@@ -224,6 +241,7 @@ class StudentController extends Controller
             'edit_form'   => $editForm->createView(),
         ));
     }
+
     /**
      * Deletes a Student entity.
      * @Secure(roles="ROLE_ADMIN, ROLE_STUD")

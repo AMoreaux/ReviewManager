@@ -6,6 +6,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Pagerfanta\Adapter\ArrayAdapter;
+use Pagerfanta\Pagerfanta;
+use Pagerfanta\Exception\NotValidCurrentPageException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use Emiage\ReviewManagerBundle\Entity\Examen;
 use Emiage\ReviewManagerBundle\Form\ExamenType;
@@ -23,25 +27,36 @@ class ExamenController extends Controller
      * Lists all Examen entities.
      * @Secure(roles="ROLE_ADMIN, ROLE_STUD")
      */
-    public function indexAction()
+    public function indexAction($page)
     {
         $em = $this->getDoctrine()->getManager();
-
         $form = $this->createForm(new ResearchFormType());
-
         $request = $this->getRequest();
 
         if ($request->getMethod() == 'POST')
         {
             $form->bind($request);
             $motclef = $form["motclef"]->getData();
-
-            $entities = $em->getRepository('EmiageReviewManagerBundle:Examen')->findExamen($motclef);
+            $examensArray = $em->getRepository('EmiageReviewManagerBundle:Examen')->findExamen($motclef);
         }
 
         else
         {
-            $entities = $em->getRepository('EmiageReviewManagerBundle:Examen')->findAll();
+            $examensArray = $em->getRepository('EmiageReviewManagerBundle:Examen')->findAll();
+        }
+
+        $adapter  = new ArrayAdapter($examensArray);
+        $entities = new PagerFanta($adapter);
+        $entities->setMaxPerPage($this->container->getParameter('nbr_item_by_page'));
+
+        try
+        {
+            $entities->setCurrentPage($page);
+        }
+
+        catch (NotValidCurrentPageException $e)
+        {
+            throw new NotFoundHttpException();
         }
 
         return $this->render('EmiageReviewManagerBundle:Examen:index.html.twig', array(

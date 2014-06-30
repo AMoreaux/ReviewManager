@@ -1,6 +1,6 @@
 note:
-    pattern:  /
-    defaults: { _controller: "EmiageReviewManagerBundle:Note:index" }
+    pattern:  /home/{page}
+    defaults: { _controller: "EmiageReviewManagerBundle:Note:index", page: 1 }
 
 note_show:
     pattern:  /{id}/show

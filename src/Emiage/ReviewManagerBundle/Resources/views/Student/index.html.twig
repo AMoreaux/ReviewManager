@@ -3,6 +3,10 @@
 {% block content -%}
     <h1>Student list</h1>
 
+    {% if entities.haveToPaginate %}
+        {{ pagerfanta(entities, 'default', {'student': 'page'}) }}
+    {% endif %}
+
     <form class="input-group input-group-lg" action="{{ path('student') }}" method="post">
         <span class="input-group-addon">
             {{ form_widget(form) }}
@@ -26,7 +30,7 @@
             </tr>
         </thead>
         <tbody>
-        {% for entity in entities %}
+        {% for entity in entities.currentPageResults %}
             <tr>
                 {% if is_granted('ROLE_SUPER_ADMIN') %}
                     <td><a href="{{ path('student_show', { 'id': entity.id }) }}" class="btn btn-default">{{ entity.id }}</a></td>
@@ -59,4 +63,9 @@
             </li>
         </ul>
     {% endif %}
+
+    {% if entities.haveToPaginate %}
+        {{ pagerfanta(entities, 'default', {'student': 'page'}) }}
+    {% endif %}
+
     {% endblock %}

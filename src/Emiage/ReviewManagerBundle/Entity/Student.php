@@ -80,7 +80,6 @@ class Student
      */
     public function __construct()
     {
-        $this->reviewsCenters = new \Doctrine\Common\Collections\ArrayCollection();
         $this->modules = new \Doctrine\Common\Collections\ArrayCollection();
         $this->notes = new \Doctrine\Common\Collections\ArrayCollection();
         $this->examens = new \Doctrine\Common\Collections\ArrayCollection();
@@ -257,38 +256,6 @@ class Student
         return $this->registerCenter;
     }
 
-    /**
-     * Add reviewsCenters
-     *
-     * @param \Emiage\ReviewManagerBundle\Entity\ReviewCenter $reviewsCenters
-     * @return Student
-     */
-    public function addReviewsCenter(\Emiage\ReviewManagerBundle\Entity\ReviewCenter $reviewsCenters)
-    {
-        $this->reviewsCenters[] = $reviewsCenters;
-
-        return $this;
-    }
-
-    /**
-     * Remove reviewsCenters
-     *
-     * @param \Emiage\ReviewManagerBundle\Entity\ReviewCenter $reviewsCenters
-     */
-    public function removeReviewsCenter(\Emiage\ReviewManagerBundle\Entity\ReviewCenter $reviewsCenters)
-    {
-        $this->reviewsCenters->removeElement($reviewsCenters);
-    }
-
-    /**
-     * Get reviewsCenters
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getReviewsCenters()
-    {
-        return $this->reviewsCenters;
-    }
 
     /**
      * Add modules
@@ -410,71 +377,5 @@ class Student
     public function getName()
     {
         return $this->name;
-    }
-    /**
-     * @var \Emiage\ReviewManagerBundle\Entity\Module
-     */
-    private $module;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $tutors;
-
-
-    /**
-     * Set module
-     *
-     * @param \Emiage\ReviewManagerBundle\Entity\Module $module
-     * @return Student
-     */
-    public function setModule(\Emiage\ReviewManagerBundle\Entity\Module $module = null)
-    {
-        $this->module = $module;
-
-        return $this;
-    }
-
-    /**
-     * Get module
-     *
-     * @return \Emiage\ReviewManagerBundle\Entity\Module 
-     */
-    public function getModule()
-    {
-        return $this->module;
-    }
-
-    /**
-     * Add tutors
-     *
-     * @param \Emiage\ReviewManagerBundle\Entity\Tutor $tutors
-     * @return Student
-     */
-    public function addTutor(\Emiage\ReviewManagerBundle\Entity\Tutor $tutors)
-    {
-        $this->tutors[] = $tutors;
-
-        return $this;
-    }
-
-    /**
-     * Remove tutors
-     *
-     * @param \Emiage\ReviewManagerBundle\Entity\Tutor $tutors
-     */
-    public function removeTutor(\Emiage\ReviewManagerBundle\Entity\Tutor $tutors)
-    {
-        $this->tutors->removeElement($tutors);
-    }
-
-    /**
-     * Get tutors
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getTutors()
-    {
-        return $this->tutors;
     }
 }

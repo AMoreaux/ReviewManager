@@ -8,6 +8,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Pagerfanta\Adapter\ArrayAdapter;
+use Pagerfanta\Pagerfanta;
+use Pagerfanta\Exception\NotValidCurrentPageException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use Emiage\ReviewManagerBundle\Entity\Note;
 use Emiage\ReviewManagerBundle\Form\NoteType;
@@ -22,6 +26,49 @@ use Symfony\Component\Form\Form;
  */
 class NoteController extends Controller
 {
+
+    /**
+     * Lists all Note entities.
+     *@Secure(roles="ROLE_ADMIN, ROLE_PROF")
+     */
+    public function indexAction($page)
+    {
+        $form = $this->createForm(new ResearchFormType());
+
+        $em = $this->getDoctrine()->getManager();
+
+        $request = $this->getRequest();
+
+        if ($request->getMethod() == 'POST')
+        {
+            $form->bind($request);
+            $motclef = $form["motclef"]->getData();
+
+            $notesArray = $em->getRepository('EmiageReviewManagerBundle:Note')->findNote($motclef);
+        }
+        else
+        {
+            $notesArray = $em->getRepository('EmiageReviewManagerBundle:Note')->findAll();
+        }
+
+        $adapter  = new ArrayAdapter($notesArray);
+        $entities = new PagerFanta($adapter);
+        $entities->setMaxPerPage($this->container->getParameter('nbr_item_by_page'));
+
+        try
+        {
+            $entities->setCurrentPage($page);
+        }
+
+        catch (NotValidCurrentPageException $e)
+        {
+            throw new NotFoundHttpException();
+        }
+
+        return $this->container->get('templating')->renderResponse('EmiageReviewManagerBundle:Note:index.html.twig', array(
+            'entities' => $entities,
+            'form' => $form->createView()));
+    }
 
     /**
      * Creates a new Note entity.
@@ -207,34 +254,6 @@ class NoteController extends Controller
         return $response;
     }
 
-    /**
-     * Lists all Note entities.
-     *@Secure(roles="ROLE_ADMIN, ROLE_PROF")
-     */
-    public function indexAction()
-    {
-        $form = $this->createForm(new ResearchFormType());
-
-        $em = $this->getDoctrine()->getManager();
-
-        $request = $this->getRequest();
-
-            if ($request->getMethod() == 'POST')
-            {
-                $form->bind($request);
-                $motclef = $form["motclef"]->getData();
-
-                $entities = $em->getRepository('EmiageReviewManagerBundle:Note')->findNote($motclef);
-            }
-            else
-            {
-                $entities = $em->getRepository('EmiageReviewManagerBundle:Note')->findAll();
-            }
-
-        return $this->container->get('templating')->renderResponse('EmiageReviewManagerBundle:Note:index.html.twig', array(
-            'entities' => $entities,
-            'form' => $form->createView()));
-    }
 
     function addNoteAction($idm, $ide)
     {
