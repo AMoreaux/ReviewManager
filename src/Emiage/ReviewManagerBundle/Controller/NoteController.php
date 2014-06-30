@@ -29,7 +29,6 @@ class NoteController extends Controller
 
     /**
      * Lists all Note entities.
-     *@Secure(roles="ROLE_ADMIN, ROLE_PROF")
      */
     public function indexAction($page)
     {
@@ -39,12 +38,19 @@ class NoteController extends Controller
 
         $request = $this->getRequest();
 
-        if ($request->getMethod() == 'POST')
+        if (($request->getMethod() == 'POST') and (($this->get('security.context')->isGranted('ROLE_PROF'))or ($this->get('security.context')->isGranted('ROLE_PROF'))))
         {
             $form->bind($request);
             $motclef = $form["motclef"]->getData();
 
             $notesArray = $em->getRepository('EmiageReviewManagerBundle:Note')->findNote($motclef);
+        }
+
+        elseif($this->get('security.context')->isGranted('ROLE_STUD'))
+        {
+            $user = $this->getUser()->getUsername();
+            $studentItem = $em->getRepository('EmiageReviewManagerBundle:Student')->findByName($user);
+            $notesArray = $em->getRepository('EmiageReviewManagerBundle:Note')->findByStudent($studentItem);
         }
         else
         {
