@@ -93,3 +93,8 @@ jms_security_extra:
             connection: symfony
             table_name: seed_table
             seed_provider: fos_user.user_provider.username
+
+white_october_pagerfanta:
+    exceptions_strategy:
+            out_of_range_page:        to_http_not_found
+            not_valid_current_page:   to_http_not_found

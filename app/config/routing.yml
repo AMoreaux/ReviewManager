@@ -1,6 +1,6 @@
 
 
-emiage_formulaire_index:
+emiage_review_manager_index:
     resource: "@EmiageReviewManagerBundle/Resources/config/routing.yml"
 
 fos_user_security:

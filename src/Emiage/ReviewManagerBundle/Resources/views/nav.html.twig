@@ -2,43 +2,47 @@
     <div class="container-fluid">
         <div class="collapse navbar-collapse" id="topnavbar">
             <div class="nav-bar">
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href="{{ path('examen') }}">Examen</a>
-                </li>
-                {% if is_granted('ROLE_ADMIN') and is_granted('ROLE_PROF') %}
+                <ul class="nav navbar-nav">
                     <li>
-                        <a href="{{ path('level') }}">Niveau</a>
+                        <a href="{{ path('examen') }}">Examen</a>
                     </li>
-                {% endif %}
-                <li>
-                    <a href="{{ path('module') }}">Module</a>
-                </li>
-                <li>
-                    <a href="{{ path('note') }}">Note</a>
-                </li>
-                <li>
-                    <a href="{{ path('registercenter') }}">Centre nationaux</a>
-                </li>
-                <li>
-                    <a href="{{ path('reviewcenter') }}">Centre d'examen</a>
-                </li>
-                {% if is_granted('ROLE_ADMIN')%}
+                    {% if is_granted('ROLE_ADMIN') and is_granted('ROLE_PROF') %}
+                        <li>
+                            <a href="{{ path('level') }}">Niveau</a>
+                        </li>
+                    {% endif %}
                     <li>
-                        <a href="{{ path('student') }}">Etudiant</a>
+                        <a href="{{ path('homeModule') }}">Module</a>
                     </li>
-                {% endif %}
-                {% if is_granted('ROLE_ADMIN') %}
                     <li>
-                        <a href="{{ path('tutor') }}">Tuteur</a>
+                        <a href="{{ path('note') }}">Note</a>
                     </li>
-                {% endif %}
-                {% if is_granted('ROLE_ADMIN') and is_granted('ROLE_PROF') %}
-                    <li>
-                        <a href="{{ path('user') }}">Utilisateur</a>
-                    </li>
-                {% endif %}
-            </ul>
+                    {% if is_granted('ROLE_ADMIN') and is_granted('ROLE_PROF') %}
+                        <li>
+                            <a href="{{ path('registercenter') }}">Centre nationaux</a>
+                        </li>
+                    {% endif %}
+                    {% if is_granted('ROLE_ADMIN') and is_granted('ROLE_PROF') %}
+                        <li>
+                            <a href="{{ path('reviewcenter') }}">Centre d'examen</a>
+                        </li>
+                    {% endif %}
+                    {% if is_granted('ROLE_ADMIN')%}
+                        <li>
+                            <a href="{{ path('student') }}">Etudiant</a>
+                        </li>
+                    {% endif %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li>
+                            <a href="{{ path('tutor') }}">Tuteur</a>
+                        </li>
+                    {% endif %}
+                    {% if is_granted('ROLE_ADMIN') and is_granted('ROLE_PROF') %}
+                        <li>
+                            <a href="{{ path('user') }}">Utilisateur</a>
+                        </li>
+                    {% endif %}
+                </ul>
             </div>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

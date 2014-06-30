@@ -22,7 +22,9 @@
         "doctrine/doctrine-fixtures-bundle": "2.2.*",
         "ocramius/proxy-manager": "~0.5",
         "friendsofsymfony/user-bundle": "1.3.3",
-        "jms/security-extra-bundle": "dev-master"
+        "jms/security-extra-bundle": "dev-master",
+        "pagerfanta/pagerfanta": "dev-master",
+        "white-october/pagerfanta-bundle": "dev-master"
     },
 
     "scripts": {

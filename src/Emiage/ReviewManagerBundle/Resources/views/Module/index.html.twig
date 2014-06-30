@@ -3,7 +3,11 @@
 {% block content -%}
     <h1>Module list</h1>
 
-    <form class="input-group input-group-lg" action="{{ path('module') }}" method="post">
+    {% if pager.haveToPaginate %}
+        {{ pagerfanta(pager, 'default', {'module': 'modulePage'}) }}
+    {% endif %}
+
+    <form class="input-group input-group-lg" action="{{ path('homeModule') }}" method="post">
         <span class="input-group-addon">
             {{ form_widget(form) }}
             <input type="submit" value="Rechercher" />
@@ -35,7 +39,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for entity in entities %}
+            {% for entity in pager.currentPageResults %}
                 <tr>
                     {% if is_granted ('ROLE_SUPER_ADMIN') %}
                         <td><a href="{{ path('module_show', { 'id': entity.id }) }}" class="btn btn-default">{{ entity.id }}</a></td>
@@ -81,4 +85,9 @@
             </li>
         </ul>
     {% endif %}
+
+    {% if pager.haveToPaginate %}
+        {{ pagerfanta(pager, 'default', {'module': 'modulePage'}) }}
+    {% endif %}
+
     {% endblock %}

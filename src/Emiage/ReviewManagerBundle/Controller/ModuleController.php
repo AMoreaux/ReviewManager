@@ -7,6 +7,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpFoundation\Response;
+use Pagerfanta\Adapter\ArrayAdapter;
+use Pagerfanta\Pagerfanta;
+use Pagerfanta\Exception\NotValidCurrentPageException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use Emiage\ReviewManagerBundle\Entity\Module;
 use Emiage\ReviewManagerBundle\Form\ModuleType;
@@ -21,9 +26,10 @@ class ModuleController extends Controller
 
     /**
      * Lists all Module entities.
-     *
+     * @Route("/", name="homeModule", defaults={"page" = 1})
+     * @Route("/{page}", name="modulePage")
      */
-    public function indexAction()
+    public function indexAction($page)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -41,11 +47,21 @@ class ModuleController extends Controller
         else
         {
             $entities = $em->getRepository('EmiageReviewManagerBundle:Module')->findAll();
+            $adapter  = new ArrayAdapter($entities);
+            $pager = new PagerFanta($adapter);
+            $pager->setMaxPerPage('2');
+        }
+
+        try {
+            $pager->setCurrentPage($page);
+        } catch (NotValidCurrentPageException $e) {
+            throw new NotFoundHttpException();
         }
 
         return $this->render('EmiageReviewManagerBundle:Module:index.html.twig', array(
             'entities' => $entities,
-            'form' => $form->createView()
+            'pager' => $pager,
+            'form' => $form->createView(),
         ));
     }
 

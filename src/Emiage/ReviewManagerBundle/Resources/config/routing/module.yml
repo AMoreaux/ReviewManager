@@ -1,6 +1,6 @@
 module:
-    pattern:  /
-    defaults: { _controller: "EmiageReviewManagerBundle:Module:index" }
+    resource: "@EmiageReviewManagerBundle/Controller/ModuleController.php"
+    type: annotation
 
 module_show:
     pattern:  /{id}/show
