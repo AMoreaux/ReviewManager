@@ -28,3 +28,6 @@ student_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "EmiageReviewManagerBundle:Student:delete" }
 
+student_addModule:
+    pattern: /{id}/addModule
+    defaults: {_controller: "EmiageReviewManagerBundle:Student:addModule" }

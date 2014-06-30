@@ -6,7 +6,9 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <th>Id</th>
+                {% endif %}
                 <th>Name</th>
                 <th>Actions</th>
             </tr>
@@ -14,27 +16,32 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('registercenter_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <td><a href="{{ path('registercenter_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                {% endif %}
                 <td>{{ entity.name }}</td>
                 <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('registercenter_show', { 'id': entity.id }) }}" class="btn btn-default">show</a>
-                        <a href="{{ path('registercenter_edit', { 'id': entity.id }) }}" class="btn btn-default">edit</a>
-                        <a href="{{ path('registercenter_delete', { 'id': entity.id }) }}" class="btn btn-default">delete</a>
-                    </li>
-                </ul>
+                {% if is_granted ("ROLE_ADMIN") %}
+                    <ul>
+                        <li>
+                            <a href="{{ path('registercenter_show', { 'id': entity.id }) }}" class="btn btn-default">show</a>
+                            <a href="{{ path('registercenter_edit', { 'id': entity.id }) }}" class="btn btn-default">edit</a>
+                            <a href="{{ path('registercenter_delete', { 'id': entity.id }) }}" class="btn btn-default">delete</a>
+                        </li>
+                    </ul>
+                {% endif %}
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-        <ul>
-        <li>
-            <a href="{{ path('registercenter_new') }}" class="btn btn-primary">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
+    {% if is_granted ("ROLE_ADMIN") %}
+            <ul>
+                <li>
+                    <a href="{{ path('registercenter_new') }}" class="btn btn-primary">
+                        Create a new entry
+                    </a>
+                </li>
+            </ul>
+    {% endif %}
     {% endblock %}

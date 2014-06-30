@@ -6,7 +6,9 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <th>Id</th>
+                {% endif %}
                 <th>Name</th>
                 <th>Actions</th>
             </tr>
@@ -14,7 +16,9 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('reviewcenter_show', { 'id': entity.id }) }}" class="btn btn-default">{{ entity.id }}</a></td>
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <td><a href="{{ path('reviewcenter_show', { 'id': entity.id }) }}" class="btn btn-default">{{ entity.id }}</a></td>
+                {% endif %}
                 <td>{{ entity.name }}</td>
                 <td>
                 <ul  class="btn-group">
@@ -29,12 +33,13 @@
         {% endfor %}
         </tbody>
     </table>
-
+    {% if is_granted('ROLE_ADMIN') %}
         <ul>
-        <li>
-            <a href="{{ path('reviewcenter_new') }}" class="btn btn-primary">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
+            <li>
+                <a href="{{ path('reviewcenter_new') }}" class="btn btn-primary">
+                    Create a new entry
+                </a>
+            </li>
+        </ul>
+    {% endif %}
     {% endblock %}

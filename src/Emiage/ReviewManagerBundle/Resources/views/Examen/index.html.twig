@@ -14,7 +14,9 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                {% if is_granted ('ROLE_SUPER_ADMIN') %}
+                    <th>Id</th>
+                {% endif %}
                 <th>Code</th>
                 <th>Module</th>
                 <th>ReviewCenter</th>
@@ -33,7 +35,9 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('examen_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                {% if is_granted ('ROLE_SUPER_ADMIN') %}
+                    <td><a href="{{ path('examen_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                {% endif %}
                 <td>{{ entity.code }}</td>
                 <td>{{ entity.module.code }} {{ entity.module.name }}</td>
                 {% if entity.reviewCenter is not null %}
@@ -77,12 +81,13 @@
         {% endfor %}
         </tbody>
     </table>
-
+    {% if is_granted("ROLE_ADMIN") %}
         <ul>
-        <li>
-            <a href="{{ path('examen_new') }}" class="btn btn-primary">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
+            <li>
+                <a href="{{ path('examen_new') }}" class="btn btn-primary">
+                    Create a new entry
+                </a>
+            </li>
+        </ul>
+    {% endif %}
     {% endblock %}

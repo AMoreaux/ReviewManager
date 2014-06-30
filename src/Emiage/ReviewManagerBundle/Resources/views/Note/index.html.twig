@@ -62,12 +62,13 @@
         {% endfor %}
         </tbody>
     </table>
-
-        <ul>
-        <li>
-            <a href="{{ path('note_new') }}" class="btn btn-primary">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
+    {% if is_granted ("ROLE_SUPER_ADMIN") %}
+            <ul>
+                <li>
+                    <a href="{{ path('note_new') }}" class="btn btn-primary">
+                        Create a new entry
+                    </a>
+                </li>
+            </ul>
+    {% endif %}
     {% endblock %}

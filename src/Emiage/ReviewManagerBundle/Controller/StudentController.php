@@ -243,4 +243,20 @@ class StudentController extends Controller
 
         return $this->redirect($this->generateUrl('student'));
     }
+
+    public function addModuleAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('EmiageReviewManagerBundle:Module')->find($id);
+
+        $user = $this->getUser()->getUsername();
+        $student = $em->getRepository('EmiageReviewManagerBundle:Student')->findOneByName($user);
+
+        $student->addModule($entity);
+
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('home'));
+
+    }
 }
