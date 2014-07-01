@@ -3,21 +3,24 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}ReviewManager{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+            <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+            <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+            <link rel="stylesheet" href="http://localhost/reviewmanager/web/bundles/emiagereviewmanager/css/style.css">
+        {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
     <div class="connection">
-    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-        Connecté en tant que {{ app.user.username }} - <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
-    {% else %}
-        <a href="{{ path('fos_user_security_login') }}">Connexion</a>
-    {% endif %}
+        {% block connection %}{% endblock %}
     </div>
         <div class="row">
             <div class="container">
                 {% block body %}{% endblock %}
-                {% block javascripts %}{% endblock %}
+                {% block javascripts %}
+                    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+                    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js" type="text/javascript"></script>
+                {% endblock %}
             </div>
         </div>
     </body>

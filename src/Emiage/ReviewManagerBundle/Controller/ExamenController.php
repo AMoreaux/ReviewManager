@@ -10,6 +10,8 @@ use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Pagerfanta\Exception\NotValidCurrentPageException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Knp\Bundle\SnappyBundle;
+use Symfony\Component\HttpFoundation\Response;
 
 use Emiage\ReviewManagerBundle\Entity\Examen;
 use Emiage\ReviewManagerBundle\Form\ExamenType;
@@ -137,7 +139,7 @@ class ExamenController extends Controller
             throw $this->createNotFoundException('Unable to find Examen entity.');
         }
 
-        return $this->render('EmiageReviewManagerBundle:Examen:show.html.twig', array(
+        return $this->render('EmiageReviewManagerBundle:Examen:print.html.twig', array(
             'entity'      => $entity,));
     }
 
@@ -258,4 +260,44 @@ class ExamenController extends Controller
             'idm'=>$idm,
             'ide'=>$ide,)));
     }
+
+    public function printPvAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('EmiageReviewManagerBundle:Examen')->find($id);
+
+        $codeModule = $entity->getModule()->getCode();
+        $nameCenter = $entity->getReviewCenter()->getName();
+        $fileName = $codeModule.$nameCenter.'.pdf';
+        $path = 'uploads/documents/PV/'.$fileName;
+
+        if(file_exists($path))
+        {
+            $download = $this->download($path, $fileName);
+        }
+        else
+        {
+            $this->get('knp_snappy.pdf')->generateFromHtml( $this->renderView('EmiageReviewManagerBundle:Examen:print.html.twig',array(
+            'entity'  => $entity)
+                ),
+                $path
+            );
+
+            $download = $this->download($path, $fileName);
+        }
+
+        return $download;
+
+    }
+
+    public function download($path, $fileName)
+    {
+        $response = new Response();
+        $response->setContent(file_get_contents($path));
+        $response->headers->set('Content-Type', 'application/force-download');
+        $response->headers->set('Content-disposition', 'filename='. $fileName);
+
+        return $response;
+    }
 }
+

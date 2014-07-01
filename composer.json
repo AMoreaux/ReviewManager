@@ -24,7 +24,10 @@
         "friendsofsymfony/user-bundle": "1.3.3",
         "jms/security-extra-bundle": "dev-master",
         "pagerfanta/pagerfanta": "dev-master",
-        "white-october/pagerfanta-bundle": "dev-master"
+        "white-october/pagerfanta-bundle": "dev-master",
+        "knplabs/knp-snappy-bundle": "dev-master",
+        "h4cc/wkhtmltopdf-amd64": "0.12.x",
+        "h4cc/wkhtmltoimage-amd64": "0.12.x"
     },
 
     "scripts": {

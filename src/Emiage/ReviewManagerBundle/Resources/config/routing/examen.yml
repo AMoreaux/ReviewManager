@@ -35,3 +35,7 @@ examen_inscription:
 examen_addStudent:
     pattern: /{id}/addStudent
     defaults: {_controller: "EmiageReviewManagerBundle:Examen:addStudent" }
+
+examen_print:
+    pattern: /{id}/print
+    defaults: {_controller: "EmiageReviewManagerBundle:Examen:printPv" }

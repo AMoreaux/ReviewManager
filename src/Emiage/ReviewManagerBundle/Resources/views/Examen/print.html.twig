@@ -1,0 +1,29 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+    <h2>Module : {{ entity.module.code }} {{ entity.module.name }}</h2>
+    <h2>Centre d'examen : {{ entity.ReviewCenter.name }}</h2>
+    <h2>Date d'examen : {{ entity.realizedOn|date('Y-m-d H:i:s') }}</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>login</th>
+                <th>Name</th>
+                <th>Emargement</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                {% for student in entity.students %}
+                    <td> {{ student.login }} </td>
+                    <td> {{ student.name }} </td>
+                    <td> </td>
+                {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+
+
+{% endblock %}

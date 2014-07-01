@@ -101,3 +101,9 @@ white_october_pagerfanta:
 
 parameters:
     nbr_item_by_page: 10
+
+knp_snappy:
+    pdf:
+        enabled:    true
+        binary:     ..\vendor\wkhtmltopdf\bin\wkhtmltopdf.exe
+        options:    []

@@ -35,6 +35,9 @@
                 {% if is_granted("ROLE_STUD") %}
                     <th>S'inscrire</th>
                 {% endif %}
+                {% if is_granted("ROLE_ADMIN") %}
+                    <th>Imprimer</th>
+                {% endif %}
             </tr>
         </thead>
         <tbody>
@@ -81,6 +84,9 @@
                             <input type="submit" value="s'inscrire" />
                         </form>
                     </td>
+                {% endif %}
+                {% if is_granted("ROLE_ADMIN") %}
+                    <td><a href="{{ path('examen_print', { 'id': entity.id }) }}" class="btn btn-default">Imprimer le PV</a></td>
                 {% endif %}
             </tr>
         {% endfor %}
