@@ -39,6 +39,7 @@ class StudentType extends AbstractType
             ->add('modules', 'entity', array(
                 'class'=>'EmiageReviewManagerBundle:module',
                 'property'=>'name',
+                'required' => false,
                 'multiple'=>true,
                 'attr'=>array('class'=>'hidden')))
             ;

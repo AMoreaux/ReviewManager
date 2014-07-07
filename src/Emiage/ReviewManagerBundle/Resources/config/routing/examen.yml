@@ -29,8 +29,8 @@ examen_delete:
     defaults: { _controller: "EmiageReviewManagerBundle:Examen:delete" }
 
 examen_inscription:
-    pattern: /{id}/inscription
-    defaults: {_controller: "EmiageReviewManagerBundle:Examen:inscription" }
+    pattern: /{id}/inscription/{page}
+    defaults: {_controller: "EmiageReviewManagerBundle:Examen:inscription", page: 1 }
 
 examen_addStudent:
     pattern: /{id}/addStudent

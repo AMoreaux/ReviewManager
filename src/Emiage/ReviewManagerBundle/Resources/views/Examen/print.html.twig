@@ -2,6 +2,8 @@
 
 {% block body %}
 
+<body onLoad="window.print()">
+
     <h2>Module : {{ entity.module.code }} {{ entity.module.name }}</h2>
     <h2>Centre d'examen : {{ entity.ReviewCenter.name }}</h2>
     <h2>Date d'examen : {{ entity.realizedOn|date('Y-m-d H:i:s') }}</h2>

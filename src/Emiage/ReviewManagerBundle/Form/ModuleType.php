@@ -2,6 +2,7 @@
 
 namespace Emiage\ReviewManagerBundle\Form;
 
+use Emiage\UserBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -17,7 +18,15 @@ class ModuleType extends AbstractType
         $builder
             ->add('name')
             ->add('code')
-            ->add('responsable')
+            ->add('responsable', 'entity', array(
+                'class'=>'EmiageUserBundle:User',
+                'property'=>'username',
+                'query_builder' =>  function(\Doctrine\ORM\EntityRepository $repository)
+                    {
+                        return $repository->createQueryBuilder('u')
+                            ->where("u.roles LIKE '%ROLE_PROF%'");
+                    },
+                'multiple'=>false,))
             ->add('file')
 
         ;

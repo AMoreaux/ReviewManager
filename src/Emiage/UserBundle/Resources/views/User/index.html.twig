@@ -9,8 +9,10 @@
                 <th>Username</th>
                 <th>Email</th>
                 <th>Roles</th>
-                <th>Id</th>
-                <th>Actions</th>
+                {% if is_granted('ROLE_SUPER_ADMIN')  %}
+                    <th>Id</th>
+                    <th>Actions</th>
+                {% endif %}
             </tr>
         </thead>
         <tbody>
@@ -24,18 +26,23 @@
                             <li>{{ role }}</li>
                         {% endfor %}
                     </ul>
-                </td>
-                <td>{{ entity.id }}</td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('user_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('user_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-                </td>
+                    </td>
+                {% if is_granted('ROLE_SUPER_ADMIN')  %}
+                    <td>{{ entity.id }}</td>
+                    <td>
+                        <ul>
+                            <li>
+                                <a href="{{ path('user_show', { 'id': entity.id }) }}">show</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('user_edit', { 'id': entity.id }) }}">edit</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('user_delete', { 'id': entity.id }) }}">delete</a>
+                            </li>
+                        </ul>
+                    </td>
+                {% endif %}
             </tr>
         {% endfor %}
         </tbody>
@@ -43,7 +50,7 @@
 
         <ul>
         <li>
-            <a href="{{ path('user_new') }}">
+            <a href="{{ path('user_new') }}" class="btn btn-primary">
                 Create a new entry
             </a>
         </li>

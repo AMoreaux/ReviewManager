@@ -54,15 +54,6 @@
         {% endfor %}
         </tbody>
     </table>
-    {% if is_granted ('ROLE_ADMIN') %}
-        <ul>
-            <li>
-                <a href="{{ path('student_new') }}" class="btn btn-primary">
-                    Create a new entry
-                </a>
-            </li>
-        </ul>
-    {% endif %}
 
     {% if entities.haveToPaginate %}
         {{ pagerfanta(entities, 'default', {'student': 'page'}) }}

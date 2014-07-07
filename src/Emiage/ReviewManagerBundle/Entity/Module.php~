@@ -41,7 +41,7 @@ class Module
     protected $code;
 
     /**
-     * @ORM\OneToOne(targetEntity="Emiage\UserBundle\Entity\User", cascade={"persist"}, inversedBy="module")
+     * @ORM\ManyToOne(targetEntity="Emiage\UserBundle\Entity\User", cascade={"persist"}, inversedBy="module")
      */
     protected $responsable;
 

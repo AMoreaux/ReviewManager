@@ -10,7 +10,6 @@ use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Pagerfanta\Exception\NotValidCurrentPageException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Knp\Bundle\SnappyBundle;
 use Symfony\Component\HttpFoundation\Response;
 
 use Emiage\ReviewManagerBundle\Entity\Examen;
@@ -27,7 +26,7 @@ class ExamenController extends Controller
 
     /**
      * Lists all Examen entities.
-     * @Secure(roles="ROLE_ADMIN, ROLE_STUD")
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function indexAction($page)
     {
@@ -81,6 +80,13 @@ class ExamenController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
+
+            $code = 'E'.$entity->getId();
+            $entity -> setcode($code);
+
+            $em->flush();
+
+
 
             return $this->redirect($this->generateUrl('examen_show', array('id' => $entity->getId())));
         }
@@ -231,10 +237,24 @@ class ExamenController extends Controller
         return $this->redirect($this->generateUrl('examen'));
     }
 
-    public function inscriptionAction($id)
+    public function inscriptionAction($id, $page)
     {
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('EmiageReviewManagerBundle:Examen')->findByModule($id);
+        $examensArray = $em->getRepository('EmiageReviewManagerBundle:Examen')->findByModule($id);
+
+        $adapter  = new ArrayAdapter($examensArray);
+        $entities = new PagerFanta($adapter);
+        $entities->setMaxPerPage($this->container->getParameter('nbr_item_by_page'));
+
+        try
+        {
+            $entities->setCurrentPage($page);
+        }
+
+        catch (NotValidCurrentPageException $e)
+        {
+            throw new NotFoundHttpException();
+        }
 
         return $this->render('EmiageReviewManagerBundle:Examen:index.html.twig', array(
             'entities' => $entities));
@@ -266,25 +286,30 @@ class ExamenController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('EmiageReviewManagerBundle:Examen')->find($id);
 
+        return $this->render('EmiageReviewManagerBundle:Examen:print.html.twig', array(
+            'entity' => $entity));
+    }
+
+    /*
+    public function printPvAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('EmiageReviewManagerBundle:Examen')->find($id);
+
         $codeModule = $entity->getModule()->getCode();
         $nameCenter = $entity->getReviewCenter()->getName();
         $fileName = $codeModule.$nameCenter.'.pdf';
         $path = 'uploads/documents/PV/'.$fileName;
 
-        if(file_exists($path))
-        {
-            $download = $this->download($path, $fileName);
-        }
+        if(file_exists($path)){}
         else
         {
             $this->get('knp_snappy.pdf')->generateFromHtml( $this->renderView('EmiageReviewManagerBundle:Examen:print.html.twig',array(
-            'entity'  => $entity)
-                ),
-                $path
-            );
-
-            $download = $this->download($path, $fileName);
+            'entity'  => $entity)),
+            $path);
         }
+
+        $download = $this->download($path, $fileName);
 
         return $download;
 
@@ -298,6 +323,6 @@ class ExamenController extends Controller
         $response->headers->set('Content-disposition', 'filename='. $fileName);
 
         return $response;
-    }
+    }*/
 }
 

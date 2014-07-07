@@ -3,7 +3,7 @@
         <div class="collapse navbar-collapse" id="topnavbar">
             <div class="nav-bar">
                 <ul class="nav navbar-nav">
-                    {% if is_granted('ROLE_ADMIN') and is_granted('ROLE_PROF') %}
+                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PROF') %}
                         <li>
                             <a href="{{ path('examen') }}">Examen</a>
                         </li>
@@ -13,32 +13,25 @@
                             <a href="{{ path('level') }}">Niveau</a>
                         </li>
                     {% endif %}
-                    {% if is_granted('ROLE_ADMIN') and is_granted('ROLE_PROF') %}
+                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PROF') %}
                         <li>
                             <a href="{{ path('module') }}">Module</a>
                         </li>
                     {% endif %}
-                    {% if is_granted('ROLE_ADMIN') and is_granted('ROLE_PROF') %}
-                        <li>
-                            <a href="{{ path('note') }}">Note</a>
-                        </li>
-                    {% endif %}
+                    <li>
+                        <a href="{{ path('note') }}">Note</a>
+                    </li>
                     {% if is_granted('ROLE_STUD') %}
                         <li>
                             <a href="{{ path('home') }}"> <img src="{{ asset('bundles/emiagereviewmanager/images/HouseIcon.png') }}" /> </a>
                         </li>
                     {% endif %}
-                    {% if is_granted('ROLE_STUD') %}
-                            <li>
-                                <a href="{{ path('note') }}"> note </a>
-                            </li>
-                    {% endif %}
-                    {% if is_granted('ROLE_ADMIN') and is_granted('ROLE_PROF') %}
+                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PROF') %}
                         <li>
                             <a href="{{ path('registercenter') }}">Centre nationaux</a>
                         </li>
                     {% endif %}
-                    {% if is_granted('ROLE_ADMIN') and is_granted('ROLE_PROF') %}
+                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PROF') %}
                         <li>
                             <a href="{{ path('reviewcenter') }}">Centre d'examen</a>
                         </li>
@@ -53,7 +46,7 @@
                             <a href="{{ path('tutor') }}">Tuteur</a>
                         </li>
                     {% endif %}
-                    {% if is_granted('ROLE_ADMIN') and is_granted('ROLE_PROF') %}
+                    {% if is_granted('ROLE_ADMIN') %}
                         <li>
                             <a href="{{ path('user') }}">Utilisateur</a>
                         </li>

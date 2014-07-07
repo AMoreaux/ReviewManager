@@ -184,12 +184,11 @@ class NoteController extends Controller
     */
     private function createEditForm(Note $entity)
     {
+
         $form = $this->createForm(new NoteType(), $entity, array(
             'action' => $this->generateUrl('note_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
-
-        $form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;
     }

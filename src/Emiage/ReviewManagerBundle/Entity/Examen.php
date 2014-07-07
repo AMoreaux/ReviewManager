@@ -24,14 +24,14 @@ class Examen
     /**
      * @var string
      *
-     * @ORM\Column(name="code", type="string", length=255)
+     * @ORM\Column(name="code", type="string", length=255, nullable=true)
      */
     protected $code;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="realizedOn", type="datetime",nullable=true, nullable=true)
+     * @ORM\Column(name="realizedOn", type="datetime",nullable=true)
      */
     protected $realizedOn;
 

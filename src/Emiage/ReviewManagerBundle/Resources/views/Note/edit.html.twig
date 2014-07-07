@@ -20,6 +20,17 @@
         {{ form_widget(edit_form.module) }}
 
     {% endif %}
+    {% if is_granted('ROLE_SUPER_ADMIN') %}
+
+        {{ form_label(edit_form.student) }}
+        {{ form_errors(edit_form.student) }}
+        {{ form_widget(edit_form.student) }}
+
+        {{ form_label(edit_form.module) }}
+        {{ form_errors(edit_form.module) }}
+        {{ form_widget(edit_form.module) }}
+
+    {% endif %}
     {% if is_granted('ROLE_PROF') %}
 
         {{ form_label(edit_form.note) }}
@@ -28,6 +39,7 @@
 
     {% endif %}
 
-    {{ form_end(edit_form) }}
+    {{ form_rest(edit_form) }}
+
 
 {% endblock %}

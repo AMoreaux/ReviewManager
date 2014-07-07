@@ -26,17 +26,16 @@ Class HomeController extends Controller
             $username = $user ->getUsername();
             $student = $em->getRepository('EmiageReviewManagerBundle:Student')->findOneByname($username);
 
-            if($student->getname() === $username )
+            if(empty($student))
+            {
+                return  $this->redirect($this->generateUrl('student_new'));
+            }
+            elseif($student->getname() === $username )
             {
                 return $this->redirect($this->generateUrl('student_show', array(
                     'id'=>$student->getId(),
                 )));
             }
-            elseif(empty($entities))
-            {
-                return  $this->redirect($this->generateUrl('student_new'));
-            }
-
         }
         else
         {

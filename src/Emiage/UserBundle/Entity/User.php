@@ -21,7 +21,7 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="Emiage\ReviewManagerBundle\Entity\Module", cascade={"persist"}, mappedBy="responsable")
+     * @ORM\OneToMany(targetEntity="Emiage\ReviewManagerBundle\Entity\Module", cascade={"persist"}, mappedBy="responsable")
      */
     protected  $module;
 

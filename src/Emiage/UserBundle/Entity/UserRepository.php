@@ -12,4 +12,14 @@ use Doctrine\ORM\EntityRepository;
  */
 class UserRepository extends EntityRepository
 {
+
+    public function findRoleProf()
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->where("u.roles = :motclef")
+            ->setParameters('motclef', 'ROLE_PROF');
+
+        return $qb->getQuery()
+            ->getResult();
+    }
 }

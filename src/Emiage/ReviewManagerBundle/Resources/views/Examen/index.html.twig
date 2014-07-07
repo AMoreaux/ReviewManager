@@ -1,6 +1,7 @@
 {% extends 'EmiageReviewManagerBundle::layout.html.twig' %}
 
 {% block content -%}
+
     <h1>Examen list</h1>
 
     {% if entities.haveToPaginate %}
@@ -81,7 +82,7 @@
                 {% if is_granted("ROLE_STUD") %}
                     <td>
                         <form action="{{ path('examen_addStudent',{ 'id': entity.id }) }}" >
-                            <input type="submit" value="s'inscrire" />
+                            <input type="submit" value="s'inscrire" class="btn btn-default"/>
                         </form>
                     </td>
                 {% endif %}
