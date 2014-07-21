@@ -26,15 +26,10 @@ class User extends BaseUser
     protected  $module;
 
     /**
-     * @ORM\OneToMany(targetEntity="Emiage\ReviewManagerBundle\Entity\Tutor", cascade={"persist"}, mappedBy="user")
-     */
-    protected $tutors;
-    /**
      * Constructor
      */
     public function __construct()
     {
-        $this->tutors = new \Doctrine\Common\Collections\ArrayCollection();
         parent::__construct();
     }
 
@@ -70,38 +65,5 @@ class User extends BaseUser
     public function getModule()
     {
         return $this->module;
-    }
-
-    /**
-     * Add tutors
-     *
-     * @param \Emiage\ReviewManagerBundle\Entity\Tutor $tutors
-     * @return User
-     */
-    public function addTutor(\Emiage\ReviewManagerBundle\Entity\Tutor $tutors)
-    {
-        $this->tutors[] = $tutors;
-
-        return $this;
-    }
-
-    /**
-     * Remove tutors
-     *
-     * @param \Emiage\ReviewManagerBundle\Entity\Tutor $tutors
-     */
-    public function removeTutor(\Emiage\ReviewManagerBundle\Entity\Tutor $tutors)
-    {
-        $this->tutors->removeElement($tutors);
-    }
-
-    /**
-     * Get tutors
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getTutors()
-    {
-        return $this->tutors;
     }
 }

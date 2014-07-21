@@ -51,11 +51,6 @@ class Module
     protected $notes;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Emiage\ReviewManagerBundle\Entity\Tutor", cascade={"persist"}, mappedBy="modules")
-     */
-    protected $tutors;
-
-    /**
      * @ORM\ManyToMany(targetEntity="Emiage\ReviewManagerBundle\Entity\Student", cascade={"persist"}, mappedBy="modules")
      */
     protected $students;
@@ -83,7 +78,6 @@ class Module
     public function __construct()
     {
         $this->notes = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->tutors = new \Doctrine\Common\Collections\ArrayCollection();
         $this->students = new \Doctrine\Common\Collections\ArrayCollection();
         $this->examens = new \Doctrine\Common\Collections\ArrayCollection();
     }
@@ -198,39 +192,6 @@ class Module
     public function getNotes()
     {
         return $this->notes;
-    }
-
-    /**
-     * Add tutors
-     *
-     * @param \Emiage\ReviewManagerBundle\Entity\Tutor $tutors
-     * @return Module
-     */
-    public function addTutor(\Emiage\ReviewManagerBundle\Entity\Tutor $tutors)
-    {
-        $this->tutors[] = $tutors;
-
-        return $this;
-    }
-
-    /**
-     * Remove tutors
-     *
-     * @param \Emiage\ReviewManagerBundle\Entity\Tutor $tutors
-     */
-    public function removeTutor(\Emiage\ReviewManagerBundle\Entity\Tutor $tutors)
-    {
-        $this->tutors->removeElement($tutors);
-    }
-
-    /**
-     * Get tutors
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getTutors()
-    {
-        return $this->tutors;
     }
 
     /**

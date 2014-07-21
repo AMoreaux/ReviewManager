@@ -24,6 +24,7 @@ class ModuleController extends Controller
 
     /**
      * Lists all Module entities.
+     * @Secure(roles="ROLE_ADMIN, ROLE_PROF, ROLE_STUD")
      */
     public function indexAction($page)
     {

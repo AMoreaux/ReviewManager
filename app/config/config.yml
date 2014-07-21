@@ -100,4 +100,4 @@ white_october_pagerfanta:
             not_valid_current_page:   to_http_not_found
 
 parameters:
-    nbr_item_by_page: 10
+    nbr_item_by_page: 5

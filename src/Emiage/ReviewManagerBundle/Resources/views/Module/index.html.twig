@@ -30,9 +30,6 @@
                     <th>Responsable</th>
                 {% endif %}
                 {% if (is_granted('ROLE_ADMIN')) or (is_granted('ROLE_PROF')) %}
-                    <th>Tutor</th>
-                {% endif %}
-                {% if (is_granted('ROLE_ADMIN')) or (is_granted('ROLE_PROF')) %}
                     <th>file</th>
                 {% endif %}
                 {% if is_granted('ROLE_ADMIN') %}
@@ -56,15 +53,6 @@
                     {% if (entity.responsable is not null) and ((is_granted('ROLE_ADMIN')) or (is_granted('ROLE_PROF')))%}
                         <td>{{ entity.responsable.username }}</td>
                     {% endif %}
-                    {% if (is_granted('ROLE_ADMIN')) or (is_granted('ROLE_PROF')) %}
-                        <td>
-                            <ul>
-                                {% for tutor in entity.tutors %}
-                                    <li>{{ tutor.user.username }}</li>
-                                {% endfor %}
-                            </ul>
-                        </td>
-                    {% endif %}
                     {% if (entity.path is not null) and ((is_granted('ROLE_ADMIN')) or (is_granted('ROLE_PROF')))  %}
                         <td><a href="{{ path('module_download', { 'slug': entity.path }) }}"> {{ entity.path }} </a></td>
                     {% elseif is_granted('username') == entity.responsable.username %}
@@ -72,18 +60,20 @@
                     {% elseif is_granted('ROLE_ADMIN') or is_granted('ROLE_PROF') %}
                         <td></td>
                     {% endif %}
-                    <td>
-                        <form action="{{ path('student_addModule',{ 'id': entity.id }) }}" >
-                            <input type="submit" value="s'inscrire" />
-                        </form>
-                    </td>
+                    {% if is_granted('ROLE_STUD') %}
+                        <td>
+                            <form action="{{ path('student_addModule',{ 'id': entity.id }) }}" >
+                                <input type="submit" value="s'inscrire" />
+                            </form>
+                        </td>
+                    {% endif %}
                     <td>
                         {% if is_granted('ROLE_ADMIN') %}
                             <ul>
                                 <li>
                                     <a href="{{ path('module_show', { 'id': entity.id }) }}" class="btn btn-default">show</a>
                                     <a href="{{ path('module_edit', { 'id': entity.id }) }}" class="btn btn-default">edit</a>
-                                    <a href="{{ path('module_delete', { 'id': entity.id }) }}" class="btn btn-default">delete</a>
+                                    <a href="{{ path('module_delete', { 'id': entity.id }) }}" class="btn btn-default" onclick="return confirm('Supprimer ce module ?');">delete</a>
                                 </li>
                             </ul>
                         {% endif %}

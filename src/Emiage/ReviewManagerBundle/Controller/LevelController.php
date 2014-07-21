@@ -19,6 +19,7 @@ class LevelController extends Controller
 
     /**
      * Lists all Level entities.
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function indexAction()
     {

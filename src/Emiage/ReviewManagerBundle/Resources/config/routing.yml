@@ -29,10 +29,6 @@ emiage_review_manager_reviewCenter:
     resource: "@EmiageReviewManagerBundle/Resources/config/routing/reviewcenter.yml"
     prefix:   /reviewcenter
 
-emiage_review_manager_tutor:
-    resource: "@EmiageReviewManagerBundle/Resources/config/routing/tutor.yml"
-    prefix:   /tutor
-
 emiage_review_manager_user:
     resource: "@EmiageReviewManagerBundle/Resources/config/routing/user.yml"
     prefix:   /user

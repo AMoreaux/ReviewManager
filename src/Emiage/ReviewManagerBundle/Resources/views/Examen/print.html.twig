@@ -17,13 +17,13 @@
             </tr>
         </thead>
         <tbody>
+        {% for student in entity.students %}
             <tr>
-                {% for student in entity.students %}
-                    <td> {{ student.login }} </td>
-                    <td> {{ student.name }} </td>
-                    <td> </td>
-                {% endfor %}
+                <td> {{ student.login }} </td>
+                <td> {{ student.name }} </td>
+                <td> </td>
             </tr>
+        {% endfor %}
         </tbody>
     </table>
 

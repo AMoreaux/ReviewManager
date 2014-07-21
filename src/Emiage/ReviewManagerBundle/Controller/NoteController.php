@@ -29,6 +29,7 @@ class NoteController extends Controller
 
     /**
      * Lists all Note entities.
+     * @Secure(roles="ROLE_ADMIN, ROLE_PROF, ROLE_STUD")
      */
     public function indexAction($page)
     {

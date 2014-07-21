@@ -19,6 +19,7 @@ class RegisterCenterController extends Controller
 
     /**
      * Lists all RegisterCenter entities.
+     * @Secure(roles="ROLE_ADMIN, ROLE_PROF")
      *
      */
     public function indexAction()

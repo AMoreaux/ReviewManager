@@ -18,9 +18,11 @@
                             <a href="{{ path('module') }}">Module</a>
                         </li>
                     {% endif %}
-                    <li>
-                        <a href="{{ path('note') }}">Note</a>
-                    </li>
+                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PROF') or is_granted('ROLE_STUD') %}
+                        <li>
+                            <a href="{{ path('note') }}">Note</a>
+                        </li>
+                    {% endif %}
                     {% if is_granted('ROLE_STUD') %}
                         <li>
                             <a href="{{ path('home') }}"> <img src="{{ asset('bundles/emiagereviewmanager/images/HouseIcon.png') }}" /> </a>
@@ -39,11 +41,6 @@
                     {% if is_granted('ROLE_ADMIN')%}
                         <li>
                             <a href="{{ path('student') }}">Etudiant</a>
-                        </li>
-                    {% endif %}
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <li>
-                            <a href="{{ path('tutor') }}">Tuteur</a>
                         </li>
                     {% endif %}
                     {% if is_granted('ROLE_ADMIN') %}

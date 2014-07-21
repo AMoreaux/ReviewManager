@@ -25,7 +25,7 @@
                     <li>
                         <a href="{{ path('reviewcenter_show', { 'id': entity.id }) }}" class="btn btn-default">show</a>
                         <a href="{{ path('reviewcenter_edit', { 'id': entity.id }) }}" class="btn btn-default">edit</a>
-                        <a href="{{ path('reviewcenter_delete', { 'id': entity.id }) }}" class="btn btn-default">delete</a>
+                        <a href="{{ path('reviewcenter_delete', { 'id': entity.id }) }}" class="btn btn-default" onclick="return confirm('Supprimer ce centre ?');">delete</a>
                     </li>
                 </ul>
                 </td>

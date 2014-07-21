@@ -19,6 +19,7 @@ class ReviewCenterController extends Controller
 
     /**
      * Lists all ReviewCenter entities.
+     * @Secure(roles="ROLE_ADMIN, ROLE_PROF")
      *
      */
     public function indexAction()
