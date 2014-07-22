@@ -1,11 +1,12 @@
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container-fluid">
-        <div class="collapse navbar-collapse" id="topnavbar">
-            <div class="nav-bar">
-                <ul class="nav navbar-nav">
+
+                <ul class="nav navbar-nav" id="menu-deroulant">
                     {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PROF') %}
                         <li>
                             <a href="{{ path('examen') }}">Examen</a>
+                                <ul>
+                                    <li><a href="{{ path('examen_new') }}">Ajouter un examen</a></li>
+                                </ul>
                         </li>
                     {% endif %}
                     {% if is_granted('ROLE_ADMIN') and is_granted('ROLE_PROF') %}
@@ -49,7 +50,5 @@
                         </li>
                     {% endif %}
                 </ul>
-            </div>
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
+
 </nav>

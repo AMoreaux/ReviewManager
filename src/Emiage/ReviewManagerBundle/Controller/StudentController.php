@@ -94,8 +94,7 @@ class StudentController extends Controller
             $em->persist($entity);
             $em->flush();
 
-           // $this->createNoteAction($entity);
-           // $this->createExamenAction($entity);
+            $this->sendmail();
 
             return $this->redirect($this->generateUrl('student_show', array('id' => $entity->getId())));
         }
@@ -276,5 +275,18 @@ class StudentController extends Controller
 
         return $this->redirect($this->generateUrl('home'));
 
+    }
+
+    public function sendmail()
+    {
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Inscription on Review Manager')
+            ->setFrom('moreaux.antoine@gmail.com')
+            ->setTo('nemesis98@hotmail.fr')
+            ->setBody('test')
+        ;
+        $this->get('mailer')->send($message);
+
+        return $message;
     }
 }

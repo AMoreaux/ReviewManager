@@ -18,13 +18,13 @@
         </span>
     </form>
 
-    <table class="table">
+    <table class="table" id="demo-tbl">
         <thead>
             <tr>
                 {% if is_granted ('ROLE_SUPER_ADMIN') %}
                     <th>Id</th>
                 {% endif %}
-                <th>Code</th>
+                <th><button type="button" id="asc_btn">code</button></th>
                 <th>Name</th>
                 {% if (is_granted('ROLE_ADMIN')) or (is_granted('ROLE_PROF')) %}
                     <th>Responsable</th>
@@ -42,13 +42,13 @@
                 {% endif %}
             </tr>
         </thead>
-        <tbody>
+        <tbody class="sort">
             {% for entity in entities.currentPageResults %}
                 <tr>
                     {% if is_granted ('ROLE_SUPER_ADMIN') %}
                         <td><a href="{{ path('module_show', { 'id': entity.id }) }}" class="btn btn-default">{{ entity.id }}</a></td>
                     {% endif %}
-                    <td>{{ entity.code }}</td>
+                    <td class="code">{{ entity.code }}</td>
                     <td>{{ entity.name }}</td>
                     {% if (entity.responsable is not null) and ((is_granted('ROLE_ADMIN')) or (is_granted('ROLE_PROF')))%}
                         <td>{{ entity.responsable.username }}</td>
