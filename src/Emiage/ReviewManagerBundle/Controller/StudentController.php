@@ -276,17 +276,4 @@ class StudentController extends Controller
         return $this->redirect($this->generateUrl('home'));
 
     }
-
-    public function sendmail()
-    {
-        $message = \Swift_Message::newInstance()
-            ->setSubject('Inscription on Review Manager')
-            ->setFrom('moreaux.antoine@gmail.com')
-            ->setTo('nemesis98@hotmail.fr')
-            ->setBody('test')
-        ;
-        $this->get('mailer')->send($message);
-
-        return $message;
-    }
 }

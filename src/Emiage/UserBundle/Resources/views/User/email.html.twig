@@ -1,0 +1,22 @@
+
+{% extends 'FOSUserBundle:Registration:email.txt.twig' %}
+
+
+{% block subject %}Confirmation d'inscription{% endblock %}
+
+{% block body_text %}
+    {% autoescape false %}
+    Bonjour {{ user.username }} !
+
+    Vous devez confirmé voter inscription [....] en cliquant sur le lien suivant : {{ confirmationUrl }}
+
+    Amicalement,
+    Administrateur de monsiteweb.com
+    {% endautoescape %}
+{% endblock %}
+
+{% block body_html %}
+   Vous avez désormais à l'application ReviewManager.
+   Votre pseudo : {{ user.username }}
+   Votre mdp : {{ user.username }}
+{% endblock %}

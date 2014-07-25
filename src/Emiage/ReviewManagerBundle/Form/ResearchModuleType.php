@@ -2,42 +2,42 @@
 
 namespace Emiage\ReviewManagerBundle\Form;
 
+use Emiage\ReviewManagerBundle\Entity\Module;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ExamenType extends AbstractType
+class ResearchModuleType extends AbstractType
 {
-        /**
+    /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('realizedOn', 'date', array(
-                'input' => 'datetime',
-                'format' => 'dd/MM/yyyy',
-                'attr' => array('type' => 'date'),
-            ))
             ->add('module', 'entity', array(
-                'class'=>'EmiageReviewManagerBundle:module',
-                'property'=>'name',))
-            ->add('reviewCenter', 'entity', array(
-                'class'=>'EmiageReviewManagerBundle:ReviewCenter',
-                'property'=>'name',))
+                'class'=>'EmiageReviewManagerBundle:Module',
+                'property'=>'name',
+                'empty_value' => 'Tous',
+                'empty_data' => null,
+                'multiple'=>false,
+                'required'=>false,
+            ))
+            ->add('search', 'submit', array(
+                'label'=>'rechercher',
+            ))
+            ->setMethod('GET')
         ;
     }
 
-
-    
     /**
-     * @param OptionsResolverInterface $resolver
+     * {@inheritdoc}
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Emiage\ReviewManagerBundle\Entity\Examen'
+            'csrf_protection'   => false,
         ));
     }
 
@@ -46,6 +46,6 @@ class ExamenType extends AbstractType
      */
     public function getName()
     {
-        return 'emiage_reviewmanagerbundle_examen';
+        return 'researchmodule';
     }
 }

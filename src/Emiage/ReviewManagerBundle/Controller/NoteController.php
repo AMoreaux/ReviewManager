@@ -13,9 +13,10 @@ use Pagerfanta\Pagerfanta;
 use Pagerfanta\Exception\NotValidCurrentPageException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+use Emiage\ReviewManagerBundle\Form\ResearchStudentByModuleType;
+use Emiage\ReviewManagerBundle\Form\ResearchModuleType;
 use Emiage\ReviewManagerBundle\Entity\Note;
 use Emiage\ReviewManagerBundle\Form\NoteType;
-use Emiage\ReviewManagerBundle\Form\ResearchFormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use Symfony\Component\Form\Form;
@@ -26,35 +27,31 @@ use Symfony\Component\Form\Form;
  */
 class NoteController extends Controller
 {
-
     /**
      * Lists all Note entities.
      * @Secure(roles="ROLE_ADMIN, ROLE_PROF, ROLE_STUD")
      */
     public function indexAction($page)
     {
-        $form = $this->createForm(new ResearchFormType());
-
+        $formModule = $this->createForm(new ResearchModuleType());
+        $formStudent='';
         $em = $this->getDoctrine()->getManager();
-
         $request = $this->getRequest();
-
-        if (($request->getMethod() == 'POST') and (($this->get('security.context')->isGranted('ROLE_PROF'))or ($this->get('security.context')->isGranted('ROLE_PROF'))))
-        {
-            $form->bind($request);
-            $motclef = $form["motclef"]->getData();
-
-            $notesArray = $em->getRepository('EmiageReviewManagerBundle:Note')->findNote($motclef);
-        }
-
-        elseif($this->get('security.context')->isGranted('ROLE_STUD'))
-        {
+/*
+        if($this->get('security.context')->isGranted('ROLE_STUD')){
             $user = $this->getUser()->getUsername();
-            $studentItem = $em->getRepository('EmiageReviewManagerBundle:Student')->findByName($user);
-            $notesArray = $em->getRepository('EmiageReviewManagerBundle:Note')->findByStudent($studentItem);
+            $query{"student"} = $em->getRepository('EmiageReviewManagerBundle:Student')->findByName($user);
         }
-        else
-        {
+*/
+
+        $formModule->handleRequest($request);
+
+        $data = $formModule->getData();
+
+        if ($formModule->isValid() && null !== $data['module']) {
+            $notesArray = $em->getRepository('EmiageReviewManagerBundle:Note')->findBy(array('module' => $data['module']));
+            $formStudent = $this->createForm(new ResearchStudentByModuleType($id= $data['module']->getId()))->createView();
+        } else {
             $notesArray = $em->getRepository('EmiageReviewManagerBundle:Note')->findAll();
         }
 
@@ -62,19 +59,17 @@ class NoteController extends Controller
         $entities = new PagerFanta($adapter);
         $entities->setMaxPerPage($this->container->getParameter('nbr_item_by_page'));
 
-        try
-        {
+        try  {
             $entities->setCurrentPage($page);
-        }
-
-        catch (NotValidCurrentPageException $e)
-        {
+        } catch (NotValidCurrentPageException $e)  {
             throw new NotFoundHttpException();
         }
 
         return $this->container->get('templating')->renderResponse('EmiageReviewManagerBundle:Note:index.html.twig', array(
             'entities' => $entities,
-            'form' => $form->createView()));
+            'formModule' => $formModule->createView(),
+            'formStudent' => $formStudent,
+            ));
     }
 
     /**

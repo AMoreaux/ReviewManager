@@ -7,16 +7,16 @@
         {{ pagerfanta(entities, 'default', {'note': 'page'}) }}
     {% endif %}
 
-    {% if is_granted("ROLE_PROF") or is_granted("ROLE_ADMIN")%}
-        <form class="input-group input-group-lg" action="{{ path('note') }}" method="post">
-            <span class="input-group-addon">
-                {{ form_widget(form) }}
-                 <input type="submit" value="Rechercher" />
-            </span>
-        </form>
-    {% endif %}
+    <form class="input-group input-group-lg" action="{{ path('note') }}" method="get">
+        <span class="input-group-addon">
+            {{ form_widget(formModule) }}
+            {% if (is_granted("ROLE_PROF") or is_granted("ROLE_ADMIN")) and (formStudent is not empty)%}
+                {{ form_widget(formStudent) }}
+            {% endif %}
+        </span>
+    </form>
 
-    <table class="table">
+    <table class="table table-striped">
         <thead>
             <tr>
                 {% if is_granted('ROLE_SUPER_ADMIN')  %}
@@ -54,7 +54,7 @@
                 {% endif %}
                 <td>
                     {% if ((entity.path is defined) and ( app.user.username == entity.module.responsable.username or is_granted('ROLE_ADMIN'))) %}
-                        <a href="{{ path('note_download', { 'slug': entity.path }) }}">{{ entity.path }}</a>
+                        <a href="{{ entity.getWebPath() }}">{{ entity.path }}</a>
                     {% elseif is_granted('ROLE_ADMIN') %}
                         <a href="{{ path('note_edit', { 'id': entity.id }) }}" class="btn btn-default">(uploader une copie)</a>
                     {% endif %}

@@ -9,8 +9,7 @@
                 <th>Username</th>
                 <th>Email</th>
                 <th>Roles</th>
-                {% if is_granted('ROLE_SUPER_ADMIN')  %}
-                    <th>Id</th>
+                {% if is_granted('ROLE_ADMIN')  %}
                     <th>Actions</th>
                 {% endif %}
             </tr>
@@ -27,13 +26,9 @@
                         {% endfor %}
                     </ul>
                     </td>
-                {% if is_granted('ROLE_SUPER_ADMIN')  %}
-                    <td>{{ entity.id }}</td>
+                {% if is_granted('ROLE_ADMIN')  %}
                     <td>
                         <ul>
-                            <li>
-                                <a href="{{ path('user_show', { 'id': entity.id }) }}">show</a>
-                            </li>
                             <li>
                                 <a href="{{ path('user_edit', { 'id': entity.id }) }}">edit</a>
                             </li>
@@ -47,11 +42,4 @@
         {% endfor %}
         </tbody>
     </table>
-    <ul>
-        <li>
-            <a href="{{ path('user_new') }}" class="btn btn-primary">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
     {% endblock %}

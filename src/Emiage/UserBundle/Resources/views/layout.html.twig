@@ -1,6 +1,6 @@
 {# src/Emiage/UserBundle/Resources/views/layout.html.twig #}
 
-{% extends '::base.html.twig' %}
+{% extends 'EmiageReviewManagerBundle::layout.html.twig' %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -15,9 +15,9 @@
 {% block body %}
     <div>
         {% block content %}
-        {% endblock content%}
         {% block fos_user_content %}
         {% endblock fos_user_content %}
+        {% endblock content%}
     </div>
 {% endblock %}
 

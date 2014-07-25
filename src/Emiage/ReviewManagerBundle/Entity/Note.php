@@ -152,7 +152,7 @@ class Note
 
     protected function getUploadDir()
     {
-        return 'uploads/documents/Copies/';
+        return '/uploads/documents/Copies';
     }
 
     /**

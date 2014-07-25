@@ -60,22 +60,30 @@ doctrine:
         auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true
 
-# Swiftmailer Configuration
-swiftmailer:
-    transport: gmail
-    username: moreaux.antoine@gmail.com
-    password:  yam206@s
-
 fos_user:
     db_driver:     orm                        # Le type de BDD à utiliser, nous utilisons l'ORM Doctrine depuis le début
     firewall_name: main                       # Le nom du firewall derrière lequel on utilisera ces utilisateurs
     user_class:    Emiage\UserBundle\Entity\User # La classe de l'entité User que nous utilisons
+    service:
+            mailer: fos_user.mailer.twig_swift
     registration:
             form:
                type: emiage_user_registration        # this is the same alias specified in services
+            confirmation:
+               enabled:    true
+               from_email:
+                   address:   moreaux.antoine@gmail.com
+                   sender_name:    Review Manager
+               template:   EmiageUserBundle:User:email.html.twig
     profile:
             form:
                type: emiage_user_profile
+
+swiftmailer:
+    transport:  gmail
+    encryption: ssl
+    username:   moreaux.antoine@gmail.com
+    password:   yam206@s
 
 jms_security_extra:
     secure_all_services: false
@@ -98,4 +106,4 @@ white_october_pagerfanta:
             not_valid_current_page:   to_http_not_found
 
 parameters:
-    nbr_item_by_page: 5
+    nbr_item_by_page: 10

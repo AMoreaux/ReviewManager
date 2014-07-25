@@ -3,12 +3,9 @@
 {% block content -%}
     <h1>ReviewCenter list</h1>
 
-    <table class="table">
+    <table class="table table-striped">
         <thead>
             <tr>
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
-                    <th>Id</th>
-                {% endif %}
                 <th>Name</th>
                 <th>Actions</th>
             </tr>
@@ -16,30 +13,15 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
-                    <td><a href="{{ path('reviewcenter_show', { 'id': entity.id }) }}" class="btn btn-default">{{ entity.id }}</a></td>
-                {% endif %}
                 <td>{{ entity.name }}</td>
-                <td>
-                <ul  class="btn-group">
-                    <li>
-                        <a href="{{ path('reviewcenter_show', { 'id': entity.id }) }}" class="btn btn-default">show</a>
-                        <a href="{{ path('reviewcenter_edit', { 'id': entity.id }) }}" class="btn btn-default">edit</a>
-                        <a href="{{ path('reviewcenter_delete', { 'id': entity.id }) }}" class="btn btn-default" onclick="return confirm('Supprimer ce centre ?');">delete</a>
-                    </li>
-                </ul>
-                </td>
+                <td><a href="{{ path('reviewcenter_delete', { 'id': entity.id }) }}" class="btn btn-default" onclick="return confirm('Supprimer ce centre ?');">delete</a></td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
     {% if is_granted('ROLE_ADMIN') %}
-        <ul>
-            <li>
-                <a href="{{ path('reviewcenter_new') }}" class="btn btn-primary">
-                    Create a new entry
-                </a>
-            </li>
-        </ul>
+        <a href="{{ path('reviewcenter_new') }}" class="btn btn-primary">
+            Create a new entry
+        </a>
     {% endif %}
     {% endblock %}

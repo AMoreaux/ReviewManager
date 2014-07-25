@@ -4,13 +4,6 @@
 
     <h1>User creation</h1>
 
-    {{ form(form) }}
+    {{ form_row(form, { 'attr': { 'class': 'form-control'}}) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('user') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
 {% endblock %}
