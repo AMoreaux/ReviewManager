@@ -24,7 +24,7 @@
                 {% if is_granted ('ROLE_SUPER_ADMIN') %}
                     <th>Id</th>
                 {% endif %}
-                <th><button type="button" id="asc_btn">code</button></th>
+                <th>code</th>
                 <th>Name</th>
                 {% if (is_granted('ROLE_ADMIN')) or (is_granted('ROLE_PROF')) %}
                     <th>Responsable</th>
@@ -50,15 +50,17 @@
                     {% endif %}
                     <td class="code">{{ entity.code }}</td>
                     <td>{{ entity.name }}</td>
-                    {% if (entity.responsable is not null) and ((is_granted('ROLE_ADMIN')) or (is_granted('ROLE_PROF')))%}
+                    {% if (entity.responsable.username is defined) and ((is_granted('ROLE_ADMIN')) or (is_granted('ROLE_PROF'))) %}
                         <td>{{ entity.responsable.username }}</td>
+                    {% else %}
+                        <td></td>
                     {% endif %}
                     {% if (entity.path is not null) and ((is_granted('ROLE_ADMIN')) or (is_granted('ROLE_PROF')))  %}
                         <td><a href="{{ path('module_download', { 'slug': entity.path }) }}"> {{ entity.path }} </a></td>
-                    {% elseif is_granted('username') == entity.responsable.username %}
+                    {% elseif (entity.responsable.username is defined) and (is_granted('username') == entity.responsable.username) %}
                         <td><a href="{{ path('module_edit', { 'id': entity.id }) }}" class="btn btn-default">(Ajouter le contenu)</a></td>
                     {% elseif is_granted('ROLE_ADMIN') or is_granted('ROLE_PROF') %}
-                        <td></td>
+                        <td> </td>
                     {% endif %}
                     {% if is_granted('ROLE_STUD') %}
                         <td>

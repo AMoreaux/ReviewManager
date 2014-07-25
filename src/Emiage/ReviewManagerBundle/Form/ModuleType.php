@@ -21,6 +21,9 @@ class ModuleType extends AbstractType
             ->add('responsable', 'entity', array(
                 'class'=>'EmiageUserBundle:User',
                 'property'=>'username',
+                'empty_value' => '(pas de responsable)',
+                'empty_data' => null,
+                'required' => false,
                 'query_builder' =>  function(\Doctrine\ORM\EntityRepository $repository)
                     {
                         return $repository->createQueryBuilder('u')
