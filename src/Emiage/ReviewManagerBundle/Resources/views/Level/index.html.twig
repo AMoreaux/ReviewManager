@@ -6,7 +6,6 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Name</th>
                 <th>Actions</th>
             </tr>
@@ -14,7 +13,6 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('level_show', { 'id': entity.id }) }}" class="btn btn-default">{{ entity.id }}</a></td>
                 <td>{{ entity.name }}</td>
                 <td>
                 <ul>

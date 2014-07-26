@@ -368,5 +368,10 @@ class Module
         return $this->path;
     }
 
+    public function getCodeName()
+    {
+        return $this->code.' '.$this->name;
+    }
+
 
 }

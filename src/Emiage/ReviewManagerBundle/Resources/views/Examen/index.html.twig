@@ -20,9 +20,6 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                {% if is_granted ('ROLE_SUPER_ADMIN') %}
-                    <th>Id</th>
-                {% endif %}
                 <th>Code</th>
                 <th>Module</th>
                 <th>ReviewCenter</th>
@@ -44,9 +41,6 @@
         <tbody>
         {% for entity in entities.currentPageResults %}
             <tr>
-                {% if is_granted ('ROLE_SUPER_ADMIN') %}
-                    <td><a href="{{ path('examen_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                {% endif %}
                 <td>{{ entity.code }}</td>
                 <td>{{ entity.module.code }} {{ entity.module.name }}</td>
                 {% if entity.reviewCenter is not null %}

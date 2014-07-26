@@ -27,7 +27,7 @@ class RegistrationController extends BaseController
             $route = 'user';
             $url = $this->container->get('router')->generate($route);
             $response = new RedirectResponse($url);
-            
+
             return $response;
         }
 

@@ -17,9 +17,6 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
-                    <th>Id</th>
-                {% endif %}
                 <th>Name</th>
                 <th>Login</th>
                 <th>Mail</th>
@@ -32,9 +29,6 @@
         <tbody>
         {% for entity in entities.currentPageResults %}
             <tr>
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
-                    <td><a href="{{ path('student_show', { 'id': entity.id }) }}" class="btn btn-default">{{ entity.id }}</a></td>
-                {% endif %}
                 <td>{{ entity.name }}</td>
                 <td>{{ entity.login }}</td>
                 <td>{{ entity.mail }}</td>

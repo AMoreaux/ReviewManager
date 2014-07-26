@@ -2,44 +2,19 @@
 
 {% block content -%}
     <h1>Note edit</h1>
-
     {{ form_start(edit_form) }}
-
     {% if is_granted('ROLE_ADMIN') %}
-
-        {{ form_label(edit_form.file, ' ') }}
-        {{ form_errors(edit_form.file) }}
-        {{ form_widget(edit_form.file) }}
-
-        {{ form_label(edit_form.student) }}
-        {{ form_errors(edit_form.student) }}
-        {{ form_widget(edit_form.student) }}
-
-        {{ form_label(edit_form.module) }}
-        {{ form_errors(edit_form.module) }}
-        {{ form_widget(edit_form.module) }}
-
+        {{ form_row(edit_form.file) }}
+        {{ form_row(edit_form.student, { 'attr': { 'class': 'form-control' }}) }}
+        {{ form_row(edit_form.module, { 'attr': { 'class': 'form-control' }}) }}
     {% endif %}
     {% if is_granted('ROLE_SUPER_ADMIN') %}
-
-        {{ form_label(edit_form.student) }}
-        {{ form_errors(edit_form.student) }}
-        {{ form_widget(edit_form.student) }}
-
-        {{ form_label(edit_form.module) }}
-        {{ form_errors(edit_form.module) }}
-        {{ form_widget(edit_form.module) }}
-
+        {{ form_row(edit_form.student, { 'attr': { 'class': 'form-control' }}) }}
+        {{ form_row(edit_form.module, { 'attr': { 'class': 'form-control' }}) }}
     {% endif %}
     {% if is_granted('ROLE_PROF') %}
-
-        {{ form_label(edit_form.note) }}
-        {{ form_errors(edit_form.note) }}
-        {{ form_widget(edit_form.note) }}
-
+        {{ form_row(edit_form.note, { 'attr': { 'class': 'form-control' }}) }}
     {% endif %}
-
+    {{ form_row(edit_form.submit, { 'attr': { 'class': 'btn btn-success' }}) }}
     {{ form_rest(edit_form) }}
-
-
 {% endblock %}

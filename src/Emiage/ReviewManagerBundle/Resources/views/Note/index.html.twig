@@ -19,9 +19,6 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                {% if is_granted('ROLE_SUPER_ADMIN')  %}
-                    <th>Id</th>
-                {% endif %}
                 {% if is_granted("ROLE_PROF") or is_granted("ROLE_ADMIN")%}
                     <th>Student</th>
                 {% endif %}
@@ -38,9 +35,6 @@
         <tbody>
         {% for entity in entities.currentPageResults %}
             <tr>
-                {% if is_granted('ROLE_SUPER_ADMIN')  %}
-                    <td><a href="{{ path('note_show', { 'id': entity.id }) }}" class="btn btn-default">{{ entity.id }}</a></td>
-                {% endif %}
                 {% if is_granted("ROLE_PROF") or is_granted("ROLE_ADMIN")%}
                     <td>{{ entity.student.name }}</td>
                 {% endif %}
@@ -53,7 +47,7 @@
                     <td> </td>
                 {% endif %}
                 <td>
-                    {% if ((entity.path is defined) and ( app.user.username == entity.module.responsable.username or is_granted('ROLE_ADMIN'))) %}
+                    {% if ((entity.path is defined) and (is_granted('ROLE_ADMIN'))) %}
                         <a href="{{ entity.getWebPath() }}">{{ entity.path }}</a>
                     {% elseif is_granted('ROLE_ADMIN') %}
                         <a href="{{ path('note_edit', { 'id': entity.id }) }}" class="btn btn-default">(uploader une copie)</a>

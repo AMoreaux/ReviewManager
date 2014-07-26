@@ -3,5 +3,15 @@
 {% block content -%}
 
     <h1>Student edit</h1>
-    {{ form(edit_form) }}
+    <div class="input-group-addon">
+        <div class="container">
+            <div class="form-group ">
+                {{ form_start(edit_form) }}
+                {{ form_row(edit_form.phone, { 'attr': { 'class': 'form-control'}}) }}
+                {{ form_row(edit_form.level, { 'attr': { 'class': 'form-control' }}) }}
+                {{ form_row(edit_form.registerCenter, { 'attr': { 'class': 'form-control' }}) }}
+                {{ form_end(edit_form) }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

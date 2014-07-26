@@ -18,7 +18,7 @@ class ResearchModuleType extends AbstractType
         $builder
             ->add('module', 'entity', array(
                 'class'=>'EmiageReviewManagerBundle:Module',
-                'property'=>'name',
+                'property'=>'codename',
                 'empty_value' => 'Tous',
                 'empty_data' => null,
                 'multiple'=>false,

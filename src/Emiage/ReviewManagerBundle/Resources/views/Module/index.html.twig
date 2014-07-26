@@ -21,9 +21,6 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                {% if is_granted ('ROLE_SUPER_ADMIN') %}
-                    <th>Id</th>
-                {% endif %}
                 <th>code</th>
                 <th>Name</th>
                 {% if (is_granted('ROLE_ADMIN')) or (is_granted('ROLE_PROF')) %}
@@ -45,9 +42,6 @@
         <tbody>
             {% for entity in entities.currentPageResults %}
                 <tr>
-                    {% if is_granted ('ROLE_SUPER_ADMIN') %}
-                        <td><a href="{{ path('module_show', { 'id': entity.id }) }}" class="btn btn-default">{{ entity.id }}</a></td>
-                    {% endif %}
                     <td>{{ entity.code }}</td>
                     <td>{{ entity.name }}</td>
                     {% if (entity.responsable.username is defined) and ((is_granted('ROLE_ADMIN')) or (is_granted('ROLE_PROF'))) %}

@@ -2,9 +2,15 @@
 
 {% block content -%}
     <h1>ReviewCenter creation</h1>
-
     <div class="input-group-addon">
-        {{ form(form) }}
+        <div class="container">
+            <div class="form-group ">
+                {{ form_start(form) }}
+                {{ form_row(form.name, { 'attr': { 'class': 'form-control', 'for': 'inputSuccess4'}}) }}
+                {{ form_row(form.submit, { 'attr': { 'class': 'btn btn-success' }}) }}
+                {{ form_end(form) }}
+            </div>
+        </div>
     </div>
 
 {% endblock %}

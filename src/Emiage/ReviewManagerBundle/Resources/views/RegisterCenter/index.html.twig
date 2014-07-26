@@ -6,9 +6,6 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
-                    <th>Id</th>
-                {% endif %}
                 <th>Name</th>
                 <th>Actions</th>
             </tr>
@@ -16,9 +13,6 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
-                    <td><a href="{{ path('registercenter_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                {% endif %}
                 <td>{{ entity.name }}</td>
                 <td>
                 {% if is_granted ("ROLE_ADMIN") %}
