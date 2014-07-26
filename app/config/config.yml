@@ -70,7 +70,7 @@ fos_user:
             form:
                type: emiage_user_registration        # this is the same alias specified in services
             confirmation:
-               enabled:    true
+               enabled:    false
                from_email:
                    address:   moreaux.antoine@gmail.com
                    sender_name:    Review Manager

@@ -7,11 +7,11 @@
             <div class="form-group ">
                 <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
                     {{ form_start(form) }}
-                    {{ form_widget(form.username, { 'attr': { 'class': 'form-control', 'for': 'inputSuccess4'}}) }}
-                    {{ form_widget(form.email, { 'attr': { 'class': 'form-control' }}) }}
-                    {{ form_widget(form.plainPassword.first, { 'attr': { 'class': 'form-control' }}) }}
-                    {{ form_widget(form.plainPassword.second, { 'attr': { 'class': 'form-control' }}) }}
-                    {{ form_widget(form.roles, { 'attr': { 'class': 'form-control' }}) }}
+                    {{ form_row(form.username, { 'attr': { 'class': 'form-control', 'for': 'inputSuccess4'}}) }}
+                    {{ form_row(form.email, { 'attr': { 'class': 'form-control' }}) }}
+                    {{ form_row(form.plainPassword.first, { 'attr': { 'class': 'form-control' }}) }}
+                    {{ form_row(form.plainPassword.second, { 'attr': { 'class': 'form-control' }}) }}
+                    {{ form_row(form.roles, { 'attr': { 'class': 'form-control' }}) }}
                     {{ form_rest(form) }}
 
                     <div>

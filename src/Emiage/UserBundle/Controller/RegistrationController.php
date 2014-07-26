@@ -3,6 +3,9 @@
 namespace Emiage\UserBundle\Controller;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
+
 use FOS\UserBundle\Controller\RegistrationController as BaseController;
 
 class RegistrationController extends BaseController
@@ -16,33 +19,34 @@ class RegistrationController extends BaseController
         $process = $formHandler->process($confirmationEnabled);
         if ($process) {
             $user = $form->getData();
-
-            $password = $user->getUsername();
-            $user->setplainPassword($password);
-
-            $authUser = false;
-            if ($confirmationEnabled) {
-                $this->container->get('session')->set('fos_user_send_confirmation_email/email', $user->getEmail());
-                $route = 'fos_user_registration_check_email';
-            } else {
-                $authUser = true;
-                $route = 'fos_user_registration_confirmed';
+            $userRole = $user->getRoles();
+            if('ROLE_STUD' == $userRole[0]){
+                $this->sendMail($user);
             }
 
+            $route = 'user';
             $url = $this->container->get('router')->generate($route);
             $response = new RedirectResponse($url);
-
-            if ($authUser) {
-                $this->authenticateUser($user, $response);
-            }
-
+            
             return $response;
         }
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:Registration:register.html.'.$this->getEngine(), array(
             'form' => $form->createView(),
         ));
+    }
 
+    public function sendMail($user)
+    {
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Inscription à la plateforme ReviewManager')
+            ->setFrom('moreaux.antoine@gmail.com')
+            ->setTo($mail = $user->getEmail())
+            ->setBody($this->container->get('templating')->render('EmiageUserBundle:User:email.html.twig', array('user' => $user)))
+        ;
 
+        $this->container->get('mailer')->send($message);
+
+        return $message;
     }
 }

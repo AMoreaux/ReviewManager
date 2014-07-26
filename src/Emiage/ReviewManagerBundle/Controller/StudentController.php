@@ -94,8 +94,6 @@ class StudentController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            $this->sendmail();
-
             return $this->redirect($this->generateUrl('student_show', array('id' => $entity->getId())));
         }
 

@@ -224,7 +224,7 @@ class ModuleController extends Controller
     }
 
     /**
-     *@Secure(roles="ROLE_PROF")
+     *@Secure(roles="ROLE_ADMIN, ROLE_PROF")
      */
     public function downloadAction($slug)
     {

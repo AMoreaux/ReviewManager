@@ -31,7 +31,7 @@
                 {% endif %}
                 {% if is_granted('ROLE_STUD') %}
                     <li>
-                        <a href="{{ path('home') }}"> <img src="{{ asset('bundles/emiagereviewmanager/images/HouseIcon.png') }}" /> </a>
+                        <a href="{{ path('home') }}"> home </a>
                     </li>
                 {% endif %}
                 {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PROF') %}

@@ -2,8 +2,16 @@
 
 {% block content -%}
     <h1>Student creation</h1>
-
+    <h1>Module creation</h1>
     <div class="input-group-addon">
-        {{ form(form) }}
+        <div class="container">
+            <div class="form-group ">
+                {{ form_start(form) }}
+                {{ form_row(form.phone, { 'attr': { 'class': 'form-control'}}) }}
+                {{ form_row(form.level, { 'attr': { 'class': 'form-control' }}) }}
+                {{ form_row(form.registerCenter, { 'attr': { 'class': 'form-control' }}) }}
+                {{ form_end(form) }}
+            </div>
+        </div>
     </div>
 {% endblock %}
