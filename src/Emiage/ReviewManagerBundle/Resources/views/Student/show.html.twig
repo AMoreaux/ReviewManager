@@ -1,7 +1,7 @@
 {% extends 'EmiageReviewManagerBundle::layout.html.twig' %}
 
 {% block content -%}
-    <h1>Student</h1>
+    <h1>{{ entity.name }}</h1>
 
     <table class="table">
         <tbody>
@@ -12,8 +12,10 @@
                 </tr>
             {% endif %}
             <tr>
-                <th>Name</th>
-                <td>{{ entity.name }}</td>
+                <th>mot de passe</th>
+                <td>
+                    <a href="{{ path('fos_user_change_password')}}" class="btn btn-warning btn-sm">Modifier mon mot de passe</a>
+                </td>
             </tr>
             <tr>
                 <th>Login</th>
@@ -31,30 +33,21 @@
                 <th>Module</th>
                 <td>
                     <form action="{{ path('module') }}" >
-                        <input type="submit" value="Ajouter des modules" />
+                        <input type="submit" value="Ajouter des modules" class="btn btn-success"/>
                     </form>
-                    <ul>
-                       {% for module in entity.modules %}
-                        <li><a href="{{ path('examen_inscription', { 'id': module.id }) }}">{{ module.code }} / {{ module.name }}</a></li>
-                        {% endfor %}
-                    </ul>
+                    <table>
+                        <tbody>
+                           {% for module in entity.modules %}
+                               <tr>
+                               <td>{{ module.code }} / {{ module.name }}</td>
+                               <td> <a class="btn-default  btn-xs" href="{{ path('examen_inscription', { 'id': module.id }) }}">choisir un examen de passage</a></td>
+                               </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </td>
             </tr>
         </tbody>
     </table>
 
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('student_edit', { 'id': entity.id }) }}" class="btn btn-default">
-                Edit
-            </a>
-        </li>
-        {% if is_granted ('ROLE_ADMIN') %}
-            <li>
-                <a href="{{ path('student_delete', { 'id': entity.id }) }}" class="btn btn-default">
-                    Delete
-                </a>
-            </li>
-        {% endif %}
-    </ul>
 {% endblock %}

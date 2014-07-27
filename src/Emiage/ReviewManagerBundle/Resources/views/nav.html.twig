@@ -55,8 +55,12 @@
                 <ul class="dropdown-menu">
                     <li><a href="{{ path('user_new') }}">Ajouter un utilisateur</a></li>
                     <li><a href="{{ path('user') }}">Consulter les utilisateurs</a></li>
+                    <li><a href="{{ path('fos_user_change_password') }}">Changer mon mot de passe</a></li>
                 </ul>
             </li>
+        {% endif %}
+        {% if is_granted('ROLE_PROF') %}
+            <li><a href="{{ path('fos_user_change_password') }}">Changer mon mot de passe</a></li>
         {% endif %}
         <p class="navbar-text navbar-right">
             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}

@@ -94,7 +94,7 @@ class StudentController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('student_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('fos_user_change_password'));
         }
 
         return $this->render('EmiageReviewManagerBundle:Student:new.html.twig', array(
