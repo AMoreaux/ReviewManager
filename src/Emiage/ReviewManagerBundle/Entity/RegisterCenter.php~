@@ -29,11 +29,6 @@ class RegisterCenter
     protected $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="Emiage\ReviewManagerBundle\Entity\Tutor", cascade={"persist"}, mappedBy="registerCenter")
-     */
-    protected $tutors;
-
-    /**
      * @ORM\OneToMany(targetEntity="Emiage\ReviewManagerBundle\Entity\Student", cascade={"persist"}, mappedBy="registerCenter")
      */
     protected $students;
@@ -45,7 +40,6 @@ class RegisterCenter
      */
     public function __construct()
     {
-        $this->tutors = new \Doctrine\Common\Collections\ArrayCollection();
         $this->students = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -80,39 +74,6 @@ class RegisterCenter
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Add tutors
-     *
-     * @param \Emiage\ReviewManagerBundle\Entity\Tutor $tutors
-     * @return RegisterCenter
-     */
-    public function addTutor(\Emiage\ReviewManagerBundle\Entity\Tutor $tutors)
-    {
-        $this->tutors[] = $tutors;
-
-        return $this;
-    }
-
-    /**
-     * Remove tutors
-     *
-     * @param \Emiage\ReviewManagerBundle\Entity\Tutor $tutors
-     */
-    public function removeTutor(\Emiage\ReviewManagerBundle\Entity\Tutor $tutors)
-    {
-        $this->tutors->removeElement($tutors);
-    }
-
-    /**
-     * Get tutors
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getTutors()
-    {
-        return $this->tutors;
     }
 
     /**

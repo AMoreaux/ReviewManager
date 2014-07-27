@@ -67,9 +67,8 @@
                         {% if is_granted('ROLE_ADMIN') %}
                             <ul>
                                 <li>
-                                    <a href="{{ path('module_show', { 'id': entity.id }) }}" class="btn btn-default">show</a>
                                     <a href="{{ path('module_edit', { 'id': entity.id }) }}" class="btn btn-default">edit</a>
-                                    <a href="{{ path('module_delete', { 'id': entity.id }) }}" class="btn btn-default" onclick="return confirm('Supprimer ce module ?');">delete</a>
+                                    <a href="{{ path('module_delete', { 'id': entity.id }) }}" class="btn btn-default" onclick="return confirm('Supprimer ce module ?');">supprimer</a>
                                 </li>
                             </ul>
                         {% endif %}
@@ -78,15 +77,7 @@
             {% endfor %}
         </tbody>
     </table>
-    {% if is_granted ('ROLE_ADMIN') %}
-        <ul>
-            <li>
-                <a href="{{ path('module_new') }}" class="btn btn-primary">
-                    Create a new entry
-                </a>
-            </li>
-        </ul>
-    {% endif %}
+
 
     {% if entities.haveToPaginate %}
         {{ pagerfanta(entities, 'default', {'module': 'page'}) }}

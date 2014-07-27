@@ -2,7 +2,7 @@
 
 {% block content -%}
 
-    <h1>Examen list</h1>
+    <h1>Liste des examens disponibles</h1>
 
     {% if entities.haveToPaginate %}
         {{ pagerfanta(entities, 'default', {'examen': 'page'}) }}
@@ -67,7 +67,7 @@
                         <ul>
                             <li>
                                 <a href="{{ path('examen_edit', { 'id': entity.id }) }}" class="btn btn-default">edit</a>
-                                <a href="{{ path('examen_delete', { 'id': entity.id }) }}" class="btn btn-default" onclick="return confirm('Supprimer cet examen ?');">delete</a>
+                                <a href="{{ path('examen_delete', { 'id': entity.id }) }}" class="btn btn-default" onclick="return confirm('Supprimer cet examen ?');">supprimer</a>
                             </li>
                         </ul>
                     </td>
@@ -86,15 +86,6 @@
         {% endfor %}
         </tbody>
     </table>
-    {% if is_granted("ROLE_ADMIN") %}
-        <ul>
-            <li>
-                <a href="{{ path('examen_new') }}" class="btn btn-primary">
-                    Create a new entry
-                </a>
-            </li>
-        </ul>
-    {% endif %}
 
     {% if entities.haveToPaginate %}
         {{ pagerfanta(entities, 'default', {'examen': 'page'}) }}

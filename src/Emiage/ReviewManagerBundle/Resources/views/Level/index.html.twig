@@ -1,7 +1,7 @@
 {% extends 'EmiageReviewManagerBundle::layout.html.twig' %}
 
 {% block content -%}
-    <h1>Level list</h1>
+    <h1>Liste niveaux</h1>
 
     <table class="table table-striped">
         <thead>
@@ -17,9 +17,8 @@
                 <td>
                 <ul>
                     <li>
-                        <a href="{{ path('level_show', { 'id': entity.id }) }}" class="btn btn-default">show</a>
                         <a href="{{ path('level_edit', { 'id': entity.id }) }}" class="btn btn-default">edit</a>
-                        <a href="{{ path('level_delete', { 'id': entity.id }) }}" class="btn btn-default" onclick="return confirm('Supprimer ce niveau ?');">delete</a>
+                        <a href="{{ path('level_delete', { 'id': entity.id }) }}" class="btn btn-default" onclick="return confirm('Supprimer ce niveau ?');">supprimer</a>
                     </li>
                 </ul>
                 </td>
@@ -31,7 +30,7 @@
         <ul>
         <li>
             <a href="{{ path('level_new') }}" class="btn btn-primary">
-                Create a new entry
+                Créer un niveau
             </a>
         </li>
     </ul>

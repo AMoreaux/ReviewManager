@@ -1,7 +1,7 @@
 {% extends 'EmiageReviewManagerBundle::layout.html.twig' %}
 
 {% block content -%}
-    <h1>Student list</h1>
+    <h1>Liste des étudiants</h1>
 
     {% if entities.haveToPaginate %}
         {{ pagerfanta(entities, 'default', {'student': 'page'}) }}
@@ -39,7 +39,7 @@
                             <li>
                                 <a href="{{ path('student_show', { 'id': entity.id }) }}" class="btn btn-default">show</a>
                                 <a href="{{ path('student_edit', { 'id': entity.id }) }}" class="btn btn-default">edit</a>
-                                <a href="{{ path('student_delete', { 'id': entity.id }) }}" class="btn btn-default" onclick="return confirm('Supprimer cet étudiant ?');">delete</a>
+                                <a href="{{ path('student_delete', { 'id': entity.id }) }}" class="btn btn-default" onclick="return confirm('Supprimer cet étudiant ?');">supprimer</a>
                             </li>
                         </ul>
                     </td>

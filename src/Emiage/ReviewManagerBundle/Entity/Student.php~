@@ -3,12 +3,14 @@
 namespace Emiage\ReviewManagerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
 /**
  * Student
  *
  * @ORM\Table()
+ * @UniqueEntity(fields="mail", message="Cette adresse mail existe déjà")
  * @ORM\Entity(repositoryClass="Emiage\ReviewManagerBundle\Entity\StudentRepository")
  */
 class Student
@@ -39,7 +41,7 @@ class Student
     /**
      * @var string
      *
-     * @ORM\Column(name="mail", type="string", length=255)
+     * @ORM\Column(name="mail", type="string", unique=true, length=255)
      */
     protected $mail;
 

@@ -5,6 +5,8 @@ namespace Emiage\ReviewManagerBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 
 /**
@@ -13,6 +15,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * @ORM\Table()
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
+ * @UniqueEntity(fields="code", message="Ce code de module existe déjà")
  * @ORM\Entity(repositoryClass="Emiage\ReviewManagerBundle\Entity\ModuleRepository")
  */
 class Module

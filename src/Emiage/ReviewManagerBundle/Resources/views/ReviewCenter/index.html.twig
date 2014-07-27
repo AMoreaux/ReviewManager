@@ -1,7 +1,7 @@
 {% extends 'EmiageReviewManagerBundle::layout.html.twig' %}
 
 {% block content -%}
-    <h1>ReviewCenter list</h1>
+    <h1>Liste des centres d'examens</h1>
 
     <table class="table table-striped">
         <thead>
@@ -14,7 +14,7 @@
         {% for entity in entities %}
             <tr>
                 <td>{{ entity.name }}</td>
-                <td><a href="{{ path('reviewcenter_delete', { 'id': entity.id }) }}" class="btn btn-default" onclick="return confirm('Supprimer ce centre ?');">delete</a></td>
+                <td><a href="{{ path('reviewcenter_delete', { 'id': entity.id }) }}" class="btn btn-default" onclick="return confirm('Supprimer ce centre ?');">supprimer</a></td>
             </tr>
         {% endfor %}
         </tbody>

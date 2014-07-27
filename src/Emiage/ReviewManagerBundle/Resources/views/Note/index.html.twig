@@ -1,7 +1,7 @@
 {% extends 'EmiageReviewManagerBundle::layout.html.twig' %}
 
 {% block content -%}
-    <h1>Note list</h1>
+    <h1>Liste des notes</h1>
 
     {% if entities.haveToPaginate %}
         {{ pagerfanta(entities, 'default', {'note': 'page'}) }}
@@ -66,15 +66,6 @@
         {% endfor %}
         </tbody>
     </table>
-    {% if is_granted ("ROLE_SUPER_ADMIN") %}
-            <ul>
-                <li>
-                    <a href="{{ path('note_new') }}" class="btn btn-primary">
-                        Create a new entry
-                    </a>
-                </li>
-            </ul>
-    {% endif %}
 
     {% if entities.haveToPaginate %}
         {{ pagerfanta(entities, 'default', {'note': 'page'}) }}

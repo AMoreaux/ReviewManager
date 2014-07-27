@@ -1,7 +1,7 @@
 {% extends 'EmiageReviewManagerBundle::layout.html.twig' %}
 
 {% block content -%}
-    <h1>RegisterCenter list</h1>
+    <h1>Liste des centres d'inscription</h1>
 
     <table class="table table-striped">
         <thead>
@@ -20,7 +20,7 @@
                         <li>
                             <a href="{{ path('registercenter_show', { 'id': entity.id }) }}" class="btn btn-default">show</a>
                             <a href="{{ path('registercenter_edit', { 'id': entity.id }) }}" class="btn btn-default">edit</a>
-                            <a href="{{ path('registercenter_delete', { 'id': entity.id }) }}" class="btn btn-default" onclick="return confirm('Supprimer ce centre ?');">delete</a>
+                            <a href="{{ path('registercenter_delete', { 'id': entity.id }) }}" class="btn btn-default" onclick="return confirm('Supprimer ce centre ?');">supprimer</a>
                         </li>
                     </ul>
                 {% endif %}
