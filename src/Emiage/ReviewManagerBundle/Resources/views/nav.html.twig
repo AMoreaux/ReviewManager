@@ -1,72 +1,71 @@
-<nav class="navbar navbar-inverse navbar-default navbar-fixed-top" role="navigation">
-    <div class="container-fluid">
-            <ul class="nav nav-tabs" role="tablist">
-                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PROF') %}
-                    <li  class="dropdown" data-dropdown="dropdown">
-                        <a href="{{ path('examen') }}" class="dropdown-toggle" >Examen<span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="{{ path('examen_new') }}">Ajouter un examen</a></li>
-                                <li><a href="{{ path('examen') }}">Consulter les examens</a></li>
-                            </ul>
-                    </li>
-                {% endif %}
-                {% if is_granted('ROLE_ADMIN') and is_granted('ROLE_PROF') %}
-                    <li>
-                        <a href="{{ path('level') }}">Niveau</a>
-                    </li>
-                {% endif %}
-                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PROF') %}
-                    <li  class="dropdown" data-dropdown="dropdown">
-                        <a href="{{ path('module') }}" class="dropdown-toggle" >Module<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{{ path('module_new') }}">Ajouter un module</a></li>
-                            <li><a href="{{ path('module') }}">Consulter les modules</a></li>
-                        </ul>
-                    </li>
-                {% endif %}
-                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PROF') or is_granted('ROLE_STUD') %}
-                    <li>
-                        <a href="{{ path('note') }}">Note</a>
-                    </li>
-                {% endif %}
-                {% if is_granted('ROLE_STUD') %}
-                    <li>
-                        <a href="{{ path('home') }}"> home </a>
-                    </li>
-                {% endif %}
-                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PROF') %}
-                    <li>
-                        <a href="{{ path('registercenter') }}">Centre nationaux</a>
-                    </li>
-                {% endif %}
-                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PROF') %}
-                    <li>
-                        <a href="{{ path('reviewcenter') }}">Centre d'examen</a>
-                    </li>
-                {% endif %}
-                {% if is_granted('ROLE_ADMIN')%}
-                    <li>
-                        <a href="{{ path('student') }}">Etudiant</a>
-                    </li>
-                {% endif %}
-                {% if is_granted('ROLE_ADMIN') %}
-                    <li  class="dropdown" data-dropdown="dropdown">
-                        <a href="{{ path('user') }}" class="dropdown-toggle" >Utilisateur<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{{ path('user_new') }}">Ajouter un utilisateur</a></li>
-                            <li><a href="{{ path('user') }}">Consulter les utilisateurs</a></li>
-                        </ul>
-                    </li>
-                {% endif %}
-                <p class="navbar-text navbar-right">
-                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                        Connecté en tant que {{ app.user.username }} - <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
-                    {% else %}
-                        <a href="{{ path('fos_user_security_login') }}">Connexion</a>
-                    {% endif %}
-                </p>
-            </ul>
 
-    </div>
+<nav class="navbar navbar-inverse navbar-default navbar-fixed-top" role="navigation">
+    <ul class="nav nav-tabs">
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PROF') %}
+            <li  class="dropdown" data-dropdown="dropdown">
+                <a href="{{ path('examen') }}" class="dropdown-toggle" >Examen<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ path('examen_new') }}">Ajouter un examen</a></li>
+                        <li><a href="{{ path('examen') }}">Consulter les examens</a></li>
+                    </ul>
+            </li>
+        {% endif %}
+        {% if is_granted('ROLE_ADMIN') and is_granted('ROLE_PROF') %}
+            <li>
+                <a href="{{ path('level') }}">Niveau</a>
+            </li>
+        {% endif %}
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PROF') %}
+            <li  class="dropdown" data-dropdown="dropdown">
+                <a href="{{ path('module') }}" class="dropdown-toggle" >Module<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{{ path('module_new') }}">Ajouter un module</a></li>
+                    <li><a href="{{ path('module') }}">Consulter les modules</a></li>
+                </ul>
+            </li>
+        {% endif %}
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PROF') or is_granted('ROLE_STUD') %}
+            <li>
+                <a href="{{ path('note') }}">Note</a>
+            </li>
+        {% endif %}
+        {% if is_granted('ROLE_STUD') %}
+            <li>
+                <a href="{{ path('home') }}"> home </a>
+            </li>
+        {% endif %}
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PROF') %}
+            <li>
+                <a href="{{ path('registercenter') }}">Centre nationaux</a>
+            </li>
+        {% endif %}
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PROF') %}
+            <li>
+                <a href="{{ path('reviewcenter') }}">Centre d'examen</a>
+            </li>
+        {% endif %}
+        {% if is_granted('ROLE_ADMIN')%}
+            <li>
+                <a href="{{ path('student') }}">Etudiant</a>
+            </li>
+        {% endif %}
+        {% if is_granted('ROLE_ADMIN') %}
+            <li  class="dropdown" data-dropdown="dropdown">
+                <a href="{{ path('user') }}" class="dropdown-toggle" >Utilisateur<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{{ path('user_new') }}">Ajouter un utilisateur</a></li>
+                    <li><a href="{{ path('user') }}">Consulter les utilisateurs</a></li>
+                </ul>
+            </li>
+        {% endif %}
+        <p class="navbar-text navbar-right">
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                Connecté en tant que {{ app.user.username }} - <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+            {% else %}
+                <a href="{{ path('fos_user_security_login') }}">Connexion</a>
+            {% endif %}
+        </p>
+    </ul>
 </nav>
+
 
