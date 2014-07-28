@@ -88,7 +88,7 @@ class ExamenController extends Controller
 
 
 
-            return $this->redirect($this->generateUrl('examen_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('examen'));
         }
 
         return $this->render('EmiageReviewManagerBundle:Examen:new.html.twig', array(
