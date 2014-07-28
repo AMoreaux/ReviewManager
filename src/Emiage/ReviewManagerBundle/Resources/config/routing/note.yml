@@ -6,6 +6,10 @@ note_student:
     pattern:  /home/{page}/{id}
     defaults: { _controller: "EmiageReviewManagerBundle:Note:indexStudent", page: 1 }
 
+note_push_copy:
+    pattern:  /home/{page}/{idc}/{idm}
+    defaults: { _controller: "EmiageReviewManagerBundle:Note:pushCopy", page: 1 }
+
 note_show:
     pattern:  /{id}/show
     defaults: { _controller: "EmiageReviewManagerBundle:Note:show" }

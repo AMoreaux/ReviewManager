@@ -24,4 +24,18 @@ class NoteRepository extends EntityRepository
         return $qb->getQuery()
             ->getResult();
     }
+
+    public function findByModuleReviewCenter($idc,$idm)
+    {
+        $qb = $this->createQueryBuilder('n')
+            ->leftJoin('n.reviewCenter', 'c')
+            ->leftJoin('n.module', 'm')
+            ->where("c.id = :idc" )
+            ->andwhere('m.id = :idm')
+            ->setParameter('idc', $idc)
+            ->setParameter('idm', $idm);
+
+        return $qb->getQuery()
+            ->getResult();
+    }
 }

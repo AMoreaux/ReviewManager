@@ -7,7 +7,7 @@
         {{ pagerfanta(entities, 'default', {'note': 'page'}) }}
     {% endif %}
 
-    {% if (is_granted("ROLE_PROF") or is_granted("ROLE_ADMIN"))%}
+    {% if (is_granted("ROLE_PROF") or is_granted("ROLE_ADMIN")) and (app.request.attributes.get('_route') != 'note_push_copy') %}
     <form class="input-group input-group-lg" action="{{ path('note') }}" method="get">
         <span class="input-group-addon">
             {{ form_widget(formModule) }}

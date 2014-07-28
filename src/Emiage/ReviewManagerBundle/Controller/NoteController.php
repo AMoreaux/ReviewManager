@@ -309,5 +309,24 @@ class NoteController extends Controller
 
         return $this->redirect($this->generateUrl('home'));
     }
+
+    public function pushCopyAction($idc,$idm, $page)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $notesArray = $em->getRepository('EmiageReviewManagerBundle:Note')->findByModule($idm);
+
+        $adapter  = new ArrayAdapter($notesArray);
+        $entities = new PagerFanta($adapter);
+        $entities->setMaxPerPage($this->container->getParameter('nbr_item_by_page'));
+
+        try  {
+            $entities->setCurrentPage($page);
+        } catch (NotValidCurrentPageException $e)  {
+            throw new NotFoundHttpException();
+        }
+
+        return $this->container->get('templating')->renderResponse('EmiageReviewManagerBundle:Note:index.html.twig', array(
+            'entities' => $entities,));
+    }
 }
 

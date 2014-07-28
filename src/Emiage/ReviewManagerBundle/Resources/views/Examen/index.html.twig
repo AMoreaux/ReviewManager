@@ -79,7 +79,11 @@
                     </td>
                 {% endif %}
                 {% if is_granted("ROLE_ADMIN") %}
-                    <td><a href="{{ path('examen_print', { 'id': entity.id }) }}" class="btn btn-default">Imprimer le PV</a></td>
+                    <td>
+                        <a href="{{ path('examen_print', { 'id': entity.id }) }}" class="btn btn-default">Imprimer le PV</a>
+                        <a href="{{ path('note_push_copy', { 'idc': entity.reviewCenter.id, 'idm': entity.module.id }) }}" class="btn btn-default">Déposer les copies</a>
+
+                    </td>
                 {% endif %}
             </tr>
         {% endfor %}
