@@ -7,14 +7,14 @@
         {{ pagerfanta(entities, 'default', {'note': 'page'}) }}
     {% endif %}
 
+    {% if (is_granted("ROLE_PROF") or is_granted("ROLE_ADMIN"))%}
     <form class="input-group input-group-lg" action="{{ path('note') }}" method="get">
         <span class="input-group-addon">
             {{ form_widget(formModule) }}
-            {% if (is_granted("ROLE_PROF") or is_granted("ROLE_ADMIN")) and (formStudent is not empty)%}
                 {{ form_widget(formStudent) }}
-            {% endif %}
         </span>
     </form>
+    {% endif %}
 
     <table class="table table-striped">
         <thead>
@@ -39,28 +39,26 @@
                     <td>{{ entity.student.name }}</td>
                 {% endif %}
                 <td>{{ entity.module.code }} {{ entity.module.name }}</td>
-                {% if entity.note is defined %}
+                {% if entity.note is not null %}
                     <td>{{ entity.note }} / 20</td>
-                {% elseif ((entity.note is null) and ( app.user.username == entity.module.responsable.username)) %}
+                {% elseif ((entity.note is null) and (entity.module.responsable.username is defined) and ( app.user.username == entity.module.responsable.username)) %}
                     <td><a href="{{ path('note_edit', { 'id': entity.id }) }}" class="btn btn-default">(noter l'étudiant)</a></td>
                 {% else %}
                     <td> </td>
                 {% endif %}
                 <td>
-                    {% if ((entity.path is defined) and (is_granted('ROLE_ADMIN'))) %}
-                        <a href="{{ entity.getWebPath() }}">{{ entity.path }}</a>
+                    {% if ((entity.path is not null) and (is_granted('ROLE_ADMIN') or is_granted('ROLE_PROF'))) %}
+                        <a href="{{ entity.getWebPath() }}" class="btn btn-primary btn-sm">{{ entity.path }}</a>
                     {% elseif is_granted('ROLE_ADMIN') %}
                         <a href="{{ path('note_edit', { 'id': entity.id }) }}" class="btn btn-default">(uploader une copie)</a>
                     {% endif %}
                 </td>
-                {% if is_granted("ROLE_PROF") or is_granted("ROLE_ADMIN")%}
+                {% if is_granted("ROLE_PROF") and (entity.module.responsable.username is defined) and ( app.user.username == entity.module.responsable.username) and entity.note is not null%}
                     <td>
-                        <ul>
-                            <li>
-                                <a href="{{ path('note_edit', { 'id': entity.id }) }}" class="btn btn-default">edit</a>
-                            </li>
-                        </ul>
+                        <a href="{{ path('note_edit', { 'id': entity.id }) }}" class="btn btn-default">modifier la note</a>
                     </td>
+                {% else%}
+                    <td></td>
                 {% endif %}
             </tr>
         {% endfor %}

@@ -5,21 +5,11 @@
 
     <table class="table">
         <tbody>
-            {% if is_granted ('ROLE_SUPER_ADMIN') %}
-                <tr>
-                    <th>Id</th>
-                    <td>{{ entity.id }}</td>
-                </tr>
-            {% endif %}
             <tr>
                 <th>mot de passe</th>
                 <td>
                     <a href="{{ path('fos_user_change_password')}}" class="btn btn-warning btn-sm">Modifier mon mot de passe</a>
                 </td>
-            </tr>
-            <tr>
-                <th>Login</th>
-                <td>{{ entity.login }}</td>
             </tr>
             <tr>
                 <th>Mail</th>
@@ -32,11 +22,17 @@
            <tr>
                 <th>Module</th>
                 <td>
-                    <form action="{{ path('module') }}" >
-                        <input type="submit" value="Ajouter des modules" class="btn btn-success"/>
-                    </form>
-                    <table>
+                    <table class="table">
                         <tbody>
+                        <tr>
+                            <th><form action="{{ path('module') }}" >
+                                <input type="submit" value="Ajouter des modules" class="btn btn-success"/>
+                            </form></th>
+                            <th><form action="{{ path('note_student', { 'id': entity.id }) }}" >
+                                <input type="submit" value="consulter mes notes" class="btn btn-success"/>
+                            </form></th>
+                        </tr>
+
                            {% for module in entity.modules %}
                                <tr>
                                <td>{{ module.code }} / {{ module.name }}</td>

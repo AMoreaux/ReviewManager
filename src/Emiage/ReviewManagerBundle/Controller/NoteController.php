@@ -273,5 +273,34 @@ class NoteController extends Controller
 
         return $this->redirect($this->generateUrl('home'));
     }
+
+    public function indexStudentAction($page, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $this->container->get('security.context')->getToken()->getUser()->getUsername();
+        $student = $em->getRepository('EmiageReviewManagerBundle:Student')->find($id)->getName();
+
+        if($user === $student){
+
+        $notesArray = $em->getRepository('EmiageReviewManagerBundle:Note')->findBystudent($id);
+
+        $adapter  = new ArrayAdapter($notesArray);
+        $entities = new PagerFanta($adapter);
+        $entities->setMaxPerPage($this->container->getParameter('nbr_item_by_page'));
+
+        try  {
+            $entities->setCurrentPage($page);
+        } catch (NotValidCurrentPageException $e)  {
+            throw new NotFoundHttpException();
+        }
+
+        return $this->container->get('templating')->renderResponse('EmiageReviewManagerBundle:Note:index.html.twig', array(
+            'entities' => $entities,
+        ));
+        }
+
+        return $this->redirect($this->generateUrl('home'));
+    }
 }
 

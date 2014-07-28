@@ -36,7 +36,8 @@ class NoteType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Emiage\ReviewManagerBundle\Entity\Note'
+            'data_class' => 'Emiage\ReviewManagerBundle\Entity\Note',
+            'csrf_protection' => false,
         ));
     }
 
@@ -47,4 +48,5 @@ class NoteType extends AbstractType
     {
         return 'emiage_reviewmanagerbundle_note';
     }
+
 }
