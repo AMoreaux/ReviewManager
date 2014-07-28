@@ -6,16 +6,16 @@
         <div class="container">
             <div class="form-group ">
             {{ form_start(edit_form) }}
-           {% if is_granted('ROLE_PROF') %}
-               {{ form_row(edit_form.file) }}
-           {% endif %}
-           {% if is_granted('ROLE_ADMIN') %}
+            {% if is_granted('ROLE_ADMIN') %}
                {{ form_row(edit_form.name, { 'attr': { 'class': 'form-control', 'for': 'inputSuccess4'}}) }}
                {{ form_row(edit_form.code, { 'attr': { 'class': 'form-control' }}) }}
                {{ form_row(edit_form.responsable, { 'attr': { 'class': 'form-control' }}) }}
-           {% endif %}
-                {{ form_row(form.submit, { 'attr': { 'class': 'btn btn-success' }}) }}
-           {{ form_end(edit_form) }}
+            {% endif %}
+            {% if is_granted('ROLE_PROF') %}
+                {{ form_row(edit_form.file) }}
+            {% endif %}
+                {{ form_row(edit_form.submit, { 'attr': { 'class': 'btn btn-success' }}) }}
+            {{ form_end(edit_form) }}
             </div>
         </div>
     </div>

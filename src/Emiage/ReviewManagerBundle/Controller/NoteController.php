@@ -256,6 +256,10 @@ class NoteController extends Controller
     }
 
 
+
+    /**
+     * @Secure(roles="ROLE_STUD")
+     */
     function addNoteAction($idm, $ide)
     {
         $em = $this->getDoctrine()->getManager();
@@ -274,6 +278,10 @@ class NoteController extends Controller
         return $this->redirect($this->generateUrl('home'));
     }
 
+
+    /**
+     * @Secure(roles="ROLE_STUD")
+     */
     public function indexStudentAction($page, $id)
     {
         $em = $this->getDoctrine()->getManager();

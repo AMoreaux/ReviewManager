@@ -34,7 +34,7 @@ class RegisterCenterController extends Controller
     }
     /**
      * Creates a new RegisterCenter entity.
-     * @Secure(roles="ROLE_SUPER_ADMIN")
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function createAction(Request $request)
     {
@@ -60,7 +60,7 @@ class RegisterCenterController extends Controller
     * Creates a form to create a RegisterCenter entity.
     *
     * @param RegisterCenter $entity The entity
-     * @Secure(roles="ROLE_SUPER_ADMIN")
+     * @Secure(roles="ROLE_ADMIN")
     * @return \Symfony\Component\Form\Form The form
     */
     private function createCreateForm(RegisterCenter $entity)
@@ -77,7 +77,7 @@ class RegisterCenterController extends Controller
 
     /**
      * Displays a form to create a new RegisterCenter entity.
-     * @Secure(roles="ROLE_SUPER_ADMIN")
+     * @Secure(roles="ROLE_ADMIN")
      */
     public function newAction()
     {

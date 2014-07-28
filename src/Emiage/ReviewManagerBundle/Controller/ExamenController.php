@@ -260,6 +260,9 @@ class ExamenController extends Controller
             'entities' => $entities));
     }
 
+    /**
+     * @Secure(roles="ROLE_STUD")
+     */
     public function addStudentAction($id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -281,7 +284,7 @@ class ExamenController extends Controller
             'ide'=>$ide,)));
     }
 
-    public function printPvAction($id)
+    /*public function printPvAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('EmiageReviewManagerBundle:Examen')->find($id);
@@ -290,7 +293,7 @@ class ExamenController extends Controller
             'entity' => $entity));
     }
 
-    /*
+
     public function printPvAction($id)
     {
         $em = $this->getDoctrine()->getManager();
