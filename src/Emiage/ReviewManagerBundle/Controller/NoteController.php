@@ -68,7 +68,6 @@ class NoteController extends Controller
         return $this->container->get('templating')->renderResponse('EmiageReviewManagerBundle:Note:index.html.twig', array(
             'entities' => $entities,
             'formModule' => $formModule->createView(),
-            'formStudent' => $formStudent,
             ));
     }
 
